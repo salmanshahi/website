@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales | Customer</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <style>
+    .status-label {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: white;
+    }
+
+    .status-due {
+      background-color: #dc3545;
+    }
+
+    .status-paid {
+      background-color: #28a745;
+    }
+
+    .action-buttons button {
+      margin: 2px;
+      padding: 3px 8px;
+      font-size: 12px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .invoice-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .pos-invoice-btn {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .due-collection-btn {
+      background-color: #ffc107;
+      color: black;
+    }
+
+    .transactions-btn {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+      <aside class="sidebar">
+        <div class="user-section">
+          <div class="user-avatar">
+            <span class="avatar-lock">🔒</span>
+          </div>
+          <span class="username">salman</span>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-link">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">Dashboard</span>
+          </a>
+          <a href="pos.html" class="nav-link">
+            <span class="nav-icon">🛒</span>
+            <span class="nav-text">POS</span>
+          </a>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('peopleSubmenu', this)">
+            <span class="nav-icon">👤</span>
+            <span class="nav-text">People</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="peopleSubmenu">
+            <a href="customer.html" class="submenu-link"  id="customerLink">
+              <span class="dot"></span>Customer
+            </a>
+            <a href="supplier.html" class="submenu-link"   id="supplierLink">
+              <span class="dot"></span>Supplier
+            </a>
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('productSubmenu', this)">
+            <span class="nav-icon">📦</span>
+            <span class="nav-text">Product</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="productSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Product
+              List</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Product
+              Create</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Product
+              Import</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
+            <a href="#" class="submenu-link"><span
+                class="dot"></span>Category</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Unit</a>
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('saleSubmenu', this)">
+            <span class="nav-icon">🏷️</span>
+            <span class="nav-text">Sale</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="saleSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Sale
+              List</a>
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('purchaseSubmenu', this)">
+            <span class="nav-icon">🛍️</span>
+            <span class="nav-text">Purchase</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="purchaseSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+              List</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+              Create</a>
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('reportsSubmenu', this)">
+            <span class="nav-icon">📈</span>
+            <span class="nav-text">Reports</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="reportsSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Sales
+              Summary</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
+            <a href="#" class="submenu-link"><span
+                class="dot"></span>Inventory</a>
+          </div>
+        </nav>
+
+        <div class="settings-section">
+          <div class="settings-header">SETTINGS</div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('websiteSubmenu', this)">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-text">Website Settings</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="websiteSubmenu">
+            <a href="#" class="submenu-link">
+              <span>⚙️</span>General Setting
+            </a>
+            <a href="#" class="submenu-link">
+              <span class="coin-icon">💵</span>Currency
+            </a>
+            <div
+              class="nav-link collapsible inner"
+              onclick="toggleSubmenu('rulesSubmenu', this)">
+              <span>🛡️</span>
+              <span class="nav-text">Rules & Permission</span>
+              <span class="nav-chevron">❮</span>
+            </div>
+            <div class="submenu" id="rulesSubmenu">
+              <a href="#" class="submenu-link"> <span>📜</span>Rules </a>
+              <a href="#" class="submenu-link"> <span>🔐</span>Permission </a>
+            </div>
+            <a href="#" class="submenu-link">
+              <span>👥</span>User Management
+            </a>
+          </div>
+        </div>
+      </aside>
+
+             
+      <main class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <button class="hamburger-menu">☰</button>
+            <h1 class="page-title">Customer</h1>
+          </div>
+          <div class="header-right">
+            <button
+              class="pos-button"
+              onclick="window.location.href='pos.html'">
+              🛒 POS
+            </button>
+            <button class="settings-icon" id="fullscreenBtn">⛶</button>
+            <div class="user-dropdown-container">
+              <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+              <div class="user-dropdown" id="userDropdown">
+                <a href="profile.html" id="profileBtn">Profile</a>
+                <a href="log-in.html" id="logoutBtn">Logout</a>
+              </div>
+            </div>
+          </div>
+        </header>
+      <div class="datatable-section">
+        <h2>Customer Sales</h2>
+        <table id="salesTable" class="display" style="width: 100%">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>SaleId</th>
+              <th>Customer</th>
+              <th>Item</th>
+              <th>Sub Total Rs</th>
+              <th>Discount Rs</th>
+              <th>Total Rs</th>
+              <th>Paid Rs</th>
+              <th>Due Rs</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>#164</td><td>Walking Customer</td><td>2</td><td>450.00</td><td>0.00</td><td>450.00</td><td>0.00</td><td>450.00</td><td><span class="status-label status-due">Due</span></td><td class="action-buttons"><button class="invoice-btn" >📄 Invoice</button><button class="pos-invoice-btn">🧾 Pos Invoice</button><button class="due-collection-btn">💰 Due Collection</button><button class="transactions-btn">🔁 Transactions</button></td></tr>
+            <tr><td>2</td><td>#163</td><td>Walking Customer</td><td>2</td><td>360.00</td><td>0.00</td><td>360.00</td><td>0.00</td><td>360.00</td><td><span class="status-label status-due">Due</span></td><td class="action-buttons"><button class="invoice-btn">📄 Invoice</button><button class="pos-invoice-btn">🧾 Pos Invoice</button><button class="due-collection-btn">💰 Due Collection</button><button class="transactions-btn">🔁 Transactions</button></td></tr>
+            <tr><td>3</td><td>#162</td><td>Nadeem</td><td>17</td><td>1,125.00</td><td>0.00</td><td>1,125.00</td><td>0.00</td><td>1,125.00</td><td><span class="status-label status-due">Due</span></td><td class="action-buttons"><button class="invoice-btn">📄 Invoice</button><button class="pos-invoice-btn">🧾 Pos Invoice</button><button class="due-collection-btn">💰 Due Collection</button><button class="transactions-btn">🔁 Transactions</button></td></tr>
+            <tr><td>4</td><td>#161</td><td>Walking Customer</td><td>3</td><td>540.00</td><td>0.00</td><td>540.00</td><td>0.00</td><td>540.00</td><td><span class="status-label status-due">Due</span></td><td class="action-buttons"><button class="invoice-btn">📄 Invoice</button><button class="pos-invoice-btn">🧾 Pos Invoice</button><button class="due-collection-btn">💰 Due Collection</button><button class="transactions-btn">🔁 Transactions</button></td></tr>
+            <tr><td>5</td><td>#160</td><td>Walking Customer</td><td>3</td><td>439.00</td><td>0.00</td><td>439.00</td><td>0.00</td><td>439.00</td><td><span class="status-label status-due">Due</span></td><td class="action-buttons"><button class="invoice-btn">📄 Invoice</button><button class="pos-invoice-btn">🧾 Pos Invoice</button><button class="due-collection-btn">💰 Due Collection</button><button class="transactions-btn">🔁 Transactions</button></td></tr>
+            <tr><td>6</td><td>#159</td><td>Walking Customer</td><td>1</td><td>180.00</td><td>0.00</td><td>180.00</td><td>0.00</td><td>180.00</td><td><span class="status-label status-paid">Paid</span></td><td class="action-buttons"><button class="invoice-btn">📄 Invoice</button><button class="pos-invoice-btn">🧾 Pos Invoice</button><button class="transactions-btn">🔁 Transactions</button></td></tr>
+            <tr><td>7</td><td>#158</td><td>Walking Customer</td><td>4</td><td>1,579.00</td><td>0.00</td><td>1,579.00</td><td>0.00</td><td>1,579.00</td><td><span class="status-label status-due">Due</span></td><td class="action-buttons"><button class="invoice-btn">📄 Invoice</button><button class="pos-invoice-btn">🧾 Pos Invoice</button><button class="due-collection-btn">💰 Due Collection</button><button class="transactions-btn">🔁 Transactions</button></td></tr>
+            <tr><td>8</td><td>#157</td><td>Walking Customer</td><td>3</td><td>585.00</td><td>0.00</td><td>585.00</td><td>0.00</td><td>585.00</td><td><span class="status-label status-due">Due</span></td><td class="action-buttons"><button class="invoice-btn">📄 Invoice</button><button class="pos-invoice-btn">🧾 Pos Invoice</button><button class="due-collection-btn">💰 Due Collection</button><button class="transactions-btn">🔁 Transactions</button></td></tr>
+            <tr><td>9</td><td>#156</td><td>nisar</td><td>2</td><td>1,140.00</td><td>50.00</td><td>1,090.00</td><td>1,090.00</td><td>0.00</td><td><span class="status-label status-paid">Paid</span></td><td class="action-buttons"><button class="invoice-btn">📄 Invoice</button><button class="pos-invoice-btn">🧾 Pos Invoice</button><button class="transactions-btn">🔁 Transactions</button></td></tr>
+            <tr><td>10</td><td>#155</td><td>nisar</td><td>4</td><td>2,979.00</td><td>50.00</td><td>2,929.00</td><td>400.00</td><td>2,529.00</td><td><span class="status-label status-due">Due</span></td><td class="action-buttons"><button class="invoice-btn">📄 Invoice</button><button class="pos-invoice-btn">🧾 Pos Invoice</button><button class="due-collection-btn">💰 Due Collection</button><button class="transactions-btn">🔁 Transactions</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+ <script>
+  $(document).ready(function () {
+    $('#salesTable').DataTable({
+      pageLength: 10,
+      lengthMenu: [10, 25, 50, 100]
+    });
+
+  $(document).ready(function () {
+
+    // Invoice button functionality
+    $(document).on('click', '.invoice-btn', function () {
+      const row = $(this).closest('tr');
+      const saleId = row.find('td:eq(1)').text().replace(/[^\d]/g, ''); 
+      window.location.href = `invoice.html?saleId=${saleId}`;
+    });
+
+    // POS Invoice button functionality
+    $(document).on('click', '.pos-invoice-btn', function () {
+      const row = $(this).closest('tr');
+      const saleId = row.find('td:eq(1)').text().replace(/[^\d]/g, '');
+      window.location.href = `posinvoice.html?saleId=${saleId}`;
+    });
+
+  });
+
+    });
+</script>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

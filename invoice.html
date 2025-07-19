@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice #164</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: white;
+      color: #000;
+    }
+
+    .invoice-wrapper {
+      padding: 30px;
+      background: white;
+    }
+
+    .invoice-header,
+    .invoice-footer {
+      text-align: center;
+    }
+
+    .invoice-details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #000;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .totals {
+      float: right;
+      width: 300px;
+    }
+
+    .totals table {
+      border: none;
+    }
+
+    .totals td {
+      border: none;
+      text-align: right;
+      padding: 4px 0;
+    }
+
+    .thankyou {
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    .print-button {
+      display: block;
+      margin: 30px auto;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    @media print {
+      .print-button,
+      .sidebar,
+      .top-header {
+        display: none !important;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+ 
+    <div class="container">
+    <aside class="sidebar">
+      <div class="user-section">
+        <div class="user-avatar">
+          <span class="avatar-lock">🔒</span>
+        </div>
+        <span class="username">salman</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link">
+          <span class="nav-icon">📊</span>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a href="pos.html" class="nav-link">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-text">POS</span>
+        </a>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('peopleSubmenu', this)">
+          <span class="nav-icon">👤</span>
+          <span class="nav-text">People</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="peopleSubmenu">
+          <a href="customer.html" class="submenu-link" id="customerLink">
+            <span class="dot"></span>Customer
+          </a>
+          <a href="supplier.html" class="submenu-link" id="supplierLink">
+            <span class="dot"></span>Supplier
+          </a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('productSubmenu', this)">
+          <span class="nav-icon">📦</span>
+          <span class="nav-text">Product</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="productSubmenu">
+          <a href="#" class="submenu-link"><span class="dot"></span>Product
+            List</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Product
+            Create</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Product
+            Import</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Category</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Unit</a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
+          <span class="nav-icon">🏷️</span>
+          <span class="nav-text">Sale</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="saleSubmenu">
+          <a href="#" class="submenu-link"><span class="dot"></span>Sale
+            List</a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
+          <span class="nav-icon">🛍️</span>
+          <span class="nav-text">Purchase</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="purchaseSubmenu">
+          <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+            List</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+            Create</a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
+          <span class="nav-icon">📈</span>
+          <span class="nav-text">Reports</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="reportsSubmenu">
+          <a href="#" class="submenu-link"><span class="dot"></span>Sales
+            Summary</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Inventory</a>
+        </div>
+      </nav>
+
+      <div class="settings-section">
+        <div class="settings-header">SETTINGS</div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('websiteSubmenu', this)">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-text">Website Settings</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="websiteSubmenu">
+          <a href="#" class="submenu-link">
+            <span>⚙️</span>General Setting
+          </a>
+          <a href="#" class="submenu-link">
+            <span class="coin-icon">💵</span>Currency
+          </a>
+          <div class="nav-link collapsible inner" onclick="toggleSubmenu('rulesSubmenu', this)">
+            <span>🛡️</span>
+            <span class="nav-text">Rules & Permission</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="rulesSubmenu">
+            <a href="#" class="submenu-link"> <span>📜</span>Rules </a>
+            <a href="#" class="submenu-link"> <span>🔐</span>Permission </a>
+          </div>
+          <a href="#" class="submenu-link">
+            <span>👥</span>User Management
+          </a>
+        </div>
+      </div>
+    </aside>
+
+
+    <main class="main-content">
+      <header class="top-header">
+        <div class="header-left">
+          <button class="hamburger-menu">☰</button>
+          <h1 class="page-title">Invoice</h1>
+        </div>
+        <div class="header-right">
+          <button class="pos-button" onclick="window.location.href='pos.html'">
+            🛒 POS
+          </button>
+          <button class="settings-icon" id="fullscreenBtn">⛶</button>
+          <div class="user-dropdown-container">
+            <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+            <div class="user-dropdown" id="userDropdown">
+              <a href="profile.html" id="profileBtn">Profile</a>
+              <a href="log-in.html" id="logoutBtn">Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="invoice-wrapper">
+        <div class="invoice-header">
+          <img src="images/invoice.png" alt="Logo" width="50">
+          <h2>Invoice</h2>
+          <p>Date: 16/07/2025</p>
+        </div>
+
+        <div class="invoice-details">
+          <div>
+            <strong>To:</strong><br>
+            <strong>Name:</strong> Walking Customer<br>
+            Address: N/A<br>
+            Phone: 012345678
+          </div>
+
+          <div>
+            <strong>From:</strong><br>
+            <strong>Name:</strong> saad<br>
+            Address: Doha, Qatar<br>
+            Phone: +91454554<br>
+            Email: qpos@gmail.com
+          </div>
+
+          <div>
+            <strong>Info:</strong><br>
+            Sale ID: #164<br>
+            Sale Date: 16/07/2025
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>SN</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price Rs</th>
+              <th>Subtotal Rs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Product A</td>
+              <td>1 pcs</td>
+              <td>
+                180.00<br>
+                <del>200</del>
+              </td>
+              <td>180</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Product B</td>
+              <td>1 pcs</td>
+              <td>
+                270.00<br>
+                <del>300</del>
+              </td>
+              <td>270</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="totals">
+          <table>
+            <tr>
+              <td><strong>Subtotal:</strong></td>
+              <td>Rs 450.00</td>
+            </tr>
+            <tr>
+              <td><strong>Discount:</strong></td>
+              <td>Rs 0.00</td>
+            </tr>
+            <tr>
+              <td><strong>Total:</strong></td>
+              <td>Rs 450.00</td>
+            </tr>
+            <tr>
+              <td><strong>Paid:</strong></td>
+              <td>Rs 0.00</td>
+            </tr>
+            <tr>
+              <td><strong>Due:</strong></td>
+              <td>Rs 450.00</td>
+            </tr>
+          </table>
+        </div>
+
+        <p class="thankyou">Thank You For Shopping With Us. Please Come Again.</p>
+
+        <button class="print-button" onclick="handlePrint()">Print</button>
+      </div>
+    </main>
+  </div>
+  <script>
+    function handlePrint() {
+      window.onafterprint = () => {
+        window.close();
+      };
+      window.print();
+    }
+
+    window.onload = () => {
+      setTimeout(() => {
+        handlePrint();
+      }, 500);
+    };
+  </script>
+ <script src="js/script.js"></script>
+</body>
+
+</html>

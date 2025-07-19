@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POS Invoice</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    @page {
+      size: 80mm auto;
+      margin: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #000;
+    }
+
+    .invoice-wrapper {
+      width: 80mm;
+      margin: auto;
+      padding: 10px;
+      border: 1px dashed #000;
+      box-sizing: border-box;
+    }
+
+    .invoice-header {
+      text-align: center;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #000;
+      padding-bottom: 8px;
+    }
+
+    .invoice-header img {
+      width: 50px;
+      margin-bottom: 5px;
+    }
+
+    .invoice-header h2 {
+      margin: 0;
+    }
+
+    .info-block {
+      font-size: 12px;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #000;
+      padding-bottom: 8px;
+    }
+
+    .info-block p {
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    table {
+      width: 100%;
+      font-size: 12px;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+
+    th, td {
+      padding: 4px;
+      text-align: left;
+      border-bottom: 1px dashed #ccc;
+    }
+
+    .totals {
+      font-size: 12px;
+      text-align: right;
+      margin-top: 10px;
+      border-top: 1px dashed #000;
+      padding-top: 8px;
+    }
+
+    .totals p {
+      margin: 2px 0;
+    }
+
+    .thankyou {
+      font-size: 12px;
+      text-align: center;
+      margin-top: 10px;
+      border-top: 1px dashed #000;
+      padding-top: 8px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .buttons button {
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .print-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .cancel-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+
+      .sidebar,
+      .top-header,
+      .buttons,
+      .settings-section,
+      .nav-link,
+      .submenu,
+      .header-left,
+      .header-right {
+        display: none !important;
+      }
+
+      .invoice-wrapper {
+        margin: 0 auto !important;
+        width: 80mm !important;
+        padding: 10px !important;
+      }
+
+      .main-content {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .container {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    }
+  </style>
+</head>
+    <div class="container">
+    <aside class="sidebar">
+      <div class="user-section">
+        <div class="user-avatar">
+          <span class="avatar-lock">🔒</span>
+        </div>
+        <span class="username">salman</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link">
+          <span class="nav-icon">📊</span>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a href="pos.html" class="nav-link">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-text">POS</span>
+        </a>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('peopleSubmenu', this)">
+          <span class="nav-icon">👤</span>
+          <span class="nav-text">People</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="peopleSubmenu">
+          <a href="customer.html" class="submenu-link" id="customerLink">
+            <span class="dot"></span>Customer
+          </a>
+          <a href="supplier.html" class="submenu-link" id="supplierLink">
+            <span class="dot"></span>Supplier
+          </a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('productSubmenu', this)">
+          <span class="nav-icon">📦</span>
+          <span class="nav-text">Product</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="productSubmenu">
+          <a href="#" class="submenu-link"><span class="dot"></span>Product
+            List</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Product
+            Create</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Product
+            Import</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Category</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Unit</a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
+          <span class="nav-icon">🏷️</span>
+          <span class="nav-text">Sale</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="saleSubmenu">
+          <a href="#" class="submenu-link"><span class="dot"></span>Sale
+            List</a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
+          <span class="nav-icon">🛍️</span>
+          <span class="nav-text">Purchase</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="purchaseSubmenu">
+          <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+            List</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+            Create</a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
+          <span class="nav-icon">📈</span>
+          <span class="nav-text">Reports</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="reportsSubmenu">
+          <a href="#" class="submenu-link"><span class="dot"></span>Sales
+            Summary</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Inventory</a>
+        </div>
+      </nav>
+
+      <div class="settings-section">
+        <div class="settings-header">SETTINGS</div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('websiteSubmenu', this)">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-text">Website Settings</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="websiteSubmenu">
+          <a href="#" class="submenu-link">
+            <span>⚙️</span>General Setting
+          </a>
+          <a href="#" class="submenu-link">
+            <span class="coin-icon">💵</span>Currency
+          </a>
+          <div class="nav-link collapsible inner" onclick="toggleSubmenu('rulesSubmenu', this)">
+            <span>🛡️</span>
+            <span class="nav-text">Rules & Permission</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="rulesSubmenu">
+            <a href="#" class="submenu-link"> <span>📜</span>Rules </a>
+            <a href="#" class="submenu-link"> <span>🔐</span>Permission </a>
+          </div>
+          <a href="#" class="submenu-link">
+            <span>👥</span>User Management
+          </a>
+        </div>
+      </div>
+    </aside>
+
+
+    <main class="main-content">
+      <header class="top-header">
+        <div class="header-left">
+          <button class="hamburger-menu">☰</button>
+          <h1 class="page-title">Invoice Receipt</h1>
+        </div>
+        <div class="header-right">
+          <button class="pos-button" onclick="window.location.href='pos.html'">
+            🛒 POS
+          </button>
+          <button class="settings-icon" id="fullscreenBtn">⛶</button>
+          <div class="user-dropdown-container">
+            <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+            <div class="user-dropdown" id="userDropdown">
+              <a href="profile.html" id="profileBtn">Profile</a>
+              <a href="log-in.html" id="logoutBtn">Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+<body>
+  <div class="invoice-wrapper">
+    <div class="invoice-header">
+      <img src="images/invoice.png" alt="Logo">
+      <h2>saad</h2>
+      <p>Doha, Qatar<br>+91454554<br>qpos@gmail.com</p>
+    </div>
+
+    <div class="info-block">
+      <p><strong>User:</strong> Mr Admin</p>
+      <p><strong>Order:</strong> #166</p>
+      <p><strong>Name:</strong> Walking Customer</p>
+      <p><strong>Address:</strong> N/A</p>
+      <p><strong>Phone:</strong> 012345678</p>
+      <p><strong>Date:</strong> 17-Jul-2025</p>
+      <p><strong>Time:</strong> 04:35:54 PM</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th style="text-align:right">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Product B 1×270.00</td>
+          <td style="text-align:right">270</td>
+        </tr>
+        <tr>
+          <td>Product B 1×270.00</td>
+          <td style="text-align:right">270</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <p><strong>Subtotal:</strong> 540.00</p>
+      <p><strong>Discount:</strong> 0.00</p>
+      <p><strong>Total:</strong> 540.00</p>
+      <p><strong>Paid:</strong> 0.00</p>
+      <p><strong>Due:</strong> 540.00</p>
+    </div>
+
+    <p class="thankyou">Thank You For Shopping With Us. Please Come Again.</p>
+
+    <div class="buttons">
+      <button class="print-btn" onclick="handlePrint()">Print</button>
+    </div>
+  </div>
+
+  <script>
+    function handlePrint() {
+      window.onafterprint = () => {
+        window.close();
+      };
+      window.print();
+    }
+
+    window.onload = () => {
+      setTimeout(() => {
+        handlePrint();
+      }, 500);
+    };
+  </script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

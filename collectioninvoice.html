@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Collection Invoice</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+  .print-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #6d7fcc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+.invoice-wrapper {
+  width: 800px;
+  margin: auto;
+  padding: 40px;
+  background: white;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.summary p {
+  text-align: right;
+  margin: 5px 0;
+}
+
+.thanks {
+  text-align: center;
+  margin-top: 30px;
+  font-style: italic;
+}
+  @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+.print-btn {
+  display: none !important;
+}
+      .sidebar,
+      .top-header,
+      .buttons,
+      .settings-section,
+      .nav-link,
+      .submenu,
+      .header-left,
+      .header-right {
+        display: none !important;
+      }
+
+      .invoice-wrapper {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+      .main-content {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .container {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    }
+
+  </style>
+</head>
+
+<div class="container">
+      <aside class="sidebar">
+        <div class="user-section">
+          <div class="user-avatar">
+            <span class="avatar-lock">🔒</span>
+          </div>
+          <span class="username">salman</span>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-link">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">Dashboard</span>
+          </a>
+          <a href="pos.html" class="nav-link">
+            <span class="nav-icon">🛒</span>
+            <span class="nav-text">POS</span>
+          </a>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('peopleSubmenu', this)">
+            <span class="nav-icon">👤</span>
+            <span class="nav-text">People</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="peopleSubmenu">
+            <a href="customer.html" class="submenu-link"  id="customerLink">
+              <span class="dot"></span>Customer
+            </a>
+            <a href="supplier.html" class="submenu-link"   id="supplierLink">
+              <span class="dot"></span>Supplier
+            </a>
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('productSubmenu', this)">
+            <span class="nav-icon">📦</span>
+            <span class="nav-text">Product</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="productSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Product
+              List</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Product
+              Create</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Product
+              Import</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
+            <a href="#" class="submenu-link"><span
+                class="dot"></span>Category</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Unit</a>
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('saleSubmenu', this)">
+            <span class="nav-icon">🏷️</span>
+            <span class="nav-text">Sale</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="saleSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Sale
+              List</a>
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('purchaseSubmenu', this)">
+            <span class="nav-icon">🛍️</span>
+            <span class="nav-text">Purchase</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="purchaseSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+              List</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+              Create</a>
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('reportsSubmenu', this)">
+            <span class="nav-icon">📈</span>
+            <span class="nav-text">Reports</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="reportsSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Sales
+              Summary</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
+            <a href="#" class="submenu-link"><span
+                class="dot"></span>Inventory</a>
+          </div>
+        </nav>
+
+        <div class="settings-section">
+          <div class="settings-header">SETTINGS</div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('websiteSubmenu', this)">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-text">Website Settings</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="websiteSubmenu">
+            <a href="#" class="submenu-link">
+              <span>⚙️</span>General Setting
+            </a>
+            <a href="#" class="submenu-link">
+              <span class="coin-icon">💵</span>Currency
+            </a>
+            <div
+              class="nav-link collapsible inner"
+              onclick="toggleSubmenu('rulesSubmenu', this)">
+              <span>🛡️</span>
+              <span class="nav-text">Rules & Permission</span>
+              <span class="nav-chevron">❮</span>
+            </div>
+            <div class="submenu" id="rulesSubmenu">
+              <a href="#" class="submenu-link"> <span>📜</span>Rules </a>
+              <a href="#" class="submenu-link"> <span>🔐</span>Permission </a>
+            </div>
+            <a href="#" class="submenu-link">
+              <span>👥</span>User Management
+            </a>
+          </div>
+        </div>
+      </aside>
+
+             
+      <main class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <button class="hamburger-menu">☰</button>
+            <h1 class="page-title">Customer</h1>
+          </div>
+          <div class="header-right">
+            <button
+              class="pos-button"
+              onclick="window.location.href='pos.html'">
+              🛒 POS
+            </button>
+            <button class="settings-icon" id="fullscreenBtn">⛶</button>
+            <div class="user-dropdown-container">
+              <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+              <div class="user-dropdown" id="userDropdown">
+                <a href="profile.html" id="profileBtn">Profile</a>
+                <a href="log-in.html" id="logoutBtn">Logout</a>
+              </div>
+            </div>
+          </div>
+        </header>
+
+<body onload="window.print();">
+  <div class="invoice-wrapper">
+    <h2>Collection Invoice</h2>
+    <div class="company">
+      <h3>saad</h3>
+    </div>
+
+    <div class="details">
+      <div>
+        <strong>To</strong><br>
+        Name: Walking Customer<br>
+        Address: N/A<br>
+        Phone: 012345678
+      </div>
+
+      <div>
+        <strong>From</strong><br>
+        Name: saad<br>
+        Address: Doha, qatar<br>
+        Phone: +94154554<br>
+        Email: qpos@gmail.com
+      </div>
+
+      <div>
+        <strong>Info</strong><br>
+        Invoice ID: #59<br>
+        Sale ID: #166<br>
+        Sale Date: 16/07/2025<br>
+        Collection Date: 17/07/2025
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>SN</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price Ksh</th>
+          <th>Subtotal Ksh</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Product B</td>
+          <td>1 pcs</td>
+          <td>270.00</td>
+          <td>270.00</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Product B</td>
+          <td>1 pcs</td>
+          <td>270.00</td>
+          <td>270.00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary">
+      <p>Subtotal: <strong>Ksh 540.00</strong></p>
+      <p>Discount: <strong>Ksh 0.00</strong></p>
+      <p>Total: <strong>Ksh 540.00</strong></p>
+      <p>Previously Paid: <strong>Ksh 537.00</strong></p>
+      <p>Collection Amount: <strong>Ksh 537.00</strong></p>
+      <p>Due: <strong>Ksh -534.00</strong></p>
+    </div>
+
+    <p class="thanks">Thank You For Shopping With Us. Please Come Again.</p>
+
+    <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+   
+  </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

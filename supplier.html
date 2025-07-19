@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supplier | salman</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="user-section">
+          <div class="user-avatar">
+            <span class="avatar-lock">🔒</span>
+          </div>
+          <span class="username">salman</span>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-link">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">Dashboard</span>
+          </a>
+          <a href="pos.html" class="nav-link">
+            <span class="nav-icon">🛒</span>
+            <span class="nav-text">POS</span>
+          </a>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('peopleSubmenu', this)"
+          >
+            <span class="nav-icon">👤</span>
+            <span class="nav-text">People</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="peopleSubmenu">
+            <a href="customer.html" class="submenu-link" >
+              <span class="dot"></span>Customer
+            </a>
+            <a href="supplier.html" class="submenu-link">
+              <span class="dot"></span>Supplier
+            </a>
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('productSubmenu', this)"
+          >
+            <span class="nav-icon">📦</span>
+            <span class="nav-text">Product</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="productSubmenu">
+            <a href="#" class="submenu-link"
+              ><span class="dot"></span>Product List</a
+            >
+            <a href="#" class="submenu-link"
+              ><span class="dot"></span>Product Create</a
+            >
+            <a href="#" class="submenu-link"
+              ><span class="dot"></span>Product Import</a
+            >
+            <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
+            <a href="#" class="submenu-link"
+              ><span class="dot"></span>Category</a
+            >
+            <a href="#" class="submenu-link"><span class="dot"></span>Unit</a>
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('saleSubmenu', this)"
+          >
+            <span class="nav-icon">🏷️</span>
+            <span class="nav-text">Sale</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="saleSubmenu">
+            <a href="#" class="submenu-link"
+              ><span class="dot"></span>Sale List</a
+            >
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('purchaseSubmenu', this)"
+          >
+            <span class="nav-icon">🛍️</span>
+            <span class="nav-text">Purchase</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="purchaseSubmenu">
+            <a href="#" class="submenu-link"
+              ><span class="dot"></span>Purchase List</a
+            >
+            <a href="#" class="submenu-link"
+              ><span class="dot"></span>Purchase Create</a
+            >
+          </div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('reportsSubmenu', this)"
+          >
+            <span class="nav-icon">📈</span>
+            <span class="nav-text">Reports</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="reportsSubmenu">
+            <a href="#" class="submenu-link"
+              ><span class="dot"></span>Sales Summary</a
+            >
+            <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
+            <a href="#" class="submenu-link"
+              ><span class="dot"></span>Inventory</a
+            >
+          </div>
+        </nav>
+
+        <div class="settings-section">
+          <div class="settings-header">SETTINGS</div>
+          <div
+            class="nav-link collapsible"
+            onclick="toggleSubmenu('websiteSubmenu', this)"
+          >
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-text">Website Settings</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="websiteSubmenu">
+            <a href="#" class="submenu-link">
+              <span>⚙️</span>General Setting
+            </a>
+            <a href="#" class="submenu-link">
+              <span class="coin-icon">💵</span>Currency
+            </a>
+            <div
+              class="nav-link collapsible inner"
+              onclick="toggleSubmenu('rulesSubmenu', this)"
+            >
+              <span>🛡️</span>
+              <span class="nav-text">Rules & Permission</span>
+              <span class="nav-chevron">❮</span>
+            </div>
+            <div class="submenu" id="rulesSubmenu">
+              <a href="#" class="submenu-link"> <span>📜</span>Rules </a>
+              <a href="#" class="submenu-link"> <span>🔐</span>Permission </a>
+            </div>
+            <a href="#" class="submenu-link">
+              <span>👥</span>User Management
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <button class="hamburger-menu">☰</button>
+            <h1 class="page-title">Supplier</h1>
+          </div>
+          <div class="header-right">
+            <button
+              class="pos-button"
+              onclick="window.location.href='pos.html'"
+            >
+              🛒 POS
+            </button>
+            <button class="settings-icon" id="fullscreenBtn">⛶</button>
+            <div class="user-dropdown-container">
+              <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+              <div class="user-dropdown" id="userDropdown">
+                <a href="profile.html" id="profileBtn">Profile</a>
+                <a href="log-in.html" id="logoutBtn">Logout</a>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="datatable-section">
+          <h2>Suppliers</h2>
+          <button class="add-button" onclick="showCreateForm()">
+            ➕ Add New
+          </button>
+          <table id="supplierTable" class="display" style="width: 100%">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Created</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Courtney Hettinger</td>
+                <td>1-772-775-6908</td>
+                <td>507 Ernser LaneLittleton, SD 68876</td>
+                <td>19 Mar, 2025</td>
+                <td>
+                  <select class="action-dropdown" onchange="handleAction(this)">
+                    <option selected disabled>⚙️ Action</option>
+                    <option value="edit">✏️ Edit</option>
+                    <option value="delete">🗑️ Delete</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Dorothy Schoen</td>
+                <td>940.360.1600</td>
+                <td>8893 Hessel Rapid D'Amoreshire, VT 17466</td>
+                <td>19 Mar, 2025</td>
+                <td>
+                  <select class="action-dropdown" onchange="handleAction(this)">
+                    <option selected disabled>⚙️ Action</option>
+                    <option value="edit">✏️ Edit</option>
+                    <option value="delete">🗑️ Delete</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Gabriella Cole</td>
+                <td>330.896.7720</td>
+                <td>51734 Marianne Courts West Manley, SD 06568-0606</td>
+                <td>19 Mar, 2025</td>
+                <td>
+                  <select class="action-dropdown" onchange="handleAction(this)">
+                    <option selected disabled>⚙️ Action</option>
+                    <option value="edit">✏️ Edit</option>
+                    <option value="delete">🗑️ Delete</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Hallie Kessler</td>
+                <td>+1 (351) 831-1906</td>
+                <td>17902 Dorris Meadow Apt. 889 North Irmafurt, WI 00271</td>
+                <td>19 Mar, 2025</td>
+                <td>
+                  <select class="action-dropdown" onchange="handleAction(this)">
+                    <option selected disabled>⚙️ Action</option>
+                    <option value="edit">✏️ Edit</option>
+                    <option value="delete">🗑️ Delete</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Hello</td>
+                <td>1234567891</td>
+                <td>oasd@gmasdf.copm</td>
+                <td>02 Jul, 2025</td>
+                <td>
+                  <select class="action-dropdown" onchange="handleAction(this)">
+                    <option selected disabled>⚙️ Action</option>
+                    <option value="edit">✏️ Edit</option>
+                    <option value="delete">🗑️ Delete</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Hugh Hermann</td>
+                <td>(915) 812-0523</td>
+                <td>777 Welch Grove Apt. 135 Okunevafort, CA 55240</td>
+                <td>19 Mar, 2025</td>
+                <td>
+                  <select class="action-dropdown" onchange="handleAction(this)">
+                    <option selected disabled>⚙️ Action</option>
+                    <option value="edit">✏️ Edit</option>
+                    <option value="delete">🗑️ Delete</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>Imelda Hartmann</td>
+                <td>458.361.0065</td>
+                <td>9074 Sporer Estates Apt. 619 Lake Kellenview, TN 49506</td>
+                <td>19 Mar, 2025</td>
+                <td>
+                  <select class="action-dropdown" onchange="handleAction(this)">
+                    <option selected disabled>⚙️ Action</option>
+                    <option value="edit">✏️ Edit</option>
+                    <option value="delete">🗑️ Delete</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td>Miss Twila Lindgren</td>
+                <td>1-689-531-1193</td>
+                <td>3648 Logan Freeway Dorothyfurt, OR 78257</td>
+                <td>19 Mar, 2025</td>
+                <td>
+                  <select class="action-dropdown" onchange="handleAction(this)">
+                    <option selected disabled>⚙️ Action</option>
+                    <option value="edit">✏️ Edit</option>
+                    <option value="delete">🗑️ Delete</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>Own Supplier</td>
+                <td>012345678</td>
+                <td></td>
+                <td>19 Mar, 2025</td>
+                <td>
+                  <select class="action-dropdown" onchange="handleAction(this)">
+                    <option selected disabled>⚙️ Action</option>
+                    <option value="edit">✏️ Edit</option>
+                    <option value="delete">🗑️ Delete</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td>Paris Windler</td>
+                <td>+13528197706</td>
+                <td>1108 Dickens Fork Apt. 903 Abshireview, NC 06169-0040</td>
+                <td>19 Mar, 2025</td>
+                <td>
+                  <select class="action-dropdown" onchange="handleAction(this)">
+                    <option selected disabled>⚙️ Action</option>
+                    <option value="edit">✏️ Edit</option>
+                    <option value="delete">🗑️ Delete</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="editForm" style="display: none">
+          <h2>Edit Supplier</h2>
+          <form id="supplierEditForm">
+            <label>Name *</label>
+            <input type="text" id="editName" required />
+            <label>Phone *</label>
+            <input type="text" id="editPhone" required />
+            <label>Address</label>
+            <input type="text" id="editAddress" />
+            <button type="submit">Update</button>
+          </form>
+        </div>
+        <div
+          id="createForm"
+          style="
+            display: none;
+            padding: 20px;
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+          "
+        >
+          <h2>Add New Supplier</h2>
+          <form id="supplierCreateForm">
+            <label>Name *</label>
+            <input type="text" id="createName" required />
+            <label>Phone *</label>
+            <input type="text" id="createPhone" required />
+            <label>Address</label>
+            <input type="text" id="createAddress" />
+            <button type="submit">Create</button>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#supplierTable").DataTable({
+          pageLength: 10,
+          lengthMenu: [10, 25, 50, 100],
+        });
+      });
+
+      let editingRow = null;
+
+      function handleAction(select) {
+        const action = select.value;
+        const row = select.closest("tr");
+
+        if (action === "edit") {
+          editingRow = row;
+          document.getElementById("editForm").style.display = "block";
+          document.getElementById("editName").value =
+            row.cells[1].textContent.trim();
+          document.getElementById("editPhone").value =
+            row.cells[2].textContent.trim();
+          document.getElementById("editAddress").value =
+            row.cells[3].textContent.trim();
+          select.selectedIndex = 0;
+          document
+            .getElementById("editForm")
+            .scrollIntoView({ behavior: "smooth" });
+        } else if (action === "delete") {
+          if (confirm("Are you sure you want to delete this supplier?")) {
+            row.remove();
+          }
+        }
+      }
+
+      document
+        .getElementById("supplierEditForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (editingRow) {
+            editingRow.cells[1].textContent = document
+              .getElementById("editName")
+              .value.trim();
+            editingRow.cells[2].textContent = document
+              .getElementById("editPhone")
+              .value.trim();
+            editingRow.cells[3].textContent = document
+              .getElementById("editAddress")
+              .value.trim();
+            document.getElementById("editForm").style.display = "none";
+            editingRow = null;
+          }
+        });
+
+      function showCreateForm() {
+        document.getElementById("createForm").style.display = "block";
+        document
+          .getElementById("createForm")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+
+      document
+        .getElementById("supplierCreateForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById("createName").value.trim();
+          const phone = document.getElementById("createPhone").value.trim();
+          const address = document.getElementById("createAddress").value.trim();
+
+          if (name && phone) {
+            const table = $("#supplierTable").DataTable();
+            const date = new Date().toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            });
+
+            table.row
+              .add([
+                table.rows().count() + 1,
+                name,
+                phone,
+                address,
+                date,
+                `<select class="action-dropdown" onchange="handleAction(this)">
+              <option selected disabled>⚙️ Action</option>
+              <option value="edit">✏️ Edit</option>
+              <option value="delete">🗑️ Delete</option>
+            </select>`,
+              ])
+              .draw();
+
+            document.getElementById("supplierCreateForm").reset();
+            document.getElementById("createForm").style.display = "none";
+          }
+        });
+          // Add this to customer.html and supplier.html
+  document.addEventListener('DOMContentLoaded', function() {
+    // Set active state for current page
+    const currentPage = window.location.pathname.split('/').pop();
+    if (currentPage === 'customer.html') {
+      setActiveSubmenuItem('customer');
+    } else if (currentPage === 'supplier.html') {
+      setActiveSubmenuItem('supplier');
+    }
+  });
+    </script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

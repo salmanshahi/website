@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | QPOS</title>
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <img src="images/register.svg" alt="Illustration">
+    </div>
+
+    <div class="right-panel">
+      <div class="login-box">
+        <img src="images/download.png" class="login-icon">
+        <h2>Sign in</h2>
+        <p>
+        <h4 class="h4">Welcome back! Sign in to access your account.</h4>
+        </p>
+
+        <form onsubmit="return handleLogin(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="Enter email" required>
+            </div>
+
+            <div class="form-group" style="position: relative;">
+              <label for="password">Password</label>
+              <div class="password-wrapper">
+                <input type="password" id="login-password" placeholder="Enter password" required>
+                <span class="toggle-password" onclick="togglePassword('login-password', this)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#666" viewBox="0 0 24 24">
+                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 
+                 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 
+                 15.5c-1.93 0-3.5-1.57-3.5-3.5S10.07 8.5 12 8.5s3.5 
+                 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="remember-forgot">
+            <label><input type="checkbox"> Remember me</label>
+            <a href="forgetpassword.html">Forgot password</a>
+          </div>
+
+          <button type="submit">Sign In</button>
+        </form>
+
+        <div class="login-info">
+
+          <p><span class="label">User:</span> <span class="value">demo@qtecsolution.net</span></p>
+          <p><span class="label">Password:</span> <span class="value">87654321</span></p>
+        </div>
+
+        <div class="signup">
+          Don’t have an account? <a href="sign-up.html">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
