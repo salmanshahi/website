@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Collection Invoice</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
   <style>
   .print-btn {
       margin-top: 20px;
@@ -101,11 +101,11 @@ table th, table td {
         </div>
 
         <nav class="sidebar-nav">
-          <a href="dashboard.html" class="nav-link">
+          <a href="../html/dashboard.html" class="nav-link">
             <span class="nav-icon">📊</span>
             <span class="nav-text">Dashboard</span>
           </a>
-          <a href="pos.html" class="nav-link">
+          <a href="../html/pos.html" class="nav-link">
             <span class="nav-icon">🛒</span>
             <span class="nav-text">POS</span>
           </a>
@@ -117,10 +117,10 @@ table th, table td {
             <span class="nav-chevron">❮</span>
           </div>
           <div class="submenu" id="peopleSubmenu">
-            <a href="customer.html" class="submenu-link"  id="customerLink">
+            <a href="../html/customer.html" class="submenu-link"  id="customerLink">
               <span class="dot"></span>Customer
             </a>
-            <a href="supplier.html" class="submenu-link"   id="supplierLink">
+            <a href="../html/supplier.html" class="submenu-link"   id="supplierLink">
               <span class="dot"></span>Supplier
             </a>
           </div>
@@ -227,15 +227,15 @@ table th, table td {
           <div class="header-right">
             <button
               class="pos-button"
-              onclick="window.location.href='pos.html'">
+              onclick="window.location.href='../html/pos.html'">
               🛒 POS
             </button>
             <button class="settings-icon" id="fullscreenBtn">⛶</button>
             <div class="user-dropdown-container">
               <button class="user-menu" id="userMenuBtn">👤 ▼</button>
               <div class="user-dropdown" id="userDropdown">
-                <a href="profile.html" id="profileBtn">Profile</a>
-                <a href="log-in.html" id="logoutBtn">Logout</a>
+                <a href="../html/profile.html" id="profileBtn">Profile</a>
+                <a href="../html/log-in.html" id="logoutBtn">Logout</a>
               </div>
             </div>
           </div>
@@ -315,6 +315,6 @@ table th, table td {
     <button class="print-btn" onclick="window.print()">🖨️ Print</button>
    
   </div>
-    <script src="js/script.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>

@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.addEventListener("click", function (e) {
       e.preventDefault();
       localStorage.removeItem("qposUser");
-      window.location.href = "log-in.html";
+      window.location.href = "../html/log-in.html";
     });
   }
 
@@ -199,9 +199,9 @@ function setActiveSubmenuItem(pageName) {
 function initializeActiveState() {
   const currentPage = window.location.pathname.split('/').pop();
   
-  if (currentPage === 'customer.html') {
+  if (currentPage === '../html/customer.html') {
     setActiveSubmenuItem('customer');
-  } else if (currentPage === 'supplier.html') {
+  } else if (currentPage === '../html/supplier.html') {
     setActiveSubmenuItem('supplier');
   }
 }

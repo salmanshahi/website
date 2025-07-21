@@ -28,84 +28,84 @@ const products = [
     id: 1,
     name: "Kinder Joy (Boys)",
     price: 109,
-    image: "images/joy.png",
+    image: "../images/joy.png",
     code: "915",
   },
   {
     id: 2,
     name: "Ferrero Rocher Premium Chocolates",
     price: 1100,
-    image: "images/ferrero.png",
+    image: "../images/ferrero.png",
     code: "85",
   },
   {
     id: 3,
     name: "Dan Cake Classic Brownies",
     price: 140,
-    image: "images/cake.png",
+    image: "../images/cake.png",
     code: "76",
   },
   {
     id: 4,
     name: "Chicken Keema",
     price: 699,
-    image: "images/meat.png",
+    image: "../images/meat.png",
     code: "88",
   },
   {
     id: 5,
     name: "Chicken Eggs",
     price: 105,
-    image: "images/eggs.png",
+    image: "../images/eggs.png",
     code: "74",
   },
   {
     id: 6,
     name: "Dairy Milk Silk",
     price: 190,
-    image: "images/silk.png",
+    image: "../images/silk.png",
     code: "81",
   },
   {
     id: 7,
     name: "Chicken Drumsticks",
     price: 269,
-    image: "images/drumsticks.png",
+    image: "../images/drumsticks.png",
     code: "193",
   },
   {
     id: 8,
     name: "Bounty Chocolate",
     price: 105,
-    image: "images/bounty.png",
+    image: "../images/bounty.png",
     code: "79",
   },
   {
     id: 9,
     name: "Purnava Omega 3 Enriched Eggs (89)",
     price: "280",
-    image: "images/mega.png",
+    image: "../images/mega.png",
     code: "89",
   },
   {
     id: 10,
     name: "Pran Potato Cracker (87)",
     price: " 9.9",
-    image: "images/potato87.png",
+    image: "../images/potato87.png",
     code: "87",
   },
   {
     id: 11,
     name: "Oreo Original Cream Biscuit (89)",
     price: "150",
-    image: "images/oreocream.png",
+    image: "../images/oreocream.png",
     code: "89",
   },
   {
     id: 12,
     name: "Nestle Maggi 2-Minute Masala Instant Noodles (93)",
     price: " 174",
-    image: "images/magginoodles.png",
+    image: "../images/magginoodles.png",
     code: "93",
   },
 ];
@@ -280,7 +280,7 @@ renderProducts();
 renderCart();
 updateTotals();
 
-const beepSound = new Audio("sounds/beep-07a.mp3");
+const beepSound = new Audio("../sounds/beep-07a.mp3");
 
 function addToCart(productId) {
   const product = products.find((p) => p.id === productId);

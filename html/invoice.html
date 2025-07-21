@@ -1,69 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Collection</title>
-  <link rel="stylesheet" href="css/dashboard.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice #164</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
   <style>
-.header h2 {
-  font-size: 28px;
-  margin-bottom: 1rem;
-  color: #333;
-}
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: white;
+      color: #000;
+    }
 
-.collection-box {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 600px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-}
+    .invoice-wrapper {
+      padding: 30px;
+      background: white;
+    }
 
-.collection-row {
-  margin-bottom: 1rem;
-  font-size: 16px;
-}
+    .invoice-header,
+    .invoice-footer {
+      text-align: center;
+    }
 
-.collection-row strong {
-  width: 100px;
-  display: inline-block;
-  color: #333;
-}
+    .invoice-details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
 
-#collectionForm label {
-  display: block;
-  margin: 1rem 0 0.5rem;
-  font-weight: 600;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
 
-.required {
-  color: red;
-}
+    table,
+    th,
+    td {
+      border: 1px solid #000;
+    }
 
-#collectionInput {
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
+    th,
+    td {
+      padding: 10px;
+      text-align: center;
+    }
 
-.submit-btn {
-  margin-top: 1rem;
-  padding: 0.6rem 1.2rem;
-  background-color: #8e9ff9;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-}
+    .totals {
+      float: right;
+      width: 300px;
+    }
 
-.submit-btn:hover {
-  background-color: #7486e0;
-}
+    .totals table {
+      border: none;
+    }
+
+    .totals td {
+      border: none;
+      text-align: right;
+      padding: 4px 0;
+    }
+
+    .thankyou {
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    .print-button {
+      display: block;
+      margin: 30px auto;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    @media print {
+      .print-button,
+      .sidebar,
+      .top-header {
+        display: none !important;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 0;
+      }
+    }
   </style>
 </head>
+
 <body>
+ 
     <div class="container">
     <aside class="sidebar">
       <div class="user-section">
@@ -74,11 +107,11 @@
       </div>
 
       <nav class="sidebar-nav">
-        <a href="dashboard.html" class="nav-link">
+        <a href="../html/dashboard.html" class="nav-link">
           <span class="nav-icon">📊</span>
           <span class="nav-text">Dashboard</span>
         </a>
-        <a href="pos.html" class="nav-link">
+        <a href="../html/pos.html" class="nav-link">
           <span class="nav-icon">🛒</span>
           <span class="nav-text">POS</span>
         </a>
@@ -88,10 +121,10 @@
           <span class="nav-chevron">❮</span>
         </div>
         <div class="submenu" id="peopleSubmenu">
-          <a href="customer.html" class="submenu-link" id="customerLink">
+          <a href="../html/customer.html" class="submenu-link" id="customerLink">
             <span class="dot"></span>Customer
           </a>
-          <a href="supplier.html" class="submenu-link" id="supplierLink">
+          <a href="../html/supplier.html" class="submenu-link" id="supplierLink">
             <span class="dot"></span>Supplier
           </a>
         </div>
@@ -179,49 +212,133 @@
       <header class="top-header">
         <div class="header-left">
           <button class="hamburger-menu">☰</button>
-          <h1 class="page-title">Invoice Receipt</h1>
+          <h1 class="page-title">Invoice</h1>
         </div>
         <div class="header-right">
-          <button class="pos-button" onclick="window.location.href='pos.html'">
+          <button class="pos-button" onclick="window.location.href='../html/pos.html'">
             🛒 POS
           </button>
           <button class="settings-icon" id="fullscreenBtn">⛶</button>
           <div class="user-dropdown-container">
             <button class="user-menu" id="userMenuBtn">👤 ▼</button>
             <div class="user-dropdown" id="userDropdown">
-              <a href="profile.html" id="profileBtn">Profile</a>
-              <a href="log-in.html" id="logoutBtn">Logout</a>
+              <a href="../html/profile.html" id="profileBtn">Profile</a>
+              <a href="../html/log-in.html" id="logoutBtn">Logout</a>
             </div>
           </div>
         </div>
       </header>
 
-  <div class="main-content">
-    <div class="header">
-      <h2>Collection</h2>
-    </div>
+      <div class="invoice-wrapper">
+        <div class="invoice-header">
+          <img src="../images/invoice.png" alt="Logo" width="50">
+          <h2>Invoice</h2>
+          <p>Date: 16/07/2025</p>
+        </div>
 
-    <div class="collection-box">
-      <div class="collection-row">
-        <strong>Name</strong> <span id="customerName">Walking Customer</span>
+        <div class="invoice-details">
+          <div>
+            <strong>To:</strong><br>
+            <strong>Name:</strong> Walking Customer<br>
+            Address: N/A<br>
+            Phone: 012345678
+          </div>
+
+          <div>
+            <strong>From:</strong><br>
+            <strong>Name:</strong> saad<br>
+            Address: Doha, Qatar<br>
+            Phone: +91454554<br>
+            Email: qpos@gmail.com
+          </div>
+
+          <div>
+            <strong>Info:</strong><br>
+            Sale ID: #164<br>
+            Sale Date: 16/07/2025
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>SN</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price Rs</th>
+              <th>Subtotal Rs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Product A</td>
+              <td>1 pcs</td>
+              <td>
+                180.00<br>
+                <del>200</del>
+              </td>
+              <td>180</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Product B</td>
+              <td>1 pcs</td>
+              <td>
+                270.00<br>
+                <del>300</del>
+              </td>
+              <td>270</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="totals">
+          <table>
+            <tr>
+              <td><strong>Subtotal:</strong></td>
+              <td>Rs 450.00</td>
+            </tr>
+            <tr>
+              <td><strong>Discount:</strong></td>
+              <td>Rs 0.00</td>
+            </tr>
+            <tr>
+              <td><strong>Total:</strong></td>
+              <td>Rs 450.00</td>
+            </tr>
+            <tr>
+              <td><strong>Paid:</strong></td>
+              <td>Rs 0.00</td>
+            </tr>
+            <tr>
+              <td><strong>Due:</strong></td>
+              <td>Rs 450.00</td>
+            </tr>
+          </table>
+        </div>
+
+        <p class="thankyou">Thank You For Shopping With Us. Please Come Again.</p>
+
+        <button class="print-button" onclick="handlePrint()">Print</button>
       </div>
-      <div class="collection-row">
-        <strong>Order</strong> <span id="orderId">#166</span>
-      </div>
-      <div class="collection-row">
-        <strong>Total</strong> <span id="totalAmount">540</span>
-      </div>
-      <div class="collection-row">
-        <strong>Due</strong> <span id="dueAmount">540</span>
-      </div>
-      <form id="collectionForm">
-        <label for="collectionInput">Collection Amount <span class="required">*</span></label>
-        <input type="number" id="collectionInput" required />
-        <button type="submit" class="submit-btn">Submit</button>
-      </form>
-    </div>
+    </main>
   </div>
+  <script>
+    function handlePrint() {
+      window.onafterprint = () => {
+        window.close();
+      };
+      window.print();
+    }
 
-  <script src="js/script.js"></script>
+    window.onload = () => {
+      setTimeout(() => {
+        handlePrint();
+      }, 500);
+    };
+  </script>
+ <script src="../js/script.js"></script>
 </body>
+
 </html>
