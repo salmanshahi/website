@@ -453,19 +453,29 @@
           document.getElementById('createForm').style.display = 'none';
         }
       });
-  document.addEventListener('DOMContentLoaded', function() {
-    // Set active state for current page
+  document.addEventListener('DOMContentLoaded', function () {
     const currentPage = window.location.pathname.split('/').pop();
-    if (currentPage === '../html/customer.html') {
+
+    if (currentPage === 'customer.html') {
       setActiveSubmenuItem('customer');
-    } else if (currentPage === '../html/supplier.html') {
+    } else if (currentPage === 'supplier.html') {
       setActiveSubmenuItem('supplier');
     }
   });
+
+  function setActiveSubmenuItem(type) {
+    const submenu = document.getElementById('peopleSubmenu');
+    submenu.style.display = 'block';
+
+    if (type === 'customer') {
+      submenu.querySelector('a[href*="customer.html"]').classList.add('active');
+    } else if (type === 'supplier') {
+      submenu.querySelector('a[href*="supplier.html"]').classList.add('active');
+    }
+  }
     </script>
 
     <script src="../js/script.js"></script>
 
 </body>
-
 </html>

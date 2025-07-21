@@ -221,6 +221,31 @@
       </form>
     </div>
   </div>
+<script>
+  document.getElementById('collectionForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const customerName = document.getElementById('customerName').textContent.trim();
+    const orderId = document.getElementById('orderId').textContent.trim().replace('#', '');
+    const totalAmount = document.getElementById('totalAmount').textContent.trim();
+    const dueAmount = document.getElementById('dueAmount').textContent.trim();
+    const collectionAmount = document.getElementById('collectionInput').value.trim();
+
+    if (collectionAmount === '' || isNaN(collectionAmount) || Number(collectionAmount) <= 0) {
+      alert('Please enter a valid collection amount.');
+      return;
+    }
+    const params = new URLSearchParams({
+      customer: customerName,
+      saleId: orderId,
+      total: totalAmount,
+      due: dueAmount,
+      collected: collectionAmount
+    });
+
+    window.location.href = `collectioninvoice.html?${params.toString()}`;
+  });
+</script>
 
   <script src="../js/script.js"></script>
 </body>

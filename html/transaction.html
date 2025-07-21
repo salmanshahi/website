@@ -1,97 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Collection Invoice</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="../css/dashboard.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transactions</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
   <style>
-  .print-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #6d7fcc;
+    .card {
+      background-color: white;
+      border-radius: 6px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    .card h2 {
+      margin-bottom: 20px;
+    }
+
+    .transaction-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .transaction-table th,
+    .transaction-table td {
+      padding: 12px;
+      border: 1px solid #dee2e6;
+      text-align: left;
+    }
+
+    .invoice-btn {
+      background-color: #28a745;
       color: white;
+      padding: 8px 16px;
       border: none;
-      border-radius: 5px;
+      border-radius: 4px;
       cursor: pointer;
     }
 
-.invoice-wrapper {
-  width: 800px;
-  margin: auto;
-  padding: 40px;
-  background: white;
-}
-
-.details {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 30px 0;
-}
-
-table th, table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-.summary p {
-  text-align: right;
-  margin: 5px 0;
-}
-
-.thanks {
-  text-align: center;
-  margin-top: 30px;
-  font-style: italic;
-}
-  @media print {
-      body {
-        background: white !important;
-        color: black !important;
-      }
-.print-btn {
-  display: none !important;
-}
-      .sidebar,
-      .top-header,
-      .buttons,
-      .settings-section,
-      .nav-link,
-      .submenu,
-      .header-left,
-      .header-right {
-        display: none !important;
-      }
-
-      .invoice-wrapper {
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-      .main-content {
-        margin: 0 !important;
-        padding: 0 !important;
-      }
-
-      .container {
-        display: block !important;
-        margin: 0 !important;
-        padding: 0 !important;
-      }
+    .invoice-btn:hover {
+      background-color: #218838;
     }
 
+    .main-content {
+      padding: 20px;
+      background-color: #eaf2ff;
+      min-height: 100vh;
+    }
+
+    
   </style>
 </head>
 
-<div class="container">
+<body>
+  <div class="container">
       <aside class="sidebar">
         <div class="user-section">
           <div class="user-avatar">
@@ -222,12 +188,12 @@ table th, table td {
         <header class="top-header">
           <div class="header-left">
             <button class="hamburger-menu">☰</button>
-            <h1 class="page-title">Customer</h1>
+            <h1 class="page-title">Transactions Sale</h1>
           </div>
           <div class="header-right">
             <button
               class="pos-button"
-              onclick="window.location.href='../html/pos.html'">
+              onclick="window.location.href='pos.html'">
               🛒 POS
             </button>
             <button class="settings-icon" id="fullscreenBtn">⛶</button>
@@ -240,82 +206,64 @@ table th, table td {
             </div>
           </div>
         </header>
-
-<body onload="window.print();">
-  <div class="invoice-wrapper">
-    <h2>Collection Invoice</h2>
-    <div class="company">
-      <h3>salman</h3>
-    </div>
-
-    <div class="details">
-      <div>
-        <strong>To</strong><br>
-        Name: Walking Customer<br>
-        Address: N/A<br>
-        Phone: 012345678
+      <div class="card">
+        <table class="transaction-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>TransactionId</th>
+              <th>Amount ₹</th>
+              <th>Paid By</th>
+              <th>Created</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td id="transactionId">-</td>
+              <td id="amount">-</td>
+              <td id="paidBy">-</td>
+              <td id="created">-</td>
+              <td><button class="invoice-btn">Invoice</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <div>
-        <strong>From</strong><br>
-        Name: saad<br>
-        Address: Doha, qatar<br>
-        Phone: +94154554<br>
-        Email: qpos@gmail.com
-      </div>
-
-      <div>
-        <strong>Info</strong><br>
-        Invoice ID: #59<br>
-        Sale ID: #166<br>
-        Sale Date: 16/07/2025<br>
-        Collection Date: 17/07/2025
-      </div>
-    </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>SN</th>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Price Ksh</th>
-          <th>Subtotal Ksh</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Product B</td>
-          <td>1 pcs</td>
-          <td>270.00</td>
-          <td>270.00</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Product B</td>
-          <td>1 pcs</td>
-          <td>270.00</td>
-          <td>270.00</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="summary">
-      <p>Subtotal: <strong>Ksh 540.00</strong></p>
-      <p>Discount: <strong>Ksh 0.00</strong></p>
-      <p>Total: <strong>Ksh 540.00</strong></p>
-      <p>Previously Paid: <strong>Ksh 537.00</strong></p>
-      <p>Collection Amount: <strong>Ksh 537.00</strong></p>
-      <p>Due: <strong>Ksh -534.00</strong></p>
-    </div>
-
-    <p class="thanks">Thank You For Shopping With Us. Please Come Again.</p>
-
-    <button class="print-btn" onclick="window.print()">🖨️ Print</button>
-   
+    </main>
   </div>
-  
-    <script src="../js/script.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const data = JSON.parse(localStorage.getItem('transactionData'));
+
+  if (data) {
+ document.getElementById('transactionId').textContent = '#' +  data.saleId;
+
+    document.getElementById('amount').textContent = data.amount;
+    document.getElementById('paidBy').textContent = data.paidBy;
+    document.getElementById('created').textContent = data.created;
+    document.querySelector('.page-title').textContent = 'Transactions Sale #' + data.saleId;
+
+ 
+
+  } else {
+    alert("No transaction data found!");
+  }
+});
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.addEventListener("click", function (e) {
+    if (e.target.classList.contains("invoice-btn")) {
+      const saleData = JSON.parse(e.target.getAttribute("data-sale"));
+      localStorage.setItem("invoiceData", JSON.stringify(saleData));
+      window.location.href = "collectioninvoice.html";
+    }
+  });
+});
+
+</script>
+
+
 </body>
+
 </html>
