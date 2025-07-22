@@ -1,4 +1,4 @@
-const hamburger = document.querySelector(".hamburger-menu");
+
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.querySelector(".sidebar");
 const mainContent = document.querySelector(".main-content");
@@ -8,7 +8,7 @@ const toggleSidebar = () => {
   mainContent.classList.toggle("collapsed");
 };
 
-if (hamburger) hamburger.addEventListener("click", toggleSidebar);
+
 if (menuBtn) menuBtn.addEventListener("click", toggleSidebar);
 
 const fullscreenBtn = document.getElementById("fullscreenBtn");
