@@ -170,6 +170,17 @@ body {
   border-radius: 4px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
 .settings-icon:hover,
 .user-menu:hover {
   background: #f3f4f6;
@@ -608,6 +619,7 @@ color: black;
   
   transform: translateX(2px);
 }
+
 
 @media (max-width: 1200px) {
   .stats-section,

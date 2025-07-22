@@ -54,8 +54,8 @@
           <span class="nav-chevron">❮</span>
         </div>
         <div class="submenu" id="productSubmenu">
-          <a href="#" class="submenu-link"><span class="dot"></span>Product List</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Product Create</a>
+          <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span class="dot"></span>Product List</a>
+          <a href="#" class="submenu-link" ><span class="dot"></span>Product Create</a>
           <a href="#" class="submenu-link"><span class="dot"></span>Product Import</a>
           <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
           <a href="#" class="submenu-link"><span class="dot"></span>Category</a>
@@ -356,7 +356,40 @@
         }
       });
     });
- 
+
+  // Handle active state for sidebar links
+  document.addEventListener('DOMContentLoaded', function () {
+    const submenuLinks = document.querySelectorAll('.submenu-link');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Highlight correct submenu link on click
+    submenuLinks.forEach(link => {
+      link.addEventListener('click', function () {
+        // Remove active from all
+        submenuLinks.forEach(l => l.classList.remove('active'));
+        navLinks.forEach(n => n.classList.remove('active'));
+
+        // Add active to the clicked one
+        this.classList.add('active');
+
+        // Expand parent menu if collapsed
+        const parentSubmenu = this.closest('.submenu');
+        if (parentSubmenu && parentSubmenu.style.display !== 'block') {
+          parentSubmenu.style.display = 'block';
+        }
+      });
+    });
+
+    // Optional: On page load, keep Product List highlighted if on productlist.html
+    const path = window.location.pathname;
+    if (path.includes('productlist.html')) {
+      const productListLink = document.getElementById('productListLink');
+      productListLink.classList.add('active');
+      document.getElementById('productSubmenu').style.display = 'block';
+    }
+  });
+
+
   </script>
 </body>
 </html>
