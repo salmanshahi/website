@@ -424,16 +424,6 @@ body {
     overflow: hidden;
     transition: all 0.3s ease;
 }
-
-
-
-
-
-
-.sidebar:hover {
-    width: 240px;
-}
-
 .sidebar:hover .nav-link {
     justify-content: flex-start;
     padding: 12px 20px;

@@ -233,11 +233,6 @@ body {
 .main-content.collapsed {
   margin-left: 70px;
 }
-
-.sidebar:hover {
-  width: 240px;
-}
-
 .sidebar:hover .username,
 .sidebar:hover .nav-text,
 .sidebar:hover .nav-chevron,
