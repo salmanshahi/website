@@ -129,17 +129,18 @@ fullscreenBtn.addEventListener("click", () => {
     document.exitFullscreen();
   }
 });
-const profileBtn = document.getElementById("profileFullscreenBtn");
 
-profileBtn.addEventListener("click", () => {
-  if (!document.fullscreenElement) {
-    mainContent.requestFullscreen().catch((err) => {
-      console.error(`Error attempting to enable fullscreen: ${err.message}`);
-    });
-  } else {
-    document.exitFullscreen();
-  }
-});
+const profileBtn = document.getElementById("profileBtn");
+
+if (profileBtn) {
+  profileBtn.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  });
+}
 
 function toggleSubmenu(id, el) {
   const submenu = document.getElementById(id);
@@ -154,9 +155,14 @@ function toggleSubmenu(id, el) {
   }
 }
 
-document.getElementById("posLink").addEventListener("click", function () {
-  console.log("POS link clicked");
-});
+const posLink = document.getElementById("posLink");
+
+if (posLink) {
+  posLink.addEventListener("click", function () {
+    // your code here
+    console.log("POS link clicked");
+  });
+}
 
 function toggleSubmenu(submenuId, element) {
   const submenu = document.getElementById(submenuId);
@@ -252,12 +258,12 @@ function handlePageNavigation(href) {
 }
 }
 
+const collectionForm = document.getElementById('collectionForm');
 
-document.getElementById('collectionForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const amount = document.getElementById('collectionInput').value;
-  if (amount) {
-    alert(`Collected: ${amount}`);
+if (collectionForm) {
+  collectionForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    console.log('Collection form submitted!');
+  });
+}
 
-  }
-});
