@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Import Product | salman</title>
-     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
     <style>
        
 
@@ -186,162 +186,183 @@
 
         
     </style>
-</head>
-<body>
-   <div class="container">
-    <aside class="sidebar">
-      <div class="user-section">
-        <div class="user-avatar">
-          <span class="avatar-lock">🔒</span>
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="user-section">
+          <div class="user-avatar">
+            <span class="avatar-lock">🔒</span>
+          </div>
+          <span class="username">salman</span>
         </div>
-        <span class="username">salman</span>
-      </div>
 
-      <nav class="sidebar-nav">
-        <a href="../html/dashboard.html" class="nav-link">
-          <span class="nav-icon">📊</span>
-          <span class="nav-text">Dashboard</span>
-        </a>
-        <a href="../html/pos.html" class="nav-link">
-          <span class="nav-icon">🛒</span>
-          <span class="nav-text">POS</span>
-        </a>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('peopleSubmenu', this)">
-          <span class="nav-icon">👤</span>
-          <span class="nav-text">People</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-        <div class="submenu" id="peopleSubmenu">
-          <a href="../html/customer.html" class="submenu-link" id="customerLink">
-            <span class="dot"></span>Customer
+        <nav class="sidebar-nav">
+          <a href="../html/dashboard.html" class="nav-link">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">Dashboard</span>
           </a>
-          <a href="../html/supplier.html" class="submenu-link" id="supplierLink">
-            <span class="dot"></span>Supplier
+          <a href="../html/pos.html" class="nav-link">
+            <span class="nav-icon">🛒</span>
+            <span class="nav-text">POS</span>
           </a>
-        </div>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('productSubmenu', this)">
-          <span class="nav-icon">📦</span>
-          <span class="nav-text">Product</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-           <div class="submenu" id="productSubmenu">
-          <a href="../html/productlist.html" class="submenu-link"  id="productListLink"><span class="dot"></span>Product List</a>
-          <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span class="dot"></span>Product Create</a>
-          <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span class="dot"></span>Product Import</a>
-          <a href="../html/brand.html" class="submenu-link" id="brandLink"><span class="dot"></span>Brand</a>
-          <a href="../html/category.html" class="submenu-link" id="categoryLink"><span class="dot"></span>Category</a>
-          <a href="../html/unit.html" class="submenu-link" id="unitLink"><span class="dot"></span>Unit</a>
-        </div>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
-          <span class="nav-icon">🏷️</span>
-          <span class="nav-text">Sale</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-        <div class="submenu" id="saleSubmenu">
-          <a href="#" class="submenu-link"><span class="dot"></span>Sale
-            List</a>
-        </div>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
-          <span class="nav-icon">🛍️</span>
-          <span class="nav-text">Purchase</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-        <div class="submenu" id="purchaseSubmenu">
-          <a href="#" class="submenu-link"><span class="dot"></span>Purchase
-            List</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Purchase
-            Create</a>
-        </div>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
-          <span class="nav-icon">📈</span>
-          <span class="nav-text">Reports</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-        <div class="submenu" id="reportsSubmenu">
-          <a href="#" class="submenu-link"><span class="dot"></span>Sales
-            Summary</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Inventory</a>
-        </div>
-      </nav>
-
-      <div class="settings-section">
-        <div class="settings-header">SETTINGS</div>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('websiteSubmenu', this)">
-          <span class="nav-icon">⚙️</span>
-          <span class="nav-text">Website Settings</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-        <div class="submenu" id="websiteSubmenu">
-          <a href="#" class="submenu-link">
-            <span>⚙️</span>General Setting
-          </a>
-          <a href="#" class="submenu-link">
-            <span class="coin-icon">💵</span>Currency
-          </a>
-          <div class="nav-link collapsible inner" onclick="toggleSubmenu('rulesSubmenu', this)">
-            <span>🛡️</span>
-            <span class="nav-text">Rules & Permission</span>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('peopleSubmenu', this)">
+            <span class="nav-icon">👤</span>
+            <span class="nav-text">People</span>
             <span class="nav-chevron">❮</span>
           </div>
-          <div class="submenu" id="rulesSubmenu">
-            <a href="#" class="submenu-link"> <span>📜</span>Rules </a>
-            <a href="#" class="submenu-link"> <span>🔐</span>Permission </a>
+          <div class="submenu" id="peopleSubmenu">
+            <a href="../html/customer.html" class="submenu-link"
+              id="customerLink">
+              <span class="dot"></span>Customer
+            </a>
+            <a href="../html/supplier.html" class="submenu-link"
+              id="supplierLink">
+              <span class="dot"></span>Supplier
+            </a>
           </div>
-          <a href="#" class="submenu-link">
-            <span>👥</span>User Management
-          </a>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('productSubmenu', this)">
+            <span class="nav-icon">📦</span>
+            <span class="nav-text">Product</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="productSubmenu">
+            <a href="../html/productlist.html" class="submenu-link"
+              id="productListLink"><span class="dot"></span>Product List</a>
+            <a href="../html/createproduct.html" class="submenu-link"
+              id="productCreateLink"><span class="dot"></span>Product Create</a>
+            <a href="../html/importproduct.html" class="submenu-link"
+              id="importProductLink"><span class="dot"></span>Product Import</a>
+            <a href="../html/brand.html" class="submenu-link"
+              id="brandLink"><span class="dot"></span>Brand</a>
+            <a href="../html/category.html" class="submenu-link"
+              id="categoryLink"><span class="dot"></span>Category</a>
+            <a href="../html/unit.html" class="submenu-link" id="unitLink"><span
+                class="dot"></span>Unit</a>
+          </div>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('saleSubmenu', this)">
+            <span class="nav-icon">🏷️</span>
+            <span class="nav-text">Sale</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="saleSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Sale
+              List</a>
+          </div>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('purchaseSubmenu', this)">
+            <span class="nav-icon">🛍️</span>
+            <span class="nav-text">Purchase</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="purchaseSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+              List</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+              Create</a>
+          </div>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('reportsSubmenu', this)">
+            <span class="nav-icon">📈</span>
+            <span class="nav-text">Reports</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="reportsSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Sales
+              Summary</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
+            <a href="#" class="submenu-link"><span
+                class="dot"></span>Inventory</a>
+          </div>
+        </nav>
+
+        <div class="settings-section">
+          <div class="settings-header">SETTINGS</div>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('websiteSubmenu', this)">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-text">Website Settings</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="websiteSubmenu">
+            <a href="#" class="submenu-link">
+              <span>⚙️</span>General Setting
+            </a>
+            <a href="#" class="submenu-link">
+              <span class="coin-icon">💵</span>Currency
+            </a>
+            <div class="nav-link collapsible inner"
+              onclick="toggleSubmenu('rulesSubmenu', this)">
+              <span>🛡️</span>
+              <span class="nav-text">Rules & Permission</span>
+              <span class="nav-chevron">❮</span>
+            </div>
+            <div class="submenu" id="rulesSubmenu">
+              <a href="#" class="submenu-link"> <span>📜</span>Rules </a>
+              <a href="#" class="submenu-link"> <span>🔐</span>Permission </a>
+            </div>
+            <a href="#" class="submenu-link">
+              <span>👥</span>User Management
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <button class="hamburger-menu">☰</button>
+            <h1 class="page-title">Product</h1>
+          </div>
+          <div class="header-right">
+            <button class="pos-button"
+              onclick="window.location.href='pos.html'">
+              🛒 POS
+            </button>
+            <button class="settings-icon" id="fullscreenBtn">⛶</button>
+            <div class="user-dropdown-container">
+              <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+              <div class="user-dropdown" id="userDropdown">
+                <a href="../html/profile.html" id="profileBtn">Profile</a>
+                <a href="../html/log-in.html" id="logoutBtn">Logout</a>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="content-area">
+          <h1 class="page-title"></h1>
+
+          <div class="import-card">
+            <div class="file-input-section">
+              <label class="section-title">File input</label>
+              <div class="file-input-container">
+                <input type="text" class="file-input" placeholder="Choose file"
+                  readonly id="fileDisplay">
+                <button class="browse-button"
+                  onclick="document.getElementById('fileInput').click()">Browse</button>
+                <button class="demo-button" onclick="downloadDemo()">
+                  ⬇️ Demo
+                </button>
+              </div>
+              <input type="file" id="fileInput" class="hidden-file-input"
+                accept=".csv,.xlsx,.xls" onchange="handleFileSelect(this)">
+              <div id="fileInfo" class="file-info" style="display: none;"></div>
+            </div>
+
+            <button class="save-button" id="saveButton" onclick="handleSave()"
+              disabled>
+              Save
+            </button>
+
+            <div id="message" style="display: none;"></div>
+          </div>
         </div>
       </div>
-    </aside>
 
-    <main class="main-content">
-      <header class="top-header">
-        <div class="header-left">
-          <button class="hamburger-menu">☰</button>
-          <h1 class="page-title">Product</h1>
-        </div>
-        <div class="header-right">
-          <button class="pos-button" onclick="window.location.href='pos.html'">
-            🛒 POS
-          </button>
-          <button class="settings-icon" id="fullscreenBtn">⛶</button>
-          <div class="user-dropdown-container">
-            <button class="user-menu" id="userMenuBtn">👤 ▼</button>
-            <div class="user-dropdown" id="userDropdown">
-              <a href="../html/profile.html" id="profileBtn">Profile</a>
-              <a href="../html/log-in.html" id="logoutBtn">Logout</a>
-            </div>
-          </div>
-        </div>
-      </header>
-        <div class="content-area">
-            <h1 class="page-title"></h1>
-            
-            <div class="import-card">
-                <div class="file-input-section">
-                    <label class="section-title">File input</label>
-                    <div class="file-input-container">
-                        <input type="text" class="file-input" placeholder="Choose file" readonly id="fileDisplay">
-                        <button class="browse-button" onclick="document.getElementById('fileInput').click()">Browse</button>
-                        <button class="demo-button" onclick="downloadDemo()">
-                            ⬇️ Demo
-                        </button>
-                    </div>
-                    <input type="file" id="fileInput" class="hidden-file-input" accept=".csv,.xlsx,.xls" onchange="handleFileSelect(this)">
-                    <div id="fileInfo" class="file-info" style="display: none;"></div>
-                </div>
-                
-                <button class="save-button" id="saveButton" onclick="handleSave()" disabled>
-                    Save
-                </button>
-                
-                <div id="message" style="display: none;"></div>
-            </div>
-        </div>
-    </div>
-
-    <script>
+      <script>
         let selectedFile = null;
 
         function toggleSubmenu(element) {
@@ -500,8 +521,6 @@ document.addEventListener('DOMContentLoaded', function () {
       productSubmenu?.style.setProperty('display', 'block');
     }
   }
-
-  // Optional: Add click-based highlighting
   Object.values(links).forEach(link => {
     link?.addEventListener('click', function () {
       Object.values(links).forEach(l => l?.classList.remove('active'));
@@ -512,6 +531,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     </script>
-    <script src="../js/script.js"></script>
-</body>
-</html>
+      <script src="../js/script.js"></script>
+    </body>
+  </html>

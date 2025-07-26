@@ -352,15 +352,16 @@
                     <span class="nav-chevron">❮</span>
                 </div>
                 <div class="submenu" id="productSubmenu">
-                    <a href="#" class="submenu-link"><span class="dot"></span>Product
-                        List</a>
-                    <a href="#" class="submenu-link"><span class="dot"></span>Product
-                        Create</a>
-                    <a href="#" class="submenu-link"><span class="dot"></span>Product
-                        Import</a>
-                    <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
-                    <a href="#" class="submenu-link"><span class="dot"></span>Category</a>
-                    <a href="#" class="submenu-link"><span class="dot"></span>Unit</a>
+                    <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span
+                            class="dot"></span>Product List</a>
+                    <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span
+                            class="dot"></span>Product Create</a>
+                    <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span
+                            class="dot"></span>Product Import</a>
+                    <a href="../html/brand.html" class="submenu-link" id="brandLink"><span class="dot"></span>Brand</a>
+                    <a href="../html/category.html" class="submenu-link" id="categoryLink"><span
+                            class="dot"></span>Category</a>
+                    <a href="../html/unit.html" class="submenu-link" id="unitLink"><span class="dot"></span>Unit</a>
                 </div>
                 <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
                     <span class="nav-icon">🏷️</span>
@@ -612,8 +613,6 @@
 
                     renderPagination();
                 }
-
-                // Render pagination
                 function renderPagination() {
                     const totalPages = Math.ceil(filteredUnits.length / entriesPerPage);
                     const pagination = document.getElementById('pagination');
@@ -655,7 +654,6 @@
                         }
                     }
 
-                    // Next button
                     const nextBtn = document.createElement('button');
                     nextBtn.className = 'page-btn';
                     nextBtn.textContent = 'Next';
@@ -799,8 +797,37 @@
                     }
                 });
                 document.addEventListener('DOMContentLoaded', init);
+
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    const path = window.location.pathname.toLowerCase();
+                    console.log('Current Path:', path);
+
+                    const productSubmenu = document.getElementById('productSubmenu');
+                    const links = {
+                        'productlist.html': document.getElementById('productListLink'),
+                        'createproduct.html': document.getElementById('productCreateLink'),
+                        'importproduct.html': document.getElementById('importProductLink'),
+                        'brand.html': document.getElementById('brandLink'),
+                        'category.html': document.getElementById('categoryLink'),
+                        'unit.html': document.getElementById('unitLink')
+                    };
+
+                    for (const [file, link] of Object.entries(links)) {
+                        if (path.includes(file)) {
+                            link?.classList.add('active');
+                            productSubmenu?.style.setProperty('display', 'block');
+                        }
+                    }
+                    Object.values(links).forEach(link => {
+                        link?.addEventListener('click', function () {
+                            Object.values(links).forEach(l => l?.classList.remove('active'));
+                            this.classList.add('active');
+                        });
+                    });
+                });
             </script>
-             <script src="../js/script.js"></script>
+            <script src="../js/script.js"></script>
 
 </body>
 

@@ -273,8 +273,6 @@ body {
   display: inline-block;
   margin-right: 10px;
 }
-
-/* POS Specific Styles */
 .pos-section {
   padding: 20px 30px;
   display: flex;
@@ -415,12 +413,6 @@ body {
   border-bottom: 1px solid #f3f4f6;
   font-size: 12px;
 }
-
-
-
-
-
-
 .cart-table tbody {
   display: block;
   max-height: 250px;
@@ -433,11 +425,6 @@ body {
   width: 100%;
   table-layout: fixed;
 }
-
-
-
-
-
 .cart-totals {
   border-top: 2px solid #e5e7eb;
   padding-top: 15px;
@@ -535,15 +522,6 @@ body {
   margin-bottom: 5px;
 
 }
-
-
-
-
-
-
-
-
-
 .qty-btn,
 .qty-input {
   height: 28px;
@@ -573,14 +551,6 @@ body {
 .cart-table td:nth-child(5) {
   width: 10%;
 }
-
-
-
-
-
-
-
-
 .confirm-box {
   position: fixed;
   top: 0;

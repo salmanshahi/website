@@ -309,9 +309,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
-
-
 }
 
 .icon img {
@@ -350,12 +347,6 @@ body {
 .sidebar.collapsed~.main-content {
     margin-left: 70px;
 }
-
-
-
-
-
-
 
 .container {
     display: flex;
@@ -403,11 +394,6 @@ body {
     white-space: nowrap;
     display: inline-block;
 }
-
-
-
-
-
 .sidebar.collapsed .nav-item span,
 .sidebar.collapsed .nav-item .arrow,
 .sidebar.collapsed .sidebar-header span {
@@ -428,9 +414,6 @@ body {
     justify-content: flex-start;
     padding: 12px 20px;
 }
-
-
-
 .sidebar:hover .nav-item span,
 .sidebar:hover .nav-item .arrow,
 .sidebar:hover .sidebar-header span,

@@ -1,305 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Product | salman</title>
-    <link rel="stylesheet" href="../css/dashboard.css">
-    <style>
-       
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Product | salman</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <style>
+    .main-content {
+      margin-left: 240px;
+      flex: 1;
+      background-color: #f8f9fa;
+    }
 
-        .main-content {
-            margin-left: 240px;
-            flex: 1;
-            background-color: #f8f9fa;
-        }
+    .header-bar {
+      background: white;
+      padding: 15px 30px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .header-bar {
-            background: white;
-            padding: 15px 30px;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-        }
+    .menu-toggle {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #4a5568;
+      cursor: pointer;
+      margin-right: 15px;
+    }
 
-        .menu-toggle {
-            background: none;
-            border: none;
-            font-size: 18px;
-            color: #4a5568;
-            cursor: pointer;
-            margin-right: 15px;
-        }
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #2d3748;
+    }
 
-        .page-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #2d3748;
-        }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+    .pos-button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
 
-        .pos-button {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+    .pos-button:hover {
+      background: #5a67d8;
+    }
 
-        .pos-button:hover {
-            background: #5a67d8;
-        }
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .header-icons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .header-icon {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4a5568;
+      border-radius: 4px;
+    }
 
-        .header-icon {
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4a5568;
-            border-radius: 4px;
-        }
+    .header-icon:hover {
+      background: #f7fafc;
+    }
 
-        .header-icon:hover {
-            background: #f7fafc;
-        }
+    .notification-popup {
+      position: absolute;
+      top: 60px;
+      right: 30px;
+      background: #2d3748;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
 
-        .notification-popup {
-            position: absolute;
-            top: 60px;
-            right: 30px;
-            background: #2d3748;
-            color: white;
-            padding: 12px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
+    .notification-popup::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      right: 20px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid #2d3748;
+    }
 
-        .notification-popup::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            right: 20px;
-            width: 0;
-            height: 0;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-bottom: 6px solid #2d3748;
-        }
+    .form-container {
+      background: white;
+      margin: 0;
+      padding: 30px;
+      min-height: calc(100vh - 70px);
+    }
 
-        .form-container {
-            background: white;
-            margin: 0;
-            padding: 30px;
-            min-height: calc(100vh - 70px);
-        }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 25px;
+    }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 25px;
-        }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
 
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
+    label {
+      font-weight: 500;
+      color: #2d3748;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
 
-        label {
-            font-weight: 500;
-            color: #2d3748;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
+    .required {
+      color: #e53e3e;
+    }
 
-        .required {
-            color: #e53e3e;
-        }
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.2s;
+      background: white;
+    }
 
-        input[type="text"],
-        input[type="number"],
-        input[type="date"],
-        select,
-        textarea {
-            padding: 12px 16px;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.2s;
-            background: white;
-        }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="date"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
 
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        input[type="date"]:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
+    input::placeholder,
+    textarea::placeholder {
+      color: #a0aec0;
+    }
 
-        input::placeholder,
-        textarea::placeholder {
-            color: #a0aec0;
-        }
+    select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 16px;
+      padding-right: 40px;
+      appearance: none;
+    }
 
-        select {
-            cursor: pointer;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 12px center;
-            background-repeat: no-repeat;
-            background-size: 16px;
-            padding-right: 40px;
-            appearance: none;
-        }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
 
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
+    .image-upload {
+      border: 2px dashed #e2e8f0;
+      border-radius: 8px;
+      padding: 60px 20px;
+      text-align: center;
+      background: #f8f9fa;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
 
-        .image-upload {
-            border: 2px dashed #e2e8f0;
-            border-radius: 8px;
-            padding: 60px 20px;
-            text-align: center;
-            background: #f8f9fa;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+    .image-upload:hover {
+      border-color: #667eea;
+      background: #f0f4ff;
+    }
 
-        .image-upload:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
-        }
+    .upload-icon {
+      width: 48px;
+      height: 48px;
+      background: #667eea;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      color: white;
+      font-size: 20px;
+    }
 
-        .upload-icon {
-            width: 48px;
-            height: 48px;
-            background: #667eea;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            color: white;
-            font-size: 20px;
-        }
+    .upload-text {
+      color: #667eea;
+      font-weight: 500;
+      font-size: 14px;
+    }
 
-        .upload-text {
-            color: #667eea;
-            font-weight: 500;
-            font-size: 14px;
-        }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+    }
 
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-        }
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
+      cursor: pointer;
+    }
 
-        .checkbox-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-right: 8px;
-            cursor: pointer;
-        }
+    .checkbox-group label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: normal;
+    }
 
-        .checkbox-group label {
-            margin: 0;
-            cursor: pointer;
-            font-weight: normal;
-        }
+    .btn-create {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
 
-        .btn-create {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
+    .btn-create:hover {
+      background: #5a67d8;
+    }
 
-        .btn-create:hover {
-            background: #5a67d8;
-        }
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #718096;
+      font-size: 12px;
+    }
 
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            color: #718096;
-            font-size: 12px;
-        }
+    .settings-section {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      margin-top: 20px;
+      padding-top: 20px;
+    }
 
-        .settings-section {
-            border-top: 1px solid rgba(255,255,255,0.2);
-            margin-top: 20px;
-            padding-top: 20px;
-        }
+    .settings-title {
+      color: #4a5568;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0 20px;
+      margin-bottom: 10px;
+    }
 
-        .settings-title {
-            color: #4a5568;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 0 20px;
-            margin-bottom: 10px;
-        }
+    .date-input-container {
+      position: relative;
+    }
 
-        .date-input-container {
-            position: relative;
-        }
-
-        .date-icon {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #718096;
-            pointer-events: none;
-        }
-    </style>
+    .date-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #718096;
+      pointer-events: none;
+    }
+  </style>
 </head>
+
 <body>
-        <div class="container">
+  <div class="container">
     <aside class="sidebar">
       <div class="user-section">
         <div class="user-avatar">
@@ -335,10 +335,13 @@
           <span class="nav-text">Product</span>
           <span class="nav-chevron">❮</span>
         </div>
-           <div class="submenu" id="productSubmenu">
-          <a href="../html/productlist.html" class="submenu-link"  id="productListLink"><span class="dot"></span>Product List</a>
-          <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span class="dot"></span>Product Create</a>
-          <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span class="dot"></span>Product Import</a>
+        <div class="submenu" id="productSubmenu">
+          <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span class="dot"></span>Product
+            List</a>
+          <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span
+              class="dot"></span>Product Create</a>
+          <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span
+              class="dot"></span>Product Import</a>
           <a href="../html/brand.html" class="submenu-link" id="brandLink"><span class="dot"></span>Brand</a>
           <a href="../html/category.html" class="submenu-link" id="categoryLink"><span class="dot"></span>Category</a>
           <a href="../html/unit.html" class="submenu-link" id="unitLink"><span class="dot"></span>Unit</a>
@@ -427,204 +430,203 @@
           </div>
         </div>
       </header>
-        <div class="form-container">
-            <form id="productForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Name <span class="required">*</span></label>
-                        <input type="text" id="name" name="name" value="Box" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="sku">Sku <span class="required">*</span></label>
-                        <input type="text" id="sku" name="sku" value="4509" required>
-                    </div>
-                </div>
+      <div class="form-container">
+        <form id="productForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name <span class="required">*</span></label>
+              <input type="text" id="name" name="name" value="Box" required>
+            </div>
+            <div class="form-group">
+              <label for="sku">Sku <span class="required">*</span></label>
+              <input type="text" id="sku" name="sku" value="4509" required>
+            </div>
+          </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="brand">Brand <span class="required">*</span></label>
-                        <select id="brand" name="brand" required>
-                            <option value="Chicken & Poultry" selected>Chicken & Poultry</option>
-                            <option value="Meat & Fish">Meat & Fish</option>
-                            <option value="Dairy Products">Dairy Products</option>
-                            <option value="Beverages">Beverages</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="category">Category <span class="required">*</span></label>
-                        <select id="category" name="category" required>
-                            <option value="Meat & Fish" selected>Meat & Fish</option>
-                            <option value="Chicken & Poultry">Chicken & Poultry</option>
-                            <option value="Dairy Products">Dairy Products</option>
-                            <option value="Beverages">Beverages</option>
-                        </select>
-                    </div>
-                </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="brand">Brand <span class="required">*</span></label>
+              <select id="brand" name="brand" required>
+                <option value="Chicken & Poultry" selected>Chicken & Poultry</option>
+                <option value="Meat & Fish">Meat & Fish</option>
+                <option value="Dairy Products">Dairy Products</option>
+                <option value="Beverages">Beverages</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="category">Category <span class="required">*</span></label>
+              <select id="category" name="category" required>
+                <option value="Meat & Fish" selected>Meat & Fish</option>
+                <option value="Chicken & Poultry">Chicken & Poultry</option>
+                <option value="Dairy Products">Dairy Products</option>
+                <option value="Beverages">Beverages</option>
+              </select>
+            </div>
+          </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="price">Price <span class="required">*</span></label>
-                        <input type="text" id="price" name="price" value="63497" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="unit">Unit <span class="required">*</span></label>
-                        <select id="unit" name="unit" required>
-                            <option value="Piece (pcs)" selected>Piece (pcs)</option>
-                            <option value="Kilogram (kg)">Kilogram (kg)</option>
-                            <option value="Liter (l)">Liter (l)</option>
-                            <option value="Gram (g)">Gram (g)</option>
-                        </select>
-                    </div>
-                </div>
-                  
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="discountType">Discount Type</label>
-                        <select id="discountType" name="discountType">
-                            <option value="Fixed" selected>Fixed</option>
-                            <option value="Percentage">Percentage</option>
-                            <option value="None">None</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="purchasePrice">Purchase Price <span class="required">*</span></label>
-                        <input type="text" id="purchasePrice" name="purchasePrice" value="234" required>
-                    </div>
-                </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="price">Price <span class="required">*</span></label>
+              <input type="text" id="price" name="price" value="63497" required>
+            </div>
+            <div class="form-group">
+              <label for="unit">Unit <span class="required">*</span></label>
+              <select id="unit" name="unit" required>
+                <option value="Piece (pcs)" selected>Piece (pcs)</option>
+                <option value="Kilogram (kg)">Kilogram (kg)</option>
+                <option value="Liter (l)">Liter (l)</option>
+                <option value="Gram (g)">Gram (g)</option>
+              </select>
+            </div>
+          </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="discountAmount">Discount Amount</label>
-                        <input type="text" id="discountAmount" name="discountAmount" value="234">
-                    </div>
-                    <div class="form-group">
-                        <label for="image">Image</label>
-                        <div class="image-upload" onclick="document.getElementById('imageFile').click()">
-                            <div class="upload-icon">+</div>
-                            <div class="upload-text">Upload Image</div>
-                        </div>
-                        <input type="file" id="imageFile" name="imageFile" accept="image/*" style="display: none;">
-                    </div>
-                </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="discountType">Discount Type</label>
+              <select id="discountType" name="discountType">
+                <option value="Fixed" selected>Fixed</option>
+                <option value="Percentage">Percentage</option>
+                <option value="None">None</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="purchasePrice">Purchase Price <span class="required">*</span></label>
+              <input type="text" id="purchasePrice" name="purchasePrice" value="234" required>
+            </div>
+          </div>
 
-                <div class="form-row">
-                    <div class="form-group full-width">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description" placeholder="Enter description"></textarea>
-                    </div>
-                </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="discountAmount">Discount Amount</label>
+              <input type="text" id="discountAmount" name="discountAmount" value="234">
+            </div>
+            <div class="form-group">
+              <label for="image">Image</label>
+              <div class="image-upload" onclick="document.getElementById('imageFile').click()">
+                <div class="upload-icon">+</div>
+                <div class="upload-text">Upload Image</div>
+              </div>
+              <input type="file" id="imageFile" name="imageFile" accept="image/*" style="display: none;">
+            </div>
+          </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="expireDate">Expire date</label>
-                        <div class="date-input-container">
-                            <input type="date" id="expireDate" name="expireDate" value="2025-07-10">
-                        </div>
-                    </div>
-                </div>
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" placeholder="Enter description"></textarea>
+            </div>
+          </div>
 
-                <div class="checkbox-group">
-                    <input type="checkbox" id="active" name="active" checked>
-                    <label for="active">Active</label>
-                </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="expireDate">Expire date</label>
+              <div class="date-input-container">
+                <input type="date" id="expireDate" name="expireDate" value="2025-07-10">
+              </div>
+            </div>
+          </div>
 
-                <button type="submit" class="btn-create">Create</button>
-            </form>
-        </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="active" name="active" checked>
+            <label for="active">Active</label>
+          </div>
+
+          <button type="submit" class="btn-create">Create</button>
+        </form>
+      </div>
     </main>
- 
+
     <script>
-        function toggleNotification() {
-            const notification = document.getElementById('notification');
-            if (notification.style.display === 'none') {
-                notification.style.display = 'block';
-                setTimeout(() => {
-                    notification.style.display = 'none';
-                }, 3000);
-            } else {
-                notification.style.display = 'none';
-            }
+      function toggleNotification() {
+        const notification = document.getElementById('notification');
+        if (notification.style.display === 'none') {
+          notification.style.display = 'block';
+          setTimeout(() => {
+            notification.style.display = 'none';
+          }, 3000);
+        } else {
+          notification.style.display = 'none';
         }
-        document.getElementById('productForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const productData = {};
-            
-            for (let [key, value] of formData.entries()) {
-                productData[key] = value;
-            }
-            productData.active = document.getElementById('active').checked;
-            
-            console.log('Product Created:', productData);
-            alert('Product created successfully!');
-            
-            
-        });
-        document.getElementById('imageFile').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const uploadArea = document.querySelector('.image-upload');
-                    uploadArea.innerHTML = `
+      }
+      document.getElementById('productForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const productData = {};
+
+        for (let [key, value] of formData.entries()) {
+          productData[key] = value;
+        }
+        productData.active = document.getElementById('active').checked;
+
+        console.log('Product Created:', productData);
+        alert('Product created successfully!');
+
+
+      });
+      document.getElementById('imageFile').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const uploadArea = document.querySelector('.image-upload');
+            uploadArea.innerHTML = `
                         <img src="${e.target.result}" style="max-width: 100%; max-height: 200px; border-radius: 4px;">
                         <div class="upload-text" style="margin-top: 10px;">Image uploaded</div>
                     `;
-                };
-                reader.readAsDataURL(file);
-            }
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      document.getElementById('expireDate').addEventListener('focus', function () {
+        this.type = 'date';
+      });
+
+      document.getElementById('expireDate').addEventListener('blur', function () {
+        if (!this.value) {
+          this.type = 'text';
+        }
+      });
+      document.addEventListener('DOMContentLoaded', function () {
+        const toggleBtn = document.querySelector('.menu-toggle');
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', function () {
+            console.log('Menu toggle clicked');
+          });
+        } else {
+          console.warn('Menu toggle button not found');
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const path = window.location.pathname.toLowerCase();
+        console.log('Current Path:', path);
+
+        const productSubmenu = document.getElementById('productSubmenu');
+        const links = {
+          'productlist.html': document.getElementById('productListLink'),
+          'createproduct.html': document.getElementById('productCreateLink'),
+          'importproduct.html': document.getElementById('importProductLink'),
+          'brand.html': document.getElementById('brandLink'),
+          'category.html': document.getElementById('categoryLink'),
+          'unit.html': document.getElementById('unitLink')
+        };
+
+        for (const [file, link] of Object.entries(links)) {
+          if (path.includes(file)) {
+            link?.classList.add('active');
+            productSubmenu?.style.setProperty('display', 'block');
+          }
+        }
+        Object.values(links).forEach(link => {
+          link?.addEventListener('click', function () {
+            Object.values(links).forEach(l => l?.classList.remove('active'));
+            this.classList.add('active');
+          });
         });
-        document.getElementById('expireDate').addEventListener('focus', function() {
-            this.type = 'date';
-        });
-
-        document.getElementById('expireDate').addEventListener('blur', function() {
-            if (!this.value) {
-                this.type = 'text';
-            }
-        });
-       document.addEventListener('DOMContentLoaded', function () {
-  const toggleBtn = document.querySelector('.menu-toggle');
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', function () {
-      console.log('Menu toggle clicked');
-    });
-  } else {
-    console.warn('Menu toggle button not found');
-  }
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  const path = window.location.pathname.toLowerCase(); 
-  console.log('Current Path:', path);
-
-  const productSubmenu = document.getElementById('productSubmenu');
-  const links = {
-    'productlist.html': document.getElementById('productListLink'),
-    'createproduct.html': document.getElementById('productCreateLink'),
-    'importproduct.html': document.getElementById('importProductLink'),
-    'brand.html': document.getElementById('brandLink'),
-    'category.html': document.getElementById('categoryLink'),
-    'unit.html': document.getElementById('unitLink')
-  };
-
-  for (const [file, link] of Object.entries(links)) {
-    if (path.includes(file)) {
-      link?.classList.add('active');
-      productSubmenu?.style.setProperty('display', 'block');
-    }
-  }
-
-  // Optional: Add click-based highlighting
-  Object.values(links).forEach(link => {
-    link?.addEventListener('click', function () {
-      Object.values(links).forEach(l => l?.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-});
+      });
 
     </script>
 </body>
+
 </html>

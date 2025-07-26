@@ -1,214 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brand Management - salman</title>
-  <link rel="stylesheet" href="../css/brand.css"> 
-</head>
-<body>
-  <div class="container">
-    <aside class="sidebar">
-      <div class="user-section">
-        <div class="user-avatar">
-          <span class="avatar-lock">🔒</span>
-        </div>
-        <span class="username">salman</span>
-      </div>
+    <link rel="stylesheet" href="../css/brand.css">
+  </head>
 
-      <nav class="sidebar-nav">
-        <a href="../html/dashboard.html" class="nav-link">
-          <span class="nav-icon">📊</span>
-          <span class="nav-text">Dashboard</span>
-        </a>
-        <a href="../html/pos.html" class="nav-link">
-          <span class="nav-icon">🛒</span>
-          <span class="nav-text">POS</span>
-        </a>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('peopleSubmenu', this)">
-          <span class="nav-icon">👤</span>
-          <span class="nav-text">People</span>
-          <span class="nav-chevron">❮</span>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="user-section">
+          <div class="user-avatar">
+            <span class="avatar-lock">🔒</span>
+          </div>
+          <span class="username">salman</span>
         </div>
-        <div class="submenu" id="peopleSubmenu">
-          <a href="../html/customer.html" class="submenu-link" id="customerLink">
-            <span class="dot"></span>Customer
-          </a>
-          <a href="../html/supplier.html" class="submenu-link" id="supplierLink">
-            <span class="dot"></span>Supplier
-          </a>
-        </div>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('productSubmenu', this)">
-          <span class="nav-icon">📦</span>
-          <span class="nav-text">Product</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-        <div class="submenu" id="productSubmenu">
-          <a href="#" class="submenu-link"><span class="dot"></span>Product
-            List</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Product
-            Create</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Product
-            Import</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Category</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Unit</a>
-        </div>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
-          <span class="nav-icon">🏷️</span>
-          <span class="nav-text">Sale</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-        <div class="submenu" id="saleSubmenu">
-          <a href="#" class="submenu-link"><span class="dot"></span>Sale
-            List</a>
-        </div>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
-          <span class="nav-icon">🛍️</span>
-          <span class="nav-text">Purchase</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-        <div class="submenu" id="purchaseSubmenu">
-          <a href="#" class="submenu-link"><span class="dot"></span>Purchase
-            List</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Purchase
-            Create</a>
-        </div>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
-          <span class="nav-icon">📈</span>
-          <span class="nav-text">Reports</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-        <div class="submenu" id="reportsSubmenu">
-          <a href="#" class="submenu-link"><span class="dot"></span>Sales
-            Summary</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Inventory</a>
-        </div>
-      </nav>
 
-      <div class="settings-section">
-        <div class="settings-header">SETTINGS</div>
-        <div class="nav-link collapsible" onclick="toggleSubmenu('websiteSubmenu', this)">
-          <span class="nav-icon">⚙️</span>
-          <span class="nav-text">Website Settings</span>
-          <span class="nav-chevron">❮</span>
-        </div>
-        <div class="submenu" id="websiteSubmenu">
-          <a href="#" class="submenu-link">
-            <span>⚙️</span>General Setting
+        <nav class="sidebar-nav">
+          <a href="../html/dashboard.html" class="nav-link">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">Dashboard</span>
           </a>
-          <a href="#" class="submenu-link">
-            <span class="coin-icon">💵</span>Currency
+          <a href="../html/pos.html" class="nav-link">
+            <span class="nav-icon">🛒</span>
+            <span class="nav-text">POS</span>
           </a>
-          <div class="nav-link collapsible inner" onclick="toggleSubmenu('rulesSubmenu', this)">
-            <span>🛡️</span>
-            <span class="nav-text">Rules & Permission</span>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('peopleSubmenu', this)">
+            <span class="nav-icon">👤</span>
+            <span class="nav-text">People</span>
             <span class="nav-chevron">❮</span>
           </div>
-          <div class="submenu" id="rulesSubmenu">
-            <a href="#" class="submenu-link"> <span>📜</span>Rules </a>
-            <a href="#" class="submenu-link"> <span>🔐</span>Permission </a>
+          <div class="submenu" id="peopleSubmenu">
+            <a href="../html/customer.html" class="submenu-link"
+              id="customerLink">
+              <span class="dot"></span>Customer
+            </a>
+            <a href="../html/supplier.html" class="submenu-link"
+              id="supplierLink">
+              <span class="dot"></span>Supplier
+            </a>
           </div>
-          <a href="#" class="submenu-link">
-            <span>👥</span>User Management
-          </a>
-        </div>
-      </div>
-    </aside>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('productSubmenu', this)">
+            <span class="nav-icon">📦</span>
+            <span class="nav-text">Product</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="productSubmenu">
+            <a href="../html/productlist.html" class="submenu-link"
+              id="productListLink"><span class="dot"></span>Product
+              List</a>
+            <a href="../html/createproduct.html" class="submenu-link"
+              id="productCreateLink"><span
+                class="dot"></span>Product Create</a>
+            <a href="../html/importproduct.html" class="submenu-link"
+              id="importProductLink"><span
+                class="dot"></span>Product Import</a>
+            <a href="../html/brand.html" class="submenu-link"
+              id="brandLink"><span class="dot"></span>Brand</a>
+            <a href="../html/category.html" class="submenu-link"
+              id="categoryLink"><span class="dot"></span>Category</a>
+            <a href="../html/unit.html" class="submenu-link" id="unitLink"><span
+                class="dot"></span>Unit</a>
+          </div>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('saleSubmenu', this)">
+            <span class="nav-icon">🏷️</span>
+            <span class="nav-text">Sale</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="saleSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Sale
+              List</a>
+          </div>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('purchaseSubmenu', this)">
+            <span class="nav-icon">🛍️</span>
+            <span class="nav-text">Purchase</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="purchaseSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+              List</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+              Create</a>
+          </div>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('reportsSubmenu', this)">
+            <span class="nav-icon">📈</span>
+            <span class="nav-text">Reports</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="reportsSubmenu">
+            <a href="#" class="submenu-link"><span class="dot"></span>Sales
+              Summary</a>
+            <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
+            <a href="#" class="submenu-link"><span
+                class="dot"></span>Inventory</a>
+          </div>
+        </nav>
 
-
-    <main class="main-content">
-      <header class="top-header">
-        <div class="header-left">
-          <button class="hamburger-menu">☰</button>
-          <h1 class="page-title">Category</h1>
+        <div class="settings-section">
+          <div class="settings-header">SETTINGS</div>
+          <div class="nav-link collapsible"
+            onclick="toggleSubmenu('websiteSubmenu', this)">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-text">Website Settings</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="websiteSubmenu">
+            <a href="#" class="submenu-link">
+              <span>⚙️</span>General Setting
+            </a>
+            <a href="#" class="submenu-link">
+              <span class="coin-icon">💵</span>Currency
+            </a>
+            <div class="nav-link collapsible inner"
+              onclick="toggleSubmenu('rulesSubmenu', this)">
+              <span>🛡️</span>
+              <span class="nav-text">Rules & Permission</span>
+              <span class="nav-chevron">❮</span>
+            </div>
+            <div class="submenu" id="rulesSubmenu">
+              <a href="#" class="submenu-link"> <span>📜</span>Rules </a>
+              <a href="#" class="submenu-link"> <span>🔐</span>Permission </a>
+            </div>
+            <a href="#" class="submenu-link">
+              <span>👥</span>User Management
+            </a>
+          </div>
         </div>
-        <div class="header-right">
-          <button class="pos-button" onclick="window.location.href='pos.html'">
-            🛒 POS
-          </button>
-          <button class="settings-icon" id="fullscreenBtn">⛶</button>
-          <div class="user-dropdown-container">
-            <button class="user-menu" id="userMenuBtn">👤 ▼</button>
-            <div class="user-dropdown" id="userDropdown">
-              <a href="../html/profile.html" id="profileBtn">Profile</a>
-              <a href="../html/log-in.html" id="logoutBtn">Logout</a>
+      </aside>
+
+      <main class="main-content">
+        <header class="top-header">
+          <div class="header-left">
+            <button class="hamburger-menu">☰</button>
+            <h1 class="page-title">Category</h1>
+          </div>
+          <div class="header-right">
+            <button class="pos-button"
+              onclick="window.location.href='pos.html'">
+              🛒 POS
+            </button>
+            <button class="settings-icon" id="fullscreenBtn">⛶</button>
+            <div class="user-dropdown-container">
+              <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+              <div class="user-dropdown" id="userDropdown">
+                <a href="../html/profile.html" id="profileBtn">Profile</a>
+                <a href="../html/log-in.html" id="logoutBtn">Logout</a>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
         <div class="header">
-            <div class="header-left">
-                <h1></h1>
-            </div>
-            <div class="header-right">
-                <button class="add-btn" onclick="addNewBrand()">
-                    ➕ Add New
-                </button>
-            </div>
+          <div class="header-left">
+            <h1></h1>
+          </div>
+          <div class="header-right">
+            <button class="add-btn" onclick="addNewBrand()">
+              ➕ Add New
+            </button>
+          </div>
         </div>
         <div class="content">
-            <div class="controls">
-                <div class="show-entries">
-                    <span>Show</span>
-                    <select id="entriesSelect" onchange="changeEntries()">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <span>entries</span>
-                </div>
-                
-                <div class="search-box">
-                    <span>Search:</span>
-                    <input type="text" id="searchInput" placeholder="" onkeyup="searchBrands()">
-                </div>
+          <div class="controls">
+            <div class="show-entries">
+              <span>Show</span>
+              <select id="entriesSelect" onchange="changeEntries()">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <span>entries</span>
             </div>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th class="sortable" onclick="sortTable('name')">Name ⇅</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="brandsTableBody">
-                    </tbody>
-                </table>
-            </div>
-            <div class="pagination-container">
-                <div class="pagination-info" id="paginationInfo">
-                    Showing 1 to 10 of 22 entries
-                </div>
-                <div class="pagination">
-                    <button onclick="changePage('prev')" id="prevBtn">Previous</button>
-                    <button onclick="changePage(1)" class="active" id="page1">1</button>
-                    <button onclick="changePage(2)" id="page2">2</button>
-                    <button onclick="changePage(3)" id="page3">3</button>
-                    <button onclick="changePage('next')" id="nextBtn">Next</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="deleteModal">
-        <div class="modal-content">
-            <h3>Confirm Delete</h3>
-            <p>Are you sure you want to delete this brand? This action cannot be undone.</p>
-            <div class="modal-buttons">
-                <button class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
-                <button class="btn-confirm" onclick="confirmDelete()">Delete</button>
-            </div>
-        </div>
-    </div>
 
-    <script>
-let brands = JSON.parse(localStorage.getItem('brands'));
-if (!brands || brands.length === 0) {
-    brands = [
+            <div class="search-box">
+              <span>Search:</span>
+              <input type="text" id="searchInput" placeholder
+                onkeyup="searchBrands()">
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th class="sortable" onclick="sortTable('name')">Name ⇅</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="brandsTableBody">
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination-container">
+            <div class="pagination-info" id="paginationInfo">
+              Showing 1 to 10 of 22 entries
+            </div>
+            <div class="pagination">
+              <button onclick="changePage('prev')"
+                id="prevBtn">Previous</button>
+              <button onclick="changePage(1)" class="active"
+                id="page1">1</button>
+              <button onclick="changePage(2)" id="page2">2</button>
+              <button onclick="changePage(3)" id="page3">3</button>
+              <button onclick="changePage('next')" id="nextBtn">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal" id="deleteModal">
+        <div class="modal-content">
+          <h3>Confirm Delete</h3>
+          <p>Are you sure you want to delete this brand? This action cannot be
+            undone.</p>
+          <div class="modal-buttons">
+            <button class="btn-cancel"
+              onclick="closeDeleteModal()">Cancel</button>
+            <button class="btn-confirm"
+              onclick="confirmDelete()">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+    let brands = JSON.parse(localStorage.getItem('brands'));
+    if (!brands || brands.length === 0) {
+      brands = [
         { id: 1, name: 'Snacks', image: 'snacks.png', status: 'Active' },
         { id: 2, name: 'CreamBiscuits', image: 'cream.png', status: 'Active' },
         { id: 3, name: 'Cakes', image: 'cakes.png', status: 'Active' },
@@ -231,38 +255,38 @@ if (!brands || brands.length === 0) {
         { id: 20, name: 'International Foods', image: null, status: 'Active' },
         { id: 21, name: 'Spices & Herbs', image: null, status: 'Active' },
         { id: 22, name: 'Baby Foods', image: null, status: 'Active' }
-    ];
-    localStorage.setItem('brands', JSON.stringify(brands));
-}
+      ];
+      localStorage.setItem('brands', JSON.stringify(brands));
+    }
 
 
-        let currentPage = 1;
-        let entriesPerPage = 10;
-        let filteredBrands = [...brands];
-        let brandToDelete = null;
-        
+    let currentPage = 1;
+    let entriesPerPage = 10;
+    let filteredBrands = [...brands];
+    let brandToDelete = null;
 
 
-        function renderTable() {
-            const tbody = document.getElementById('brandsTableBody');
-            const start = (currentPage - 1) * entriesPerPage;
-            const end = start + entriesPerPage;
-            const paginatedBrands = filteredBrands.slice(start, end);
 
-            tbody.innerHTML = '';
+    function renderTable() {
+      const tbody = document.getElementById('brandsTableBody');
+      const start = (currentPage - 1) * entriesPerPage;
+      const end = start + entriesPerPage;
+      const paginatedBrands = filteredBrands.slice(start, end);
 
-            paginatedBrands.forEach((brand, index) => {
-                const row = document.createElement('tr');
-                const globalIndex = start + index + 1;
-                
-                row.innerHTML = `
+      tbody.innerHTML = '';
+
+      paginatedBrands.forEach((brand, index) => {
+        const row = document.createElement('tr');
+        const globalIndex = start + index + 1;
+
+        row.innerHTML = `
                     <td>${globalIndex}</td>
                     <td>
                         <div style="display: flex; align-items: center; gap: 15px;">
-                         ${brand.image ? 
-  `<img src="../images/${brand.image}" class="brand-image" alt="${brand.name}">` : 
-  `<div class="no-image">NO IMAGE<br>AVAILABLE</div>`
-}
+                         ${brand.image ?
+            `<img src="../images/${brand.image}" class="brand-image" alt="${brand.name}">` :
+            `<div class="no-image">NO IMAGE<br>AVAILABLE</div>`
+          }
 
                             <span>${brand.name}</span>
                         </div>
@@ -280,19 +304,19 @@ if (!brands || brands.length === 0) {
                         </div>
                     </td>
                 `;
-                
-                tbody.appendChild(row);
-            });
 
-            updatePaginationInfo();
-            updatePaginationButtons();
-        }
+        tbody.appendChild(row);
+      });
 
-        function getImagePlaceholder(name) {
-            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'];
-            const color = colors[name.length % colors.length];
-            
-            return `
+      updatePaginationInfo();
+      updatePaginationButtons();
+    }
+
+    function getImagePlaceholder(name) {
+      const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff'];
+      const color = colors[name.length % colors.length];
+
+      return `
                 <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
                     <rect width="50" height="50" fill="${color}" rx="6"/>
                     <text x="25" y="30" text-anchor="middle" fill="white" font-size="14" font-weight="bold">
@@ -300,138 +324,164 @@ if (!brands || brands.length === 0) {
                     </text>
                 </svg>
             `;
+    }
+
+    function toggleDropdown(brandId) {
+
+      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        if (menu.id !== `dropdown-${brandId}`) {
+          menu.classList.remove('show');
+        }
+      });
+      const dropdown = document.getElementById(`dropdown-${brandId}`);
+      dropdown.classList.toggle('show');
+    }
+
+    function editBrand(brandId) {
+      window.location.href = `editcategory.html?id=${brandId}`;
+
+
+    }
+
+    function deleteBrand(brandId) {
+      brandToDelete = brandId;
+      document.getElementById('deleteModal').classList.add('show');
+      closeDropdowns();
+    }
+
+    function closeDeleteModal() {
+      document.getElementById('deleteModal').classList.remove('show');
+      brandToDelete = null;
+    }
+
+    function confirmDelete() {
+      if (brandToDelete) {
+        const brandIndex = brands.findIndex(b => b.id === brandToDelete);
+        const brandName = brands[brandIndex].name;
+
+        brands.splice(brandIndex, 1);
+        filteredBrands = [...brands];
+
+        const maxPage = Math.ceil(filteredBrands.length / entriesPerPage);
+        if (currentPage > maxPage && maxPage > 0) {
+          currentPage = maxPage;
         }
 
-        function toggleDropdown(brandId) {
-           
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                if (menu.id !== `dropdown-${brandId}`) {
-                    menu.classList.remove('show');
-                }
-            });
-            const dropdown = document.getElementById(`dropdown-${brandId}`);
-            dropdown.classList.toggle('show');
-        }
-
-        function editBrand(brandId) {
-         window.location.href = `editcategory.html?id=${brandId}`;
-
-
-        }
-
-        function deleteBrand(brandId) {
-            brandToDelete = brandId;
-            document.getElementById('deleteModal').classList.add('show');
-            closeDropdowns();
-        }
-
-        function closeDeleteModal() {
-            document.getElementById('deleteModal').classList.remove('show');
-            brandToDelete = null;
-        }
-
-        function confirmDelete() {
-            if (brandToDelete) {
-                const brandIndex = brands.findIndex(b => b.id === brandToDelete);
-                const brandName = brands[brandIndex].name;
-                
-                brands.splice(brandIndex, 1);
-                filteredBrands = [...brands];
-                
-                const maxPage = Math.ceil(filteredBrands.length / entriesPerPage);
-                if (currentPage > maxPage && maxPage > 0) {
-                    currentPage = maxPage;
-                }
-                
-                renderTable();
-                alert(`Brand "${brandName}" has been deleted successfully.`);
-            }
-            closeDeleteModal();
-        }
-
-        function closeDropdowns() {
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.remove('show');
-            });
-        }
-
-        function changeEntries() {
-            entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
-            currentPage = 1;
-            renderTable();
-        }
-
-        function searchBrands() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            filteredBrands = brands.filter(brand => 
-                brand.name.toLowerCase().includes(searchTerm)
-            );
-            currentPage = 1;
-            renderTable();
-        }
-
-        function changePage(page) {
-            if (page === 'prev' && currentPage > 1) {
-                currentPage--;
-            } else if (page === 'next' && currentPage < Math.ceil(filteredBrands.length / entriesPerPage)) {
-                currentPage++;
-            } else if (typeof page === 'number') {
-                currentPage = page;
-            }
-            renderTable();
-        }
-
-        function updatePaginationInfo() {
-            const start = (currentPage - 1) * entriesPerPage + 1;
-            const end = Math.min(currentPage * entriesPerPage, filteredBrands.length);
-            const total = filteredBrands.length;
-            
-            document.getElementById('paginationInfo').textContent = 
-                `Showing ${start} to ${end} of ${total} entries`;
-        }
-
-        function updatePaginationButtons() {
-            const totalPages = Math.ceil(filteredBrands.length / entriesPerPage);
-            
-            document.getElementById('prevBtn').disabled = currentPage === 1;
-            document.getElementById('nextBtn').disabled = currentPage === totalPages;
-            
-            for (let i = 1; i <= 3; i++) {
-                const pageBtn = document.getElementById(`page${i}`);
-                if (i <= totalPages) {
-                    pageBtn.style.display = 'block';
-                    pageBtn.textContent = i;
-                    pageBtn.classList.toggle('active', i === currentPage);
-                } else {
-                    pageBtn.style.display = 'none';
-                }
-            }
-        }
-
-        function sortTable(column) {
-            filteredBrands.sort((a, b) => {
-                if (column === 'name') {
-                    return a.name.localeCompare(b.name);
-                }
-                return 0;
-            });
-            renderTable();
-        }
-
-        function addNewBrand() {
-            alert('Add New Brand functionality\n\n(This would open a form to create a new brand in a real application)');
-        }
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.action-dropdown')) {
-                closeDropdowns();
-            }
-        });
         renderTable();
-        
+        alert(`Brand "${brandName}" has been deleted successfully.`);
+      }
+      closeDeleteModal();
+    }
 
-        
-    </script>
+    function closeDropdowns() {
+      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.classList.remove('show');
+      });
+    }
 
-  <script src="../js/script.js"></script>
-</body>
-</html>
+    function changeEntries() {
+      entriesPerPage = parseInt(document.getElementById('entriesSelect').value);
+      currentPage = 1;
+      renderTable();
+    }
+
+    function searchBrands() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      filteredBrands = brands.filter(brand =>
+        brand.name.toLowerCase().includes(searchTerm)
+      );
+      currentPage = 1;
+      renderTable();
+    }
+
+    function changePage(page) {
+      if (page === 'prev' && currentPage > 1) {
+        currentPage--;
+      } else if (page === 'next' && currentPage < Math.ceil(filteredBrands.length / entriesPerPage)) {
+        currentPage++;
+      } else if (typeof page === 'number') {
+        currentPage = page;
+      }
+      renderTable();
+    }
+
+    function updatePaginationInfo() {
+      const start = (currentPage - 1) * entriesPerPage + 1;
+      const end = Math.min(currentPage * entriesPerPage, filteredBrands.length);
+      const total = filteredBrands.length;
+
+      document.getElementById('paginationInfo').textContent =
+        `Showing ${start} to ${end} of ${total} entries`;
+    }
+
+    function updatePaginationButtons() {
+      const totalPages = Math.ceil(filteredBrands.length / entriesPerPage);
+
+      document.getElementById('prevBtn').disabled = currentPage === 1;
+      document.getElementById('nextBtn').disabled = currentPage === totalPages;
+
+      for (let i = 1; i <= 3; i++) {
+        const pageBtn = document.getElementById(`page${i}`);
+        if (i <= totalPages) {
+          pageBtn.style.display = 'block';
+          pageBtn.textContent = i;
+          pageBtn.classList.toggle('active', i === currentPage);
+        } else {
+          pageBtn.style.display = 'none';
+        }
+      }
+    }
+
+    function sortTable(column) {
+      filteredBrands.sort((a, b) => {
+        if (column === 'name') {
+          return a.name.localeCompare(b.name);
+        }
+        return 0;
+      });
+      renderTable();
+    }
+
+    function addNewBrand() {
+      alert('Add New Brand functionality\n\n(This would open a form to create a new brand in a real application)');
+    }
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('.action-dropdown')) {
+        closeDropdowns();
+      }
+    });
+    renderTable();
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const path = window.location.pathname.toLowerCase();
+      console.log('Current Path:', path);
+
+      const productSubmenu = document.getElementById('productSubmenu');
+      const links = {
+        'productlist.html': document.getElementById('productListLink'),
+        'createproduct.html': document.getElementById('productCreateLink'),
+        'importproduct.html': document.getElementById('importProductLink'),
+        'brand.html': document.getElementById('brandLink'),
+        'category.html': document.getElementById('categoryLink'),
+        'unit.html': document.getElementById('unitLink')
+      };
+
+      for (const [file, link] of Object.entries(links)) {
+        if (path.includes(file)) {
+          link?.classList.add('active');
+          productSubmenu?.style.setProperty('display', 'block');
+        }
+      }
+      Object.values(links).forEach(link => {
+        link?.addEventListener('click', function () {
+          Object.values(links).forEach(l => l?.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    });
+
+  </script>
+      <script src="../js/script.js"></script>
+    </body>
+
+  </html>
