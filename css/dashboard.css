@@ -601,7 +601,6 @@ table.dataTable tbody tr td {
   border-radius: 4px;
   cursor: pointer;
 }
-
 .submenu-link.active {
   background-color: rgba(0, 0, 0, 0.1);
   color: #ffffff;

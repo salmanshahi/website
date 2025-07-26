@@ -182,6 +182,9 @@
             color: #dc2626;
             font-size: 14px;
         }
+
+
+        
     </style>
 </head>
 <body>
@@ -222,11 +225,11 @@
           <span class="nav-chevron">❮</span>
         </div>
         <div class="submenu">
-          <a href="../html/productlist.html" class="submenu-link"><span class="dot"></span>Product
+          <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span class="dot"></span>Product
             List</a>
-          <a href="../html/createproduct.html" class="submenu-link"><span class="dot"></span>Product
+          <a href="../html/createproduct.html" class="submenu-link"  id="productCreateLink"><span class="dot"></span>Product
             Create</a>
-          <a href="../html/importproduct.html" class="submenu-link"><span class="dot"></span>Product
+          <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span class="dot"></span>Product
             Import</a>
           <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
           <a href="#" class="submenu-link"><span class="dot"></span>Category</a>
@@ -481,7 +484,26 @@
             }
         });
 
-        
+   document.addEventListener('DOMContentLoaded', function () {
+  const path = window.location.pathname.toLowerCase();
+
+  const productSubmenu = document.getElementById('productSubmenu');
+  const productListLink = document.getElementById('productListLink');
+  const productCreateLink = document.getElementById('productCreateLink');
+    const importProductLink = document.getElementById('importProductLink'); 
+
+  if (path.includes('productlist.html')) {
+    productListLink?.classList.add('active');
+    productSubmenu?.style.setProperty('display', 'block');
+  } else if (path.includes('createproduct.html')) {
+    productCreateLink?.classList.add('active');
+    productSubmenu?.style.setProperty('display', 'block');
+  }else if (path.includes('importproduct.html')) {
+    importProductLink?.classList.add('active');
+    productSubmenu?.style.setProperty('display', 'block');
+  }
+});
+
     </script>
     <script src="../js/script.js"></script>
 </body>

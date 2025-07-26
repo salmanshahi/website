@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Category - salman</title>
+    <link rel="stylesheet" href="../css/brand.css">
+    <style>
+        .top-header {
+            background-color: white;
+            padding: 15px 30px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hamburger-menu {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pos-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .settings-icon {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .user-menu {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .edit-content {
+            padding: 30px;
+        }
+
+        .content-header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .form-group input[type="text"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .image-upload-section {
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            background-color: #f8f9fa;
+            transition: all 0.3s;
+        }
+
+        .image-upload-section:hover {
+            border-color: #007bff;
+            background-color: #f0f8ff;
+        }
+
+        .image-preview {
+            margin-bottom: 20px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .no-image-placeholder {
+            color: #6c757d;
+            text-align: center;
+        }
+
+        .image-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        .current-image {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: #5a6268;
+            transform: translateY(-1px);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            accent-color: #007bff;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #f1f3f4;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            transform: translateY(-1px);
+        }
+
+        .btn-update {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-update:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            animation: slideInRight 0.5s ease-out;
+            max-width: 400px;
+            font-weight: 500;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .success-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .edit-content {
+                padding: 20px;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="user-section">
+                <div class="user-avatar">
+                    <span class="avatar-lock">🔒</span>
+                </div>
+                <span class="username">salman</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="../html/dashboard.html" class="nav-link">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="../html/pos.html" class="nav-link">
+                    <span class="nav-icon">🛒</span>
+                    <span class="nav-text">POS</span>
+                </a>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('peopleSubmenu', this)">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">People</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="peopleSubmenu">
+                    <a href="../html/customer.html" class="submenu-link" id="customerLink">
+                        <span class="dot"></span>Customer
+                    </a>
+                    <a href="../html/supplier.html" class="submenu-link" id="supplierLink">
+                        <span class="dot"></span>Supplier
+                    </a>
+                </div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('productSubmenu', this)">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-text">Product</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="productSubmenu">
+                    <a href="#" class="submenu-link"><span class="dot"></span>Product
+                        List</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Product
+                        Create</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Product
+                        Import</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Category</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Unit</a>
+                </div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
+                    <span class="nav-icon">🏷️</span>
+                    <span class="nav-text">Sale</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="saleSubmenu">
+                    <a href="#" class="submenu-link"><span class="dot"></span>Sale
+                        List</a>
+                </div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
+                    <span class="nav-icon">🛍️</span>
+                    <span class="nav-text">Purchase</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="purchaseSubmenu">
+                    <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+                        List</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Purchase
+                        Create</a>
+                </div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Reports</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="reportsSubmenu">
+                    <a href="#" class="submenu-link"><span class="dot"></span>Sales
+                        Summary</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Inventory</a>
+                </div>
+            </nav>
+
+            <div class="settings-section">
+                <div class="settings-header">SETTINGS</div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('websiteSubmenu', this)">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Website Settings</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="websiteSubmenu">
+                    <a href="#" class="submenu-link">
+                        <span>⚙️</span>General Setting
+                    </a>
+                    <a href="#" class="submenu-link">
+                        <span class="coin-icon">💵</span>Currency
+                    </a>
+                    <div class="nav-link collapsible inner" onclick="toggleSubmenu('rulesSubmenu', this)">
+                        <span>🛡️</span>
+                        <span class="nav-text">Rules & Permission</span>
+                        <span class="nav-chevron">❮</span>
+                    </div>
+                    <div class="submenu" id="rulesSubmenu">
+                        <a href="#" class="submenu-link"> <span>📜</span>Rules </a>
+                        <a href="#" class="submenu-link"> <span>🔐</span>Permission </a>
+                    </div>
+                    <a href="#" class="submenu-link">
+                        <span>👥</span>User Management
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="hamburger-menu">☰</button>
+                    <h1 class="page-title"> Edit Category</h1>
+                </div>
+                <div class="header-right">
+                    <button class="pos-button" onclick="window.location.href='pos.html'">
+                        🛒 POS
+                    </button>
+                    <button class="settings-icon" id="fullscreenBtn">⛶</button>
+                    <div class="user-dropdown-container">
+                        <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="../html/profile.html" id="profileBtn">Profile</a>
+                            <a href="../html/log-in.html" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="form-container">
+                <form id="updateBrandForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="brandName">Name <span class="required">*</span></label>
+                            <input type="text" id="brandName" name="brandName" required placeholder="Enter brand name">
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="brandActive" name="brandActive" checked>
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="brandImage">Image</label>
+                        <div class="image-upload-section">
+                            <div class="image-preview" id="imagePreview">
+                                <div class="no-image-placeholder">
+                                    <div class="image-icon">🖼️</div>
+                                    <div>NO IMAGE AVAILABLE</div>
+                                </div>
+                            </div>
+                            <input type="file" id="brandImageInput" accept="image/*" style="display: none;"
+                                onchange="handleImageUpload(event)">
+                            <button type="button" class="upload-btn"
+                                onclick="document.getElementById('brandImageInput').click()">
+                                Choose File
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="brandDescription">Description</label>
+                        <textarea id="brandDescription" name="brandDescription" rows="4"
+                            placeholder="Enter description"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="cancelEdit()">Cancel</button>
+                        <button type="submit" class="btn-update">Update</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+    </main>
+    </div>
+
+    <script>
+
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+        let currentBrand = {
+            id: 1,
+            name: 'ALEPTEX',
+            description: 'Premium textile brand',
+            image: null,
+            status: 'Active'
+        };
+        function initializeForm() {
+            document.getElementById('brandName').value = currentBrand.name;
+            document.getElementById('brandDescription').value = currentBrand.description || '';
+            document.getElementById('brandActive').checked = currentBrand.status === 'Active';
+
+            // Handle image preview
+            const imagePreview = document.getElementById('imagePreview');
+            if (currentBrand.image) {
+                imagePreview.innerHTML = `<img src="${currentBrand.image}" class="current-image" alt="${currentBrand.name}">`;
+            } else {
+                imagePreview.innerHTML = `
+                    <div class="no-image-placeholder">
+                        <div class="image-icon">🖼️</div>
+                        <div>NO IMAGE AVAILABLE</div>
+                    </div>
+                `;
+            }
+        }
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select a valid image file.');
+                    return;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Image size should be less than 5MB.');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('imagePreview').innerHTML =
+                        `<img src="${e.target.result}" class="current-image" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
+
+                currentBrand.newImageFile = file;
+            }
+        }
+
+        document.getElementById('updateBrandForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('brandName').value.trim();
+            const description = document.getElementById('brandDescription').value.trim();
+            const isActive = document.getElementById('brandActive').checked;
+
+            if (!name) {
+                alert('Brand name is required!');
+                document.getElementById('brandName').focus();
+                return;
+            }
+            const updateBtn = document.querySelector('.btn-update');
+            const originalText = updateBtn.textContent;
+            updateBtn.textContent = 'Updating...';
+            updateBtn.disabled = true;
+
+            setTimeout(() => {
+
+                currentBrand.name = name;
+                currentBrand.description = description;
+                currentBrand.status = isActive ? 'Active' : 'Inactive';
+
+                if (currentBrand.newImageFile) {
+                    currentBrand.image = URL.createObjectURL(currentBrand.newImageFile);
+                }
+
+                let brands = JSON.parse(localStorage.getItem('brands')) || [];
+
+
+                const index = brands.findIndex(b => b.id === currentBrand.id);
+                if (index !== -1) {
+                    brands[index] = currentBrand;
+                    localStorage.setItem('brands', JSON.stringify(brands));
+                }
+
+                showSuccessMessage(`Brand "${name}" has been updated successfully!`);
+
+                updateBtn.textContent = originalText;
+                updateBtn.disabled = false;
+
+                setTimeout(() => {
+                    window.location.href = 'category.html';
+                }, 2000);
+            }, 1000);
+        });
+
+        function cancelEdit() {
+            if (confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
+                window.location.href = 'category.html';
+            }
+        }
+        function showSuccessMessage(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.innerHTML = `
+                <div class="success-content">
+                    <span style="font-size: 18px;">✅</span>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(successDiv);
+
+            setTimeout(() => {
+                successDiv.style.animation = 'slideOutRight 0.5s ease-out';
+                setTimeout(() => successDiv.remove(), 500);
+            }, 3000);
+        }
+        function toggleSubmenu(submenuId, element) {
+            const submenu = document.getElementById(submenuId);
+            const chevron = element.querySelector('.nav-chevron');
+
+            submenu.classList.toggle('open');
+            chevron.style.transform = submenu.classList.contains('open') ? 'rotate(-90deg)' : 'rotate(0deg)';
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+
+
+        window.addEventListener('beforeunload', function (e) {
+            const form = document.getElementById('updateBrandForm');
+            const formData = new FormData(form);
+            let hasChanges = false;
+
+            if (document.getElementById('brandName').value !== currentBrand.name ||
+                document.getElementById('brandDescription').value !== (currentBrand.description || '') ||
+                document.getElementById('brandActive').checked !== (currentBrand.status === 'Active') ||
+                currentBrand.newImageFile) {
+                hasChanges = true;
+            }
+
+        });
+    </script>
+     <script src="../js/script.js"></script>
+</body>
+
+</html>

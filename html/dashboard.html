@@ -9,7 +9,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 </head>
-
 <body>
   <div class="container">
     <aside class="sidebar">
@@ -54,12 +53,12 @@
           <span class="nav-chevron">❮</span>
         </div>
         <div class="submenu" id="productSubmenu">
-          <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span class="dot"></span>Product List</a>
-          <a href="#" class="submenu-link" ><span class="dot"></span>Product Create</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Product Import</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Category</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Unit</a>
+          <a href="../html/productlist.html" class="submenu-link"  id="productListLink"><span class="dot"></span>Product List</a>
+          <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span class="dot"></span>Product Create</a>
+          <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span class="dot"></span>Product Import</a>
+          <a href="../html/brand.html" class="submenu-link"><span class="dot"></span>Brand</a>
+          <a href="../html/category.html" class="submenu-link"><span class="dot"></span>Category</a>
+          <a href="../html/unit.html" class="submenu-link"><span class="dot"></span>Unit</a>
         </div>
         <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
           <span class="nav-icon">🏷️</span>
@@ -356,38 +355,26 @@
         }
       });
     });
+document.addEventListener('DOMContentLoaded', function () {
+  const path = window.location.pathname.toLowerCase(); 
+  console.log('Current Path:', path);
 
-  // Handle active state for sidebar links
-  document.addEventListener('DOMContentLoaded', function () {
-    const submenuLinks = document.querySelectorAll('.submenu-link');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    // Highlight correct submenu link on click
-    submenuLinks.forEach(link => {
-      link.addEventListener('click', function () {
-        // Remove active from all
-        submenuLinks.forEach(l => l.classList.remove('active'));
-        navLinks.forEach(n => n.classList.remove('active'));
-
-        // Add active to the clicked one
-        this.classList.add('active');
-
-        // Expand parent menu if collapsed
-        const parentSubmenu = this.closest('.submenu');
-        if (parentSubmenu && parentSubmenu.style.display !== 'block') {
-          parentSubmenu.style.display = 'block';
-        }
-      });
-    });
-
-    // Optional: On page load, keep Product List highlighted if on productlist.html
-    const path = window.location.pathname;
-    if (path.includes('productlist.html')) {
-      const productListLink = document.getElementById('productListLink');
-      productListLink.classList.add('active');
-      document.getElementById('productSubmenu').style.display = 'block';
-    }
-  });
+  const productSubmenu = document.getElementById('productSubmenu');
+  const productListLink = document.getElementById('productListLink');
+  const productCreateLink = document.getElementById('productCreateLink');
+  const importProductLink = document.getElementById('importProductLink'); 
+  
+  if (path.includes('productlist.html')) {
+    productListLink?.classList.add('active');
+    productSubmenu?.style.setProperty('display', 'block');
+  } else if (path.includes('createproduct.html')) {
+    productCreateLink?.classList.add('active');
+    productSubmenu?.style.setProperty('display', 'block');
+  }else if (path.includes('importproduct.html')) {
+    importProductLink?.classList.add('active'); // ✅ This must not be null
+    productSubmenu?.style.setProperty('display', 'block');
+  }
+});
 
 
   </script>
