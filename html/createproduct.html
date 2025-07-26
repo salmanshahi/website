@@ -335,16 +335,13 @@
           <span class="nav-text">Product</span>
           <span class="nav-chevron">❮</span>
         </div>
-        <div class="submenu" id="productSubmenu">
-          <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span class="dot"></span>Product
-            List</a>
-          <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span class="dot"></span>Product
-            Create</a>
-          <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span class="dot"></span>Product
-            Import</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Brand</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Category</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Unit</a>
+           <div class="submenu" id="productSubmenu">
+          <a href="../html/productlist.html" class="submenu-link"  id="productListLink"><span class="dot"></span>Product List</a>
+          <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span class="dot"></span>Product Create</a>
+          <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span class="dot"></span>Product Import</a>
+          <a href="../html/brand.html" class="submenu-link" id="brandLink"><span class="dot"></span>Brand</a>
+          <a href="../html/category.html" class="submenu-link" id="categoryLink"><span class="dot"></span>Category</a>
+          <a href="../html/unit.html" class="submenu-link" id="unitLink"><span class="dot"></span>Unit</a>
         </div>
         <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
           <span class="nav-icon">🏷️</span>
@@ -598,27 +595,35 @@
   }
 });
 
- document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
   const path = window.location.pathname.toLowerCase(); 
-  console.log('Current Path:', path); 
+  console.log('Current Path:', path);
 
   const productSubmenu = document.getElementById('productSubmenu');
-  const productListLink = document.getElementById('productListLink');
-  const productCreateLink = document.getElementById('productCreateLink');
-    const importProductLink = document.getElementById('importProductLink'); 
+  const links = {
+    'productlist.html': document.getElementById('productListLink'),
+    'createproduct.html': document.getElementById('productCreateLink'),
+    'importproduct.html': document.getElementById('importProductLink'),
+    'brand.html': document.getElementById('brandLink'),
+    'category.html': document.getElementById('categoryLink'),
+    'unit.html': document.getElementById('unitLink')
+  };
 
-  if (path.includes('productlist.html')) {
-    productListLink?.classList.add('active');
-    productSubmenu?.style.setProperty('display', 'block');
-  } else if (path.includes('createproduct.html')) {
-    productCreateLink?.classList.add('active');
-    productSubmenu?.style.setProperty('display', 'block');
-  }else if (path.includes('importproduct.html')) { // 👈 add this block
-    importProductLink?.classList.add('active');
-    productSubmenu?.style.setProperty('display', 'block');
+  for (const [file, link] of Object.entries(links)) {
+    if (path.includes(file)) {
+      link?.classList.add('active');
+      productSubmenu?.style.setProperty('display', 'block');
+    }
   }
-});
 
+  // Optional: Add click-based highlighting
+  Object.values(links).forEach(link => {
+    link?.addEventListener('click', function () {
+      Object.values(links).forEach(l => l?.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+});
 
     </script>
 </body>
