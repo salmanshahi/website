@@ -216,6 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const userMenuBtn = document.getElementById('userMenuBtn');
   const userDropdown = document.getElementById('userDropdown');
   
+  
   if (userMenuBtn && userDropdown) {
     userMenuBtn.addEventListener('click', function(e) {
       e.stopPropagation();
