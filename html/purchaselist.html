@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase List</title>
+    <link rel="stylesheet" href="../css/purchaselist.css" />
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="user-section">
+                <div class="user-avatar">
+                    <span class="avatar-lock">🔒</span>
+                </div>
+
+
+                <span class="username">salman</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="../html/pos.html" class="nav-link" id="posLink">
+                    <span class="nav-icon">🛒</span>
+                    <span class="nav-text">POS</span>
+                </a>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('peopleSubmenu', this)">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">People</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="peopleSubmenu">
+                    <a href="../html/customer.html" class="submenu-link">
+                        <span class="dot"></span>Customer
+                    </a>
+                    <a href="../html/supplier.html" class="submenu-link">
+                        <span class="dot"></span>Supplier
+                    </a>
+                </div>
+
+
+                </a>
+
+                <div class="nav-link collapsible" onclick="toggleSubmenu('productSubmenu', this)">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-text">Product</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="productSubmenu">
+                    <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span
+                            class="dot"></span>Product
+                        List</a>
+                    <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span
+                            class="dot"></span>Product Create</a>
+                    <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span
+                            class="dot"></span>Product Import</a>
+                    <a href="../html/brand.html" class="submenu-link" id="brandLink"><span class="dot"></span>Brand</a>
+                    <a href="../html/category.html" class="submenu-link" id="categoryLink"><span
+                            class="dot"></span>Category</a>
+                    <a href="../html/unit.html" class="submenu-link" id="unitLink"><span class="dot"></span>Unit</a>
+                </div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
+                    <span class="nav-icon">🏷️</span>
+                    <span class="nav-text">Sale</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="saleSubmenu">
+                    <a href="sales.html" class="submenu-link"><span class="dot"></span>Sale List</a>
+                </div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
+                    <span class="nav-icon">🛍️</span>
+                    <span class="nav-text">Purchase</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="purchaseSubmenu">
+                    <a href="#" class="submenu-link"><span class="dot"></span>Purchase List</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Purchase Create</a>
+                </div>
+
+                <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Reports</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="reportsSubmenu">
+                    <a href="#" class="submenu-link"><span class="dot"></span>Sales Summary</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
+                    <a href="#" class="submenu-link"><span class="dot"></span>Inventory</a>
+                </div>
+
+            </nav>
+            <div class="settings-section">
+                <div class="settings-header">SETTINGS</div>
+
+                <div class="nav-link collapsible" onclick="toggleSubmenu('websiteSubmenu', this)">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Website Settings</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+
+                <div class="submenu" id="websiteSubmenu">
+                    <a href="#" class="submenu-link">
+                        <span>⚙️</span>General Setting
+                    </a>
+
+                    <a href="#" class="submenu-link">
+                        <span class="coin-icon">💵</span>Currency
+                    </a>
+
+                    <div class="nav-link collapsible inner" onclick="toggleSubmenu('rulesSubmenu', this)">
+                        <span>🛡️
+                        </span>
+                        <span class="nav-text">Rules & Permission</span>
+                        <span class="nav-chevron">❮</span>
+                    </div>
+                    <div class="submenu" id="rulesSubmenu">
+                        <a href="#" class="submenu-link">
+                            <span>📜</span>Rules
+                        </a>
+                        <a href="#" class="submenu-link">
+                            <span>🔐</span>Permission
+                        </a>
+                    </div>
+
+                    <a href="#" class="submenu-link">
+                        <span>👥</span>User Management
+                    </a>
+                </div>
+            </div>
+
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="hamburger-menu">☰</button>
+                    <h1 class="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <button class="pos-button" onclick="window.location.href='pos.html'">🛒 POS</button>
+                    <button class="settings-icon" id="fullscreenBtn">⛶</button>
+                    <div class="user-dropdown-container">
+                        <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="../html/profile.html" id="profileBtn">Profile</a>
+                            <a href="../html/log-in.html" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="table-controls">
+                    <div class="show-entries">
+                        <span>Show</span>
+                        <select>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span>entries</span>
+                    </div>
+
+                    <button class="add-new-button">
+                        ➕ Add New
+                    </button>
+
+                    <div class="search-box">
+                        <span>Search:</span>
+                        <input type="text" placeholder="">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="sortable">#</th>
+                                <th class="sortable">Supplier</th>
+                                <th>ID</th>
+                                <th>Total $</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Own Supplier</td>
+                                <td>#26</td>
+                                <td>15000.00</td>
+                                <td>09 Jul, 2025</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Action</button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item">
+                                                <span>✏️</span>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button class="dropdown-item">
+                                                <span>👁️</span>
+                                                <span>View</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Own Supplier</td>
+                                <td>#27</td>
+                                <td>12500.00</td>
+                                <td>09 Jul, 2025</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Action</button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item">
+                                                <span>✏️</span>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button class="dropdown-item">
+                                                <span>👁️</span>
+                                                <span>View</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Own Supplier</td>
+                                <td>#28</td>
+                                <td>12000.00</td>
+                                <td>09 Jul, 2025</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Action</button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item">
+                                                <span>✏️</span>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button class="dropdown-item">
+                                                <span>👁️</span>
+                                                <span>View</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Own Supplier</td>
+                                <td>#29</td>
+                                <td>8000.00</td>
+                                <td>09 Jul, 2025</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Action</button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item">
+                                                <span>✏️</span>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button class="dropdown-item">
+                                                <span>👁️</span>
+                                                <span>View</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Own Supplier</td>
+                                <td>#30</td>
+                                <td>13500.00</td>
+                                <td>09 Jul, 2025</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Action</button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item">
+                                                <span>✏️</span>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button class="dropdown-item">
+                                                <span>👁️</span>
+                                                <span>View</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Own Supplier</td>
+                                <td>#21</td>
+                                <td>15000.00</td>
+                                <td>27 Jun, 2025</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Action</button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item">
+                                                <span>✏️</span>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button class="dropdown-item">
+                                                <span>👁️</span>
+                                                <span>View</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Own Supplier</td>
+                                <td>#22</td>
+                                <td>12500.00</td>
+                                <td>27 Jun, 2025</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Action</button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item">
+                                                <span>✏️</span>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button class="dropdown-item">
+                                                <span>👁️</span>
+                                                <span>View</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Own Supplier</td>
+                                <td>#23</td>
+                                <td>12000.00</td>
+                                <td>27 Jun, 2025</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Action</button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item">
+                                                <span>✏️</span>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button class="dropdown-item">
+                                                <span>👁️</span>
+                                                <span>View</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>Own Supplier</td>
+                                <td>#24</td>
+                                <td>8000.00</td>
+                                <td>27 Jun, 2025</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Action</button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item">
+                                                <span>✏️</span>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button class="dropdown-item">
+                                                <span>👁️</span>
+                                                <span>View</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Own Supplier</td>
+                                <td>#25</td>
+                                <td>13500.00</td>
+                                <td>27 Jun, 2025</td>
+                                <td>
+                                    <div class="action-dropdown">
+                                        <button class="action-button">Action</button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item">
+                                                <span>✏️</span>
+                                                <span>Edit</span>
+                                            </button>
+                                            <button class="dropdown-item">
+                                                <span>👁️</span>
+                                                <span>View</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pagination-container">
+                        <div class="pagination-info">
+                            Showing 1 to 10 of 27 entries
+                        </div>
+
+                        <div class="pagination">
+                            <button disabled>Previous</button>
+                            <button class="active">1</button>
+                            <button>2</button>
+                            <button>3</button>
+                            <button>Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <script>
+        const allData = [
+            { id: 1, supplier: "Own Supplier", orderID: "#26", total: "15000.00", date: "09 Jul, 2025" },
+            { id: 2, supplier: "Own Supplier", orderID: "#27", total: "12500.00", date: "09 Jul, 2025" },
+            { id: 3, supplier: "Own Supplier", orderID: "#28", total: "12000.00", date: "09 Jul, 2025" },
+            { id: 4, supplier: "Own Supplier", orderID: "#29", total: "8000.00", date: "09 Jul, 2025" },
+            { id: 5, supplier: "Own Supplier", orderID: "#30", total: "13500.00", date: "09 Jul, 2025" },
+            { id: 6, supplier: "Own Supplier", orderID: "#21", total: "15000.00", date: "27 Jun, 2025" },
+            { id: 7, supplier: "Own Supplier", orderID: "#22", total: "12500.00", date: "27 Jun, 2025" },
+            { id: 8, supplier: "Own Supplier", orderID: "#23", total: "12000.00", date: "27 Jun, 2025" },
+            { id: 9, supplier: "Own Supplier", orderID: "#24", total: "8000.00", date: "27 Jun, 2025" },
+            { id: 10, supplier: "Own Supplier", orderID: "#25", total: "13500.00", date: "27 Jun, 2025" },
+            { id: 11, supplier: "Own Supplier", orderID: "#31", total: "9500.00", date: "15 Jun, 2025" },
+            { id: 12, supplier: "Own Supplier", orderID: "#32", total: "11000.00", date: "15 Jun, 2025" },
+            { id: 13, supplier: "Own Supplier", orderID: "#33", total: "14500.00", date: "15 Jun, 2025" },
+            { id: 14, supplier: "Own Supplier", orderID: "#34", total: "7500.00", date: "15 Jun, 2025" },
+            { id: 15, supplier: "Own Supplier", orderID: "#35", total: "16000.00", date: "15 Jun, 2025" },
+            { id: 16, supplier: "Own Supplier", orderID: "#36", total: "10500.00", date: "10 Jun, 2025" },
+            { id: 17, supplier: "Own Supplier", orderID: "#37", total: "13000.00", date: "10 Jun, 2025" },
+            { id: 18, supplier: "Own Supplier", orderID: "#38", total: "8500.00", date: "10 Jun, 2025" },
+            { id: 19, supplier: "Own Supplier", orderID: "#39", total: "12000.00", date: "10 Jun, 2025" },
+            { id: 20, supplier: "Own Supplier", orderID: "#40", total: "14000.00", date: "10 Jun, 2025" },
+            { id: 21, supplier: "Own Supplier", orderID: "#41", total: "9000.00", date: "05 Jun, 2025" },
+            { id: 22, supplier: "Own Supplier", orderID: "#42", total: "11500.00", date: "05 Jun, 2025" },
+            { id: 23, supplier: "Own Supplier", orderID: "#43", total: "13500.00", date: "05 Jun, 2025" },
+            { id: 24, supplier: "Own Supplier", orderID: "#44", total: "8000.00", date: "05 Jun, 2025" },
+            { id: 25, supplier: "Own Supplier", orderID: "#45", total: "15500.00", date: "05 Jun, 2025" },
+            { id: 26, supplier: "Own Supplier", orderID: "#46", total: "10000.00", date: "01 Jun, 2025" },
+            { id: 27, supplier: "Own Supplier", orderID: "#47", total: "12500.00", date: "01 Jun, 2025" }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        const totalItems = allData.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+        function renderTable(page) {
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = allData.slice(startIndex, endIndex);
+
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.supplier}</td>
+                    <td>${item.orderID}</td>
+                    <td>${item.total}</td>
+                    <td>${item.date}</td>
+                    <td><button class="action-button">Action</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+            document.querySelectorAll('.action-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    alert('Action menu would open here');
+                });
+            });
+        }
+
+        function updatePaginationInfo() {
+            const startItem = (currentPage - 1) * itemsPerPage + 1;
+            const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+
+            document.querySelector('.pagination-info').textContent =
+                `Showing ${startItem} to ${endItem} of ${totalItems} entries`;
+        }
+
+        function updatePaginationButtons() {
+            const pagination = document.querySelector('.pagination');
+            pagination.innerHTML = '';
+            const prevBtn = document.createElement('button');
+            prevBtn.textContent = 'Previous';
+            if (currentPage === 1) {
+                prevBtn.disabled = true;
+                prevBtn.style.opacity = '0.5';
+                prevBtn.style.cursor = 'not-allowed';
+            } else {
+                prevBtn.disabled = false;
+                prevBtn.style.opacity = '1';
+                prevBtn.style.cursor = 'pointer';
+            }
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updatePage();
+                }
+            });
+            pagination.appendChild(prevBtn);
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.textContent = i;
+                pageBtn.classList.toggle('active', i === currentPage);
+                pageBtn.addEventListener('click', () => {
+                    currentPage = i;
+                    updatePage();
+                });
+                pagination.appendChild(pageBtn);
+            }
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = 'Next';
+            if (currentPage === totalPages) {
+                nextBtn.disabled = true;
+                nextBtn.style.opacity = '0.5';
+                nextBtn.style.cursor = 'not-allowed';
+            } else {
+                nextBtn.disabled = false;
+                nextBtn.style.opacity = '1';
+                nextBtn.style.cursor = 'pointer';
+            }
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updatePage();
+                }
+            });
+            pagination.appendChild(nextBtn);
+        }
+
+        function updatePage() {
+            renderTable(currentPage);
+            updatePaginationInfo();
+            updatePaginationButtons();
+        }
+        updatePage();
+        document.querySelectorAll('.menu-item.expandable').forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                this.classList.toggle('expanded');
+            });
+        });
+        document.querySelector('.add-new-button').addEventListener('click', function () {
+            alert('Add New Purchase form would open here');
+        });
+        document.querySelector('.search-box input').addEventListener('input', function () {
+            console.log('Searching for:', this.value);
+        });
+
+        document.querySelector('.show-entries select').addEventListener('change', function () {
+            console.log('Items per page changed to:', this.value);
+        });
+        function renderTable(page) {
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = allData.slice(startIndex, endIndex);
+
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+
+            pageData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td>${item.id}</td>
+            <td>${item.supplier}</td>
+            <td>${item.orderID}</td>
+            <td>${item.total}</td>
+            <td>${item.date}</td>
+            <td>
+                <div class="action-dropdown">
+                    <button class="action-button">Action</button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item">
+                            <span>✏️</span>
+                            <span>Edit</span>
+                        </button>
+                        <button class="dropdown-item">
+                            <span>👁️</span>
+                            <span>View</span>
+                        </button>
+                    </div>
+                </div>
+            </td>
+        `;
+                tbody.appendChild(row);
+            });
+            document.querySelectorAll('.action-button').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        if (menu !== this.nextElementSibling) {
+                            menu.classList.remove('show');
+                        }
+                    });
+                    const dropdown = this.nextElementSibling;
+                    dropdown.classList.toggle('show');
+                });
+            });
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const action = this.textContent.trim();
+                    const rowData = this.closest('tr').children;
+                    const id = rowData[0].textContent;
+                    const orderID = rowData[2].textContent;
+
+                    if (action === 'Edit') {
+                        alert(`Edit purchase ${orderID} (ID: ${id})`);
+                    } else if (action === 'View') {
+                        alert(`View purchase ${orderID} (ID: ${id})`);
+                    }
+                    this.closest('.dropdown-menu').classList.remove('show');
+                });
+            });
+        }
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.action-dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
+        });
+
+
+
+
+
+    </script>
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
