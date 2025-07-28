@@ -70,9 +70,8 @@
           <span class="nav-chevron">❮</span>
         </div>
         <div class="submenu" id="saleSubmenu">
-          <a href="#" class="submenu-link"><span class="dot"></span>Sale List</a>
+          <a href="sales.html" class="submenu-link"><span class="dot"></span>Sale List</a>
         </div>
-
         <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
           <span class="nav-icon">🛍️</span>
           <span class="nav-text">Purchase</span>
@@ -386,6 +385,22 @@
         });
       });
     });
+
+
+    
+
+document.addEventListener("DOMContentLoaded", function () {
+    const currentPage = window.location.pathname.split("/").pop(); 
+    const links = document.querySelectorAll(".submenu-link");
+
+    links.forEach(link => {
+      const linkPage = link.getAttribute("href");
+      if (linkPage === currentPage) {
+        link.classList.add("active");
+      }
+    });
+  });
+
 
 
   </script>

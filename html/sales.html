@@ -115,7 +115,7 @@
             <span class="nav-chevron">❮</span>
           </div>
           <div class="submenu" id="saleSubmenu">
-            <a href="#" class="submenu-link"><span class="dot"></span>Sale
+            <a href="sales.html" class="submenu-link" id="saleLink"><span class="dot"></span>Sale
               List</a>
           </div>
           <div
@@ -269,8 +269,8 @@ $(document).ready(function () {
 $(document).on('click', '.transactions-btn', function () {
   const row = $(this).closest('tr');
   const saleId = row.find('td:eq(1)').text().replace(/[^\d]/g, '');
-  const amount = row.find('td:eq(6)').text().trim(); // Total
-  const paid = row.find('td:eq(7)').text().trim();   // Paid amount
+  const amount = row.find('td:eq(6)').text().trim(); 
+  const paid = row.find('td:eq(7)').text().trim();   
   const status = row.find('td:eq(9)').text().trim();
   const transactionData = {
     saleId,
@@ -280,10 +280,37 @@ $(document).on('click', '.transactions-btn', function () {
     created: new Date().toLocaleString(),
   };
   localStorage.setItem('transactionData', JSON.stringify(transactionData));
-
-  // Redirect to transactions page
   window.location.href = '../html/transaction.html';
 });
+
+
+
+
+
+
+
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const currentPath = window.location.pathname;
+    const saleLink = document.getElementById("saleLink");
+    const saleSubmenu = document.getElementById("saleSubmenu");
+
+    if (currentPath.includes("sales.html")) {
+      // Highlight the link
+      saleLink.classList.add("active");
+
+      // Show the submenu
+      saleSubmenu.style.display = "block";
+
+      // Optional: Add a class to the parent to show it's expanded
+      const saleParent = saleSubmenu.previousElementSibling;
+      if (saleParent && saleParent.classList.contains("collapsible")) {
+        saleParent.classList.add("expanded");
+      }
+    }
+  });
+
 
 </script>
 
