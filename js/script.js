@@ -107,17 +107,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
- 
   const sidebar = document.querySelector(".sidebar");
   const mainContent = document.querySelector(".main-content");
+  const hamburgerMenu = document.querySelector(".hamburger-menu");
 
-  const toggleSidebar = () => {
-    sidebar.classList.toggle("collapsed");
-    mainContent.classList.toggle("collapsed");
-  };
-
+  if (hamburgerMenu && sidebar && mainContent) {
+    hamburgerMenu.addEventListener("click", () => {
+      sidebar.classList.toggle("collapsed");
+      mainContent.classList.toggle("collapsed");
+    });
+  }
 });
 
+ 
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 
 fullscreenBtn.addEventListener("click", () => {
