@@ -215,6 +215,8 @@ body {
   visibility: hidden;
   transform: translateX(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  justify-content: center;
+  align-items: center;
 }
 
 .sidebar.collapsed .nav-link {
@@ -233,20 +235,16 @@ body {
 .main-content.collapsed {
   margin-left: 70px;
 }
-.sidebar:hover .username,
-.sidebar:hover .nav-text,
-.sidebar:hover .nav-chevron,
-.sidebar:hover .settings-header {
-  display: inline;
+
+.sidebar.collapsed:hover .username,
+.sidebar.collapsed:hover .nav-text,
+.sidebar.collapsed:hover .nav-chevron,
+.sidebar.collapsed:hover .settings-header {
   opacity: 1;
   visibility: visible;
   transform: translateX(0);
 }
 
-.sidebar:hover .nav-link {
-  justify-content: flex-start;
-  padding: 12px 20px;
-}
 
 .submenu {
   display: none;

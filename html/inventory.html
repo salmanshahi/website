@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Report | Salman</title>
+     <link rel="stylesheet" href="../css/dashboard.css" />
+    <style>
+        .header {
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pos-btn {
+            background: #6f7db8;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-icon {
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: #6c757d;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 25px;
+            overflow: auto;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .content-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .entries-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .export-btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .export-btn:hover {
+            background: #f8f9fa;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-label {
+            font-size: 14px;
+            color: #495057;
+        }
+
+        .search-input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 200px;
+        }
+
+        .table-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            color: #495057;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            position: relative;
+        }
+
+        th:hover {
+            background: #e9ecef;
+        }
+
+        th .sort-arrow {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f1f3f4;
+            font-size: 14px;
+            color: #495057;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: #6c757d;
+            font-size: 12px;
+            display: block;
+        }
+
+        .price-current {
+            font-weight: 500;
+        }
+
+        .stock-zero {
+            color: #dc3545;
+        }
+
+        .stock-available {
+            color: #28a745;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+        }
+
+        .pagination-info {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: #f8f9fa;
+        }
+
+        .pagination button.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #6c757d;
+            font-size: 12px;
+            border-top: 1px solid #eee;
+        }
+
+        .full-screen-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <aside class="sidebar">
+      <div class="user-section">
+        <div class="user-avatar">
+          <span class="avatar-lock">🔒</span>
+        </div>
+
+
+        <span class="username">salman</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-link active">
+          <span class="nav-icon">📊</span>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a href="../html/pos.html" class="nav-link" id="posLink">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-text">POS</span>
+        </a>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('peopleSubmenu', this)">
+          <span class="nav-icon">👤</span>
+          <span class="nav-text">People</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="peopleSubmenu">
+          <a href="../html/customer.html" class="submenu-link">
+            <span class="dot"></span>Customer
+          </a>
+          <a href="../html/supplier.html" class="submenu-link">
+            <span class="dot"></span>Supplier
+          </a>
+        </div>
+
+
+        </a>
+
+        <div class="nav-link collapsible" onclick="toggleSubmenu('productSubmenu', this)">
+          <span class="nav-icon">📦</span>
+          <span class="nav-text">Product</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="productSubmenu">
+          <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span class="dot"></span>Product
+            List</a>
+          <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span
+              class="dot"></span>Product Create</a>
+          <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span
+              class="dot"></span>Product Import</a>
+          <a href="../html/brand.html" class="submenu-link" id="brandLink"><span class="dot"></span>Brand</a>
+          <a href="../html/category.html" class="submenu-link" id="categoryLink"><span class="dot"></span>Category</a>
+          <a href="../html/unit.html" class="submenu-link" id="unitLink"><span class="dot"></span>Unit</a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
+          <span class="nav-icon">🏷️</span>
+          <span class="nav-text">Sale</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="saleSubmenu">
+          <a href="sales.html" class="submenu-link"><span class="dot"></span>Sale List</a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
+          <span class="nav-icon">🛍️</span>
+          <span class="nav-text">Purchase</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="purchaseSubmenu">
+          <a href="../html/purchaselist.html" class="submenu-link"><span class="dot"></span>Purchase List</a>
+          <a href="../html/productpurchase.html" class="submenu-link"><span class="dot"></span>Purchase Create</a>
+        </div>
+
+        <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
+          <span class="nav-icon">📈</span>
+          <span class="nav-text">Reports</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="reportsSubmenu">
+          <a href="../html/salesummary.html" class="submenu-link"><span class="dot"></span>Sales Summary</a>
+          <a href="../html/salereport.html" class="submenu-link"><span class="dot"></span>Sales</a>
+          <a href="../html/inventory.html" class="submenu-link"><span class="dot"></span>Inventory</a>
+        </div>
+
+      </nav>
+      <div class="settings-section">
+        <div class="settings-header">SETTINGS</div>
+
+        <div class="nav-link collapsible" onclick="toggleSubmenu('websiteSubmenu', this)">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-text">Website Settings</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+
+        <div class="submenu" id="websiteSubmenu">
+          <a href="#" class="submenu-link">
+            <span>⚙️</span>General Setting
+          </a>
+
+          <a href="#" class="submenu-link">
+            <span class="coin-icon">💵</span>Currency
+          </a>
+
+          <div class="nav-link collapsible inner" onclick="toggleSubmenu('rulesSubmenu', this)">
+            <span>🛡️
+            </span>
+            <span class="nav-text">Rules & Permission</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="rulesSubmenu">
+            <a href="#" class="submenu-link">
+              <span>📜</span>Rules
+            </a>
+            <a href="#" class="submenu-link">
+              <span>🔐</span>Permission
+            </a>
+          </div>
+
+          <a href="#" class="submenu-link">
+            <span>👥</span>User Management
+          </a>
+        </div>
+      </div>
+
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header">
+        <div class="header-left">
+          <button class="hamburger-menu">☰</button>
+          <h1 class="page-title">Inventory</h1>
+        </div>
+        <div class="header-right">
+          <button class="pos-button" onclick="window.location.href='pos.html'">🛒 POS</button>
+          <button class="settings-icon" id="fullscreenBtn">⛶</button>
+          <div class="user-dropdown-container">
+            <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+            <div class="user-dropdown" id="userDropdown">
+              <a href="../html/profile.html" id="profileBtn">Profile</a>
+              <a href="../html/log-in.html" id="logoutBtn">Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+        <div class="content">
+            <div class="content-header">
+                <div class="content-controls">
+                    <select class="entries-select" id="entriesSelect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <button class="export-btn" onclick="exportToExcel()">Export to Excel</button>
+                    <button class="export-btn" onclick="exportToPDF()">Export to PDF</button>
+                    <button class="export-btn" onclick="printReport()">Print</button>
+                </div>
+                
+                <div class="search-container">
+                    <span class="search-label">Search:</span>
+                    <input type="text" class="search-input" id="searchInput" placeholder="">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)"># <span class="sort-arrow">▼</span></th>
+                            <th onclick="sortTable(1)">Name <span class="sort-arrow">▼</span></th>
+                            <th onclick="sortTable(2)">SKU <span class="sort-arrow">▼</span></th>
+                            <th onclick="sortTable(3)">Price <span class="sort-arrow">▼</span></th>
+                            <th onclick="sortTable(4)">Stock <span class="sort-arrow">▼</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination-container">
+                <div class="pagination-info" id="paginationInfo">
+                    Showing 1 to 10 of 46 entries
+                </div>
+                <div class="pagination" id="paginationControls">
+                    <button onclick="goToPage('prev')" id="prevBtn">Previous</button>
+                    <button onclick="goToPage(1)" class="active">1</button>
+                    <button onclick="goToPage(2)">2</button>
+                    <button onclick="goToPage(3)">3</button>
+                    <button onclick="goToPage(4)">4</button>
+                    <button onclick="goToPage(5)">5</button>
+                    <button onclick="goToPage('next')" id="nextBtn">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script> 
+        const inventoryData = [
+            { id: 1, name: "yoooh", sku: "1rte56559", price: 500, originalPrice: null, stock: "0 pcs" },
+            { id: 2, name: "vivo y 20", sku: "1rte56554", price: 19000, originalPrice: 20000, stock: "0 pcs" },
+            { id: 3, name: "vivo y 20", sku: "12345", price: 19000, originalPrice: 20000, stock: "0 pcs" },
+            { id: 4, name: "Purnava Vitamin E Eggs", sku: "E002", price: 220, originalPrice: 222, stock: "0 pcs" },
+            { id: 5, name: "Purnava Omega 3 Enriched Eggs", sku: "E001", price: 280, originalPrice: 282, stock: "85 pcs" },
+            { id: 6, name: "Product E", sku: "PROD005-2", price: 102, originalPrice: 120, stock: "134 pcs" },
+            { id: 7, name: "Product E", sku: "PROD005-1", price: 102, originalPrice: 120, stock: "143 pcs" },
+            { id: 8, name: "Product E", sku: "PROD005", price: 102, originalPrice: 120, stock: "135 pcs" },
+            { id: 9, name: "Product D", sku: "PROD004-2", price: 45, originalPrice: 50, stock: "191 kg" },
+            { id: 10, name: "Product D", sku: "PROD004-1", price: 45, originalPrice: 50, stock: "168 kg" },
+            // Additional sample data to make 46 entries total
+            { id: 11, name: "Product C", sku: "PROD003-1", price: 75, originalPrice: 80, stock: "25 pcs" },
+            { id: 12, name: "Product C", sku: "PROD003-2", price: 75, originalPrice: 80, stock: "30 pcs" },
+            { id: 13, name: "Product B", sku: "PROD002-1", price: 150, originalPrice: 160, stock: "15 pcs" },
+            { id: 14, name: "Product B", sku: "PROD002-2", price: 150, originalPrice: 160, stock: "20 pcs" },
+            { id: 15, name: "Product A", sku: "PROD001-1", price: 200, originalPrice: 210, stock: "50 pcs" }
+        ];
+
+        // Duplicate data to reach 46 entries
+        for (let i = 16; i <= 46; i++) {
+            const baseItem = inventoryData[i % 15];
+            inventoryData.push({
+                id: i,
+                name: baseItem.name + ` ${i}`,
+                sku: baseItem.sku + `-${i}`,
+                price: baseItem.price,
+                originalPrice: baseItem.originalPrice,
+                stock: baseItem.stock
+            });
+        }
+
+        let currentPage = 1;
+        let itemsPerPage = 10;
+        let filteredData = [...inventoryData];
+        let sortColumn = -1;
+        let sortDirection = 'asc';
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+
+            tbody.innerHTML = pageData.map(item => `
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.sku}</td>
+                    <td>
+                        <span class="price-current">${item.price}</span>
+                        ${item.originalPrice ? `<span class="price-original">${item.originalPrice}.00</span>` : ''}
+                    </td>
+                    <td class="${item.stock.includes('0 pcs') ? 'stock-zero' : 'stock-available'}">${item.stock}</td>
+                </tr>
+            `).join('');
+
+            updatePaginationInfo();
+            updatePaginationControls();
+        }
+
+        function updatePaginationInfo() {
+            const startIndex = (currentPage - 1) * itemsPerPage + 1;
+            const endIndex = Math.min(currentPage * itemsPerPage, filteredData.length);
+            const total = filteredData.length;
+            
+            document.getElementById('paginationInfo').textContent = 
+                `Showing ${startIndex} to ${endIndex} of ${total} entries`;
+        }
+
+        function updatePaginationControls() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            const paginationControls = document.getElementById('paginationControls');
+            
+            let html = `<button onclick="goToPage('prev')" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>`;
+            
+            for (let i = 1; i <= Math.min(5, totalPages); i++) {
+                html += `<button onclick="goToPage(${i})" ${currentPage === i ? 'class="active"' : ''}>${i}</button>`;
+            }
+            
+            html += `<button onclick="goToPage('next')" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>`;
+            
+            paginationControls.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            if (page === 'prev' && currentPage > 1) {
+                currentPage--;
+            } else if (page === 'next' && currentPage < totalPages) {
+                currentPage++;
+            } else if (typeof page === 'number' && page >= 1 && page <= totalPages) {
+                currentPage = page;
+            }
+            
+            renderTable();
+        }
+
+        function sortTable(columnIndex) {
+            if (sortColumn === columnIndex) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = columnIndex;
+                sortDirection = 'asc';
+            }
+
+            filteredData.sort((a, b) => {
+                let aVal, bVal;
+                
+                switch(columnIndex) {
+                    case 0: aVal = a.id; bVal = b.id; break;
+                    case 1: aVal = a.name.toLowerCase(); bVal = b.name.toLowerCase(); break;
+                    case 2: aVal = a.sku.toLowerCase(); bVal = b.sku.toLowerCase(); break;
+                    case 3: aVal = a.price; bVal = b.price; break;
+                    case 4: aVal = a.stock.toLowerCase(); bVal = b.stock.toLowerCase(); break;
+                }
+
+                if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
+                if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            currentPage = 1;
+            renderTable();
+            updateSortArrows(columnIndex);
+        }
+
+        function updateSortArrows(activeColumn) {
+            const arrows = document.querySelectorAll('.sort-arrow');
+            arrows.forEach((arrow, index) => {
+                if (index === activeColumn) {
+                    arrow.textContent = sortDirection === 'asc' ? '▲' : '▼';
+                } else {
+                    arrow.textContent = '▼';
+                }
+            });
+        }
+
+        function searchTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            filteredData = inventoryData.filter(item => 
+                item.name.toLowerCase().includes(searchTerm) ||
+                item.sku.toLowerCase().includes(searchTerm) ||
+                item.stock.toLowerCase().includes(searchTerm)
+            );
+            
+            currentPage = 1;
+            renderTable();
+        }
+
+        function changeItemsPerPage() {
+            itemsPerPage = parseInt(document.getElementById('entriesSelect').value);
+            currentPage = 1;
+            renderTable();
+        }
+
+        function exportToExcel() {
+            // Create Excel-compatible HTML content
+            let excelContent = `
+                <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+                <head>
+                    <meta charset="utf-8">
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+                    <meta name="ProgId" content="Excel.Sheet">
+                    <meta name="Generator" content="Microsoft Excel 15">
+                    <style>
+                        table { border-collapse: collapse; width: 100%; }
+                        .header { background-color: #4472C4; color: white; font-weight: bold; text-align: center; padding: 8px; border: 1px solid #000; }
+                        .title { background-color: #D5E3F7; font-weight: bold; text-align: center; padding: 8px; border: 1px solid #000; font-size: 14px; }
+                        .data { border: 1px solid #000; padding: 6px; text-align: left; }
+                        .number { text-align: right; }
+                    </style>
+                </head>
+                <body>
+                    <table>
+                        <tr>
+                            <td colspan="5" class="title">Inventory Report | Salman</td>
+                        </tr>
+                        <tr>
+                            <td class="header">#</td>
+                            <td class="header">Name</td>
+                            <td class="header">SKU</td>
+                            <td class="header">Price</td>
+                            <td class="header">Stock</td>
+                        </tr>
+            `;
+
+            inventoryData.forEach(item => {
+                const price = item.originalPrice ? 
+                    `${item.price}.00${item.originalPrice}.00` : 
+                    `${item.price}.00`;
+                
+                excelContent += `
+                    <tr>
+                        <td class="data number">${item.id}</td>
+                        <td class="data">${item.name}</td>
+                        <td class="data">${item.sku}</td>
+                        <td class="data number">${price}</td>
+                        <td class="data">${item.stock}</td>
+                    </tr>
+                `;
+            });
+
+            excelContent += `
+                    </table>
+                </body>
+                </html>
+            `;
+
+            // Create blob and download
+            const blob = new Blob([excelContent], {
+                type: 'application/vnd.ms-excel;charset=utf-8;'
+            });
+            
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "Inventory_Report_saad.xls");
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Add title
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(0, 0, 0);
+            doc.text('Inventory Report | saad', 105, 20, { align: 'center' });
+
+            // Prepare table data
+            const headers = [['#', 'Name', 'SKU', 'Price', 'Stock']];
+            const data = inventoryData.map(item => {
+                const price = item.originalPrice ? 
+                    `${item.price}.00\n(was ${item.originalPrice}.00)` : 
+                    `${item.price}.00`;
+                return [
+                    item.id.toString(),
+                    item.name,
+                    item.sku,
+                    price,
+                    item.stock
+                ];
+            });
+
+            // Add table
+            doc.autoTable({
+                head: headers,
+                body: data,
+                startY: 30,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [68, 114, 196], // Blue color matching Excel
+                    textColor: [255, 255, 255], // White text
+                    fontSize: 10,
+                    fontStyle: 'bold',
+                    halign: 'center'
+                },
+                bodyStyles: {
+                    fontSize: 9,
+                    cellPadding: 3
+                },
+                columnStyles: {
+                    0: { halign: 'center', cellWidth: 15 }, // #
+                    1: { halign: 'left', cellWidth: 60 },   // Name
+                    2: { halign: 'center', cellWidth: 35 }, // SKU
+                    3: { halign: 'right', cellWidth: 35 },  // Price
+                    4: { halign: 'center', cellWidth: 35 }  // Stock
+                },
+                alternateRowStyles: {
+                    fillColor: [249, 249, 249] // Light gray for alternate rows
+                },
+                margin: { top: 30, left: 10, right: 10 },
+                didDrawPage: function(data) {
+                    // Add footer
+                    const pageCount = doc.internal.getNumberOfPages();
+                    const pageHeight = doc.internal.pageSize.height;
+                    
+                    doc.setFontSize(8);
+                    doc.setTextColor(102, 102, 102);
+                    doc.text(
+                        `© 2025 saad All rights reserved. | Generated on ${new Date().toLocaleDateString()} | Total Entries: ${inventoryData.length}`,
+                        105,
+                        pageHeight - 10,
+                        { align: 'center' }
+                    );
+                }
+            });
+
+            // Save the PDF
+            doc.save('Inventory_Report_saad.pdf');
+        }
+
+        function printReport() {
+            const printWindow = window.open('', '_blank');
+            let printContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Inventory Report - Print</title>
+                    <style>
+                        @media print {
+                            body { margin: 0; font-family: Arial, sans-serif; }
+                            .page-break { page-break-before: always; }
+                            table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                            th, td { border: 1px solid #000; padding: 8px; text-align: left; font-size: 12px; }
+                            th { background-color: #f0f0f0; font-weight: bold; }
+                            h1 { text-align: center; margin-bottom: 20px; font-size: 18px; }
+                            .price-original { text-decoration: line-through; color: #666; font-size: 10px; display: block; }
+                            .footer { text-align: center; margin-top: 15px; font-size: 10px; color: #666; }
+                        }
+                        @media screen {
+                            body { font-family: Arial, sans-serif; margin: 20px; }
+                            table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+                            th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+                            th { background-color: #f8f9fa; font-weight: bold; }
+                            h1 { text-align: center; margin-bottom: 30px; }
+                            .price-original { text-decoration: line-through; color: #666; font-size: 12px; display: block; }
+                            .page-break { border-top: 2px dashed #ccc; margin: 30px 0; padding-top: 30px; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Inventory Report</h1>
+            `;
+
+            // Add tables with exactly 10 entries per page
+            for (let i = 0; i < inventoryData.length; i += 10) {
+                if (i > 0) printContent += '<div class="page-break"></div><h1>Inventory Report (continued)</h1>';
+                
+                printContent += `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">#</th>
+                                <th style="width: 35%;">Name</th>
+                                <th style="width: 20%;">SKU</th>
+                                <th style="width: 15%;">Price</th>
+                                <th style="width: 22%;">Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                const pageData = inventoryData.slice(i, i + 10);
+                pageData.forEach(item => {
+                    const priceDisplay = item.originalPrice ? 
+                        `${item.price}<span class="price-original">${item.originalPrice}.00</span>` : 
+                        item.price;
+                    
+                    printContent += `
+                        <tr>
+                            <td>${item.id}</td>
+                            <td>${item.name}</td>
+                            <td>${item.sku}</td>
+                            <td>${priceDisplay}</td>
+                            <td>${item.stock}</td>
+                        </tr>
+                    `;
+                });
+
+                printContent += `
+                        </tbody>
+                    </table>
+                `;
+            }
+
+            printContent += `
+                    <div class="footer">
+                        © 2025 saad All rights reserved. | Total Entries: ${inventoryData.length}
+                    </div>
+                </body>
+                </html>
+            `;
+
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            
+            setTimeout(() => {
+                printWindow.print();
+            }, 500);
+        }
+
+        function toggleFullScreen() {
+            const overlay = document.getElementById('fullScreenOverlay');
+            
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                overlay.style.display = 'block';
+            } else {
+                document.exitFullscreen();
+                overlay.style.display = 'none';
+            }
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', searchTable);
+        document.getElementById('entriesSelect').addEventListener('change', changeItemsPerPage);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                    document.getElementById('fullScreenOverlay').style.display = 'none';
+                }
+            }
+            if (e.key === 'F11') {
+                e.preventDefault();
+                toggleFullScreen();
+            }
+        });
+
+        // Initialize table
+        renderTable();
+
+        // Simulate full screen overlay (since we can't actually control browser fullscreen in this environment)
+        setTimeout(() => {
+            document.getElementById('fullScreenOverlay').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('fullScreenOverlay').style.display = 'none';
+            }, 3000);
+        }, 1000);
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const links = document.querySelectorAll(".submenu-link");
+  const currentPath = window.location.pathname.split("/").pop();
+
+  links.forEach(link => {
+    const linkPath = link.getAttribute("href").split("/").pop();
+    if (linkPath === currentPath) {
+      link.classList.add("active");
+
+      // Expand the parent submenu
+      const submenu = link.closest(".submenu");
+      if (submenu) {
+        submenu.style.display = "block"; // or add a class like 'open'
+        
+        // Optionally, add an 'active' class to the parent collapsible
+        const parentToggle = submenu.previousElementSibling;
+        if (parentToggle && parentToggle.classList.contains("collapsible")) {
+          parentToggle.classList.add("active");
+        }
+      }
+    }
+  });
+});
+
+
+
+
+    </script>
+        <script src="../js/script.js"></script>
+</body>
+</html>

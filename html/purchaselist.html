@@ -78,8 +78,8 @@
                     <span class="nav-chevron">❮</span>
                 </div>
                 <div class="submenu" id="purchaseSubmenu">
-                    <a href="#" class="submenu-link"><span class="dot"></span>Purchase List</a>
-                    <a href="#" class="submenu-link"><span class="dot"></span>Purchase Create</a>
+                    <a href="../html/purchaselist.html" class="submenu-link"><span class="dot"></span>Purchase List</a>
+                    <a href="../html/productpurchase.html" class="submenu-link"><span class="dot"></span>Purchase Create</a>
                 </div>
 
                 <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
@@ -88,7 +88,7 @@
                     <span class="nav-chevron">❮</span>
                 </div>
                 <div class="submenu" id="reportsSubmenu">
-                    <a href="#" class="submenu-link"><span class="dot"></span>Sales Summary</a>
+                    <a href="../html/salesummary.html" class="submenu-link"><span class="dot"></span>Sales Summary</a>
                     <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
                     <a href="#" class="submenu-link"><span class="dot"></span>Inventory</a>
                 </div>
@@ -134,7 +134,6 @@
             </div>
 
         </aside>
-
         <main class="main-content">
             <header class="top-header">
                 <div class="header-left">
@@ -153,7 +152,6 @@
                     </div>
                 </div>
             </header>
-
             <div class="content-area">
                 <div class="table-controls">
                     <div class="show-entries">
@@ -565,7 +563,7 @@
             });
         });
         document.querySelector('.add-new-button').addEventListener('click', function () {
-           
+           window.location.href = 'productpurchase.html'; 
         });
         document.querySelector('.search-box input').addEventListener('input', function () {
             console.log('Searching for:', this.value);
@@ -644,10 +642,38 @@
                 });
             }
         });
+        
 
 
+document.addEventListener("DOMContentLoaded", function () {
+  const links = document.querySelectorAll(".submenu-link");
+  const currentPage = window.location.pathname.split("/").pop();
 
+  links.forEach(link => {
+    const linkPage = link.getAttribute("href").split("/").pop();
 
+    // Highlight the active link on page load
+    if (linkPage === currentPage) {
+      link.classList.add("active");
+
+      // Also expand the submenu if the active link is inside it
+      const submenu = link.closest(".submenu");
+      if (submenu) {
+        submenu.style.display = "block"; // or add a class to show it
+        const parentToggle = submenu.previousElementSibling;
+        if (parentToggle && parentToggle.classList.contains("collapsible")) {
+          parentToggle.classList.add("expanded"); // optional: to rotate chevron
+        }
+      }
+    }
+
+    // Highlight on click
+    link.addEventListener("click", function () {
+      links.forEach(l => l.classList.remove("active"));
+      this.classList.add("active");
+    });
+  });
+});
 
     </script>
     <script src="../js/script.js"></script>

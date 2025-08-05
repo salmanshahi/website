@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Report </title>
+     <link rel="stylesheet" href="../css/dashboard.css" />
+    <style>
+        
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pos-btn {
+            background: #8b9dc3;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .exit-fullscreen {
+            position: fixed;
+            top: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 1000;
+        }
+
+        /* Report Content */
+        .report-content {
+            padding: 30px;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .report-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .date-filter {
+            position: relative;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #333;
+        }
+
+        .filter-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 150px;
+            z-index: 100;
+            display: none;
+        }
+
+        .filter-dropdown.show {
+            display: block;
+        }
+
+        .filter-option {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .filter-option:hover {
+            background: #f5f5f5;
+        }
+
+        .filter-option.active {
+            background: #8b9dc3;
+            color: white;
+        }
+
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sales-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .sales-table th {
+            background: #f8f9fa;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #555;
+            border-bottom: 2px solid #e9ecef;
+            font-size: 14px;
+        }
+
+        .sales-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e9ecef;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .sales-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .sales-table tr.highlighted {
+            background: #f0f0f0;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-due {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-paid {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .amount {
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 13px;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 30px;
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .print-btn:hover {
+            background: #218838;
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .report-content {
+                padding: 15px;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+        }
+
+
+        @media print {
+    .top-header, .print-btn {
+        display: none !important;
+    }
+    
+    body {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .report-content {
+        padding: 0 !important;
+    }
+    
+    .sidebar {
+        display: none !important;
+    }
+    
+    .main-content {
+        margin-left: 0 !important;
+    }
+    
+    /* Ensure table takes full width */
+    .table-container {
+        width: 100%;
+        box-shadow: none;
+        border: none;
+    }
+    
+    /* Optional: Add page breaks to avoid cutting tables */
+    table {
+        page-break-inside: auto;
+    }
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="user-section">
+                <div class="user-avatar">
+                    <span class="avatar-lock">🔒</span>
+                </div>
+
+
+                <span class="username">salman</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="../html/pos.html" class="nav-link" id="posLink">
+                    <span class="nav-icon">🛒</span>
+                    <span class="nav-text">POS</span>
+                </a>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('peopleSubmenu', this)">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">People</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="peopleSubmenu">
+                    <a href="../html/customer.html" class="submenu-link">
+                        <span class="dot"></span>Customer
+                    </a>
+                    <a href="../html/supplier.html" class="submenu-link">
+                        <span class="dot"></span>Supplier
+                    </a>
+                </div>
+                </a>
+
+                <div class="nav-link collapsible" onclick="toggleSubmenu('productSubmenu', this)">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-text">Product</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="productSubmenu">
+                    <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span
+                            class="dot"></span>Product
+                        List</a>
+                    <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span
+                            class="dot"></span>Product Create</a>
+                    <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span
+                            class="dot"></span>Product Import</a>
+                    <a href="../html/brand.html" class="submenu-link" id="brandLink"><span class="dot"></span>Brand</a>
+                    <a href="../html/category.html" class="submenu-link" id="categoryLink"><span
+                            class="dot"></span>Category</a>
+                    <a href="../html/unit.html" class="submenu-link" id="unitLink"><span class="dot"></span>Unit</a>
+                </div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
+                    <span class="nav-icon">🏷️</span>
+                    <span class="nav-text">Sale</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="saleSubmenu">
+                    <a href="sales.html" class="submenu-link"><span class="dot"></span>Sale List</a>
+                </div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
+                    <span class="nav-icon">🛍️</span>
+                    <span class="nav-text">Purchase</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="purchaseSubmenu">
+                    <a href="../html/purchaselist.html" class="submenu-link"><span class="dot"></span>Purchase List</a>
+                    <a href="../html/productpurchase.html" class="submenu-link"><span class="dot"></span>Purchase Create</a>
+                </div>
+
+                <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Reports</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="reportsSubmenu">
+                     <a href="../html/salesummary.html" class="submenu-link"><span class="dot"></span>SalesSummary</a>
+                    <a href="../html/salereport.html" class="submenu-link"><span class="dot"></span>Sales</a>
+                    <a href="../html/inventory.html" class="submenu-link"><span class="dot"></span>Inventory</a>
+                </div>
+
+            </nav>
+            <div class="settings-section">
+                <div class="settings-header">SETTINGS</div>
+
+                <div class="nav-link collapsible" onclick="toggleSubmenu('websiteSubmenu', this)">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Website Settings</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+
+                <div class="submenu" id="websiteSubmenu">
+                    <a href="#" class="submenu-link">
+                        <span>⚙️</span>General Setting
+                    </a>
+
+                    <a href="#" class="submenu-link">
+                        <span class="coin-icon">💵</span>Currency
+                    </a>
+
+                    <div class="nav-link collapsible inner" onclick="toggleSubmenu('rulesSubmenu', this)">
+                        <span>🛡️
+                        </span>
+                        <span class="nav-text">Rules & Permission</span>
+                        <span class="nav-chevron">❮</span>
+                    </div>
+                    <div class="submenu" id="rulesSubmenu">
+                        <a href="#" class="submenu-link">
+                            <span>📜</span>Rules
+                        </a>
+                        <a href="#" class="submenu-link">
+                            <span>🔐</span>Permission
+                        </a>
+                    </div>
+
+                    <a href="#" class="submenu-link">
+                        <span>👥</span>User Management
+                    </a>
+                </div>
+            </div>
+
+        </aside>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="hamburger-menu">☰</button>
+                    <h1 class="page-title">Sale Report</h1>
+                </div>
+                <div class="header-right">
+                    <button class="pos-button" onclick="window.location.href='pos.html'">🛒 POS</button>
+                    <button class="settings-icon" id="fullscreenBtn">⛶</button>
+                    <div class="user-dropdown-container">
+                        <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="../html/profile.html" id="profileBtn">Profile</a>
+                            <a href="../html/log-in.html" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="report-content">
+                <div class="report-header">
+                    <h2 class="report-title">Sale Report (Jul 01, 2025 - Jul 30, 2025)</h2>
+                    <div class="date-filter">
+                        <button class="filter-btn" id="filterBtn">
+                            📅 Filter by date ▼
+                        </button>
+                        <div class="filter-dropdown" id="filterDropdown">
+                            <div class="filter-option">Today</div>
+                            <div class="filter-option">Yesterday</div>
+                            <div class="filter-option">Last 7 Days</div>
+                            <div class="filter-option active">Last 30 Days</div>
+                            <div class="filter-option">This Month</div>
+                            <div class="filter-option">Last Month</div>
+                            <div class="filter-option">Custom Range</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="sales-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>SaleId</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Item</th>
+                                <th>Sub Total RD$</th>
+                                <th>Discount RD$</th>
+                                <th>Total RD$</th>
+                                <th>Paid RD$</th>
+                                <th>Due RD$</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">
+        🖨️ Print
+    </button>
+
+    <script>
+        // Sample sales data matching the images
+        const salesData = [
+            {id: 1, saleId: '#101', customer: 'Walking Customer', date: '01-07-2025', item: 3, subTotal: 907.00, discount: 0.00, total: 907.00, paid: 0.00, due: 907.00, status: 'Due'},
+            {id: 2, saleId: '#102', customer: 'Walking Customer', date: '01-07-2025', item: 40, subTotal: 1600.00, discount: 0.00, total: 1600.00, paid: 0.00, due: 1600.00, status: 'Due'},
+            {id: 3, saleId: '#103', customer: 'Walking Customer', date: '01-07-2025', item: 36, subTotal: 1440.00, discount: 0.00, total: 1440.00, paid: 0.00, due: 1440.00, status: 'Due'},
+            {id: 4, saleId: '#104', customer: 'Walking Customer', date: '01-07-2025', item: 0, subTotal: 0.00, discount: 0.00, total: 0.00, paid: 0.00, due: 0.00, status: 'Paid'},
+            {id: 5, saleId: '#105', customer: 'Walking Customer', date: '02-07-2025', item: 2, subTotal: 938.00, discount: 0.00, total: 938.00, paid: 0.00, due: 938.00, status: 'Due'},
+            {id: 6, saleId: '#106', customer: 'Ahmed', date: '02-07-2025', item: 2, subTotal: 214.00, discount: 0.00, total: 214.00, paid: 0.00, due: 214.00, status: 'Due'},
+            {id: 7, saleId: '#107', customer: 'Walking Customer', date: '02-07-2025', item: 2, subTotal: 1370.00, discount: 0.00, total: 1370.00, paid: 1370.00, due: 0.00, status: 'Paid'},
+            {id: 8, saleId: '#108', customer: 'Walking Customer', date: '02-07-2025', item: 5, subTotal: 2328.00, discount: 0.00, total: 2328.00, paid: 0.00, due: 2328.00, status: 'Due'},
+            {id: 9, saleId: '#109', customer: 'Walking Customer', date: '02-07-2025', item: 3, subTotal: 1318.00, discount: 0.00, total: 1318.00, paid: 0.00, due: 1318.00, status: 'Due'},
+            {id: 10, saleId: '#110', customer: 'Walking Customer', date: '02-07-2025', item: 3, subTotal: 594.00, discount: 0.00, total: 594.00, paid: 0.00, due: 594.00, status: 'Due'},
+            {id: 11, saleId: '#111', customer: 'Walking Customer', date: '03-07-2025', item: 5, subTotal: 950.00, discount: 0.00, total: 950.00, paid: 0.00, due: 950.00, status: 'Due'},
+            {id: 12, saleId: '#112', customer: 'Walking Customer', date: '03-07-2025', item: 2, subTotal: 1259.00, discount: 0.00, total: 1259.00, paid: 0.00, due: 1259.00, status: 'Due'},
+            {id: 13, saleId: '#195', customer: 'Walking Customer', date: '26-07-2025', item: 3, subTotal: 642.00, discount: 0.00, total: 642.00, paid: 0.00, due: 642.00, status: 'Due'},
+            {id: 14, saleId: '#196', customer: 'Walking Customer', date: '27-07-2025', item: 5, subTotal: 549.90, discount: 0.00, total: 549.90, paid: 0.00, due: 549.90, status: 'Due'},
+            {id: 15, saleId: '#197', customer: 'Nadeem', date: '27-07-2025', item: 5, subTotal: 810.00, discount: 0.00, total: 810.00, paid: 0.00, due: 810.00, status: 'Due'},
+            {id: 16, saleId: '#198', customer: 'Walking Customer', date: '27-07-2025', item: 8, subTotal: 1194.00, discount: 0.00, total: 1194.00, paid: 0.00, due: 1194.00, status: 'Due'},
+            {id: 17, saleId: '#199', customer: 'Leda Hahn', date: '27-07-2025', item: 6, subTotal: 886.90, discount: 200.00, total: 686.90, paid: 200.00, due: 486.90, status: 'Due'},
+            {id: 18, saleId: '#200', customer: 'Walking Customer', date: '27-07-2025', item: 6, subTotal: 2131.90, discount: 10.00, total: 2121.90, paid: 300.00, due: 1821.90, status: 'Due'},
+            {id: 18, saleId: '#201', customer: 'Walking Customer', date: '27-07-2025', item: 3, subTotal: 1218.00, discount: 0.00, total: 1218.00, paid: 1218.00, due: 0.00, status: 'Paid'},
+            {id: 19, saleId: '#202', customer: 'Walking Customer', date: '27-07-2025', item: 12, subTotal: 8260.00, discount: 200.00, total: 8060.00, paid: 8060.00, due: 0.00, status: 'Paid'},
+            {id: 20, saleId: '#203', customer: 'Walking Customer', date: '29-07-2025', item: 1, subTotal: 280.00, discount: 0.00, total: 280.00, paid: 0.00, due: 280.00, status: 'Due'},
+            {id: 21, saleId: '#204', customer: 'Walking Customer', date: '29-07-2025', item: 6, subTotal: 1268.90, discount: 0.00, total: 1268.90, paid: 0.00, due: 1268.90, status: 'Due'},
+            {id: 22, saleId: '#205', customer: 'Walking Customer', date: '30-07-2025', item: 3, subTotal: 227.90, discount: 0.00, total: 227.90, paid: 0.00, due: 227.90, status: 'Due'},
+            {id: 23, saleId: '#206', customer: 'Walking Customer', date: '30-07-2025', item: 2, subTotal: 295.00, discount: 0.00, total: 295.00, paid: 0.00, due: 295.00, status: 'Due'},
+            {id: 24, saleId: '#207', customer: 'Walking Customer', date: '30-07-2025', item: 3, subTotal: 495.00, discount: 0.00, total: 495.00, paid: 0.00, due: 495.00, status: 'Due'}
+        ];
+
+        // Populate table
+        function populateTable(data) {
+            const tbody = document.getElementById('salesTableBody');
+            tbody.innerHTML = '';
+            
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                if (row.id === 98 || row.id === 99) {
+                    tr.classList.add('highlighted');
+                }
+                
+                tr.innerHTML = `
+                    <td>${row.id}</td>
+                    <td>${row.saleId}</td>
+                    <td>${row.customer}</td>
+                    <td>${row.date}</td>
+                    <td>${row.item}</td>
+                    <td class="amount">${row.subTotal.toFixed(2)}</td>
+                    <td class="amount">${row.discount.toFixed(2)}</td>
+                    <td class="amount">${row.total.toFixed(2)}</td>
+                    <td class="amount">${row.paid.toFixed(2)}</td>
+                    <td class="amount">${row.due.toFixed(2)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Filter dropdown functionality
+        const filterBtn = document.getElementById('filterBtn');
+        const filterDropdown = document.getElementById('filterDropdown');
+
+        filterBtn.addEventListener('click', () => {
+            filterDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!filterBtn.contains(e.target) && !filterDropdown.contains(e.target)) {
+                filterDropdown.classList.remove('show');
+            }
+        });
+
+        // Filter options
+        document.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelector('.filter-option.active').classList.remove('active');
+                option.classList.add('active');
+                filterDropdown.classList.remove('show');
+                
+                // Here you would implement actual filtering logic
+                console.log('Filter selected:', option.textContent);
+            });
+        });
+
+        // Navigation interactions
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Toggle submenu
+                const arrow = link.querySelector('.nav-arrow');
+                if (arrow) {
+                    const subMenu = link.parentElement.querySelector('.sub-menu');
+                    if (subMenu) {
+                        subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
+                        arrow.style.transform = subMenu.style.display === 'block' ? 'rotate(180deg)' : 'rotate(0deg)';
+                    }
+                }
+            });
+        });
+
+        populateTable(salesData);
+
+        // ESC key functionality
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                console.log('Exit full screen');
+            }
+        });
+
+
+
+        
+    
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const links = document.querySelectorAll(".submenu-link");
+  const currentPath = window.location.pathname.split("/").pop();
+
+  links.forEach(link => {
+    const linkPath = link.getAttribute("href").split("/").pop();
+    if (linkPath === currentPath) {
+      link.classList.add("active");
+
+      // Expand the parent submenu
+      const submenu = link.closest(".submenu");
+      if (submenu) {
+        submenu.style.display = "block"; // or add a class like 'open'
+        
+        // Optionally, add an 'active' class to the parent collapsible
+        const parentToggle = submenu.previousElementSibling;
+        if (parentToggle && parentToggle.classList.contains("collapsible")) {
+          parentToggle.classList.add("active");
+        }
+      }
+    }
+  });
+});
+
+
+
+    </script>
+      <script src="../js/script.js"></script>
+</body>
+</html>

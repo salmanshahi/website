@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Report | Salman</title>
+    <link rel="stylesheet" href="../css/dashboard.css" />
+
+    <style>
+        .filter-section {
+            padding: 15px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .date-filter {
+            position: relative;
+        }
+
+        .date-filter button {
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #333;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            min-width: 160px;
+            justify-content: space-between;
+        }
+
+        .date-filter button:hover {
+            border-color: #999;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        .date-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+            min-width: 160px;
+            display: none;
+            margin-top: 2px;
+        }
+
+        .date-dropdown.show {
+            display: block;
+        }
+
+        .date-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+            color: #333;
+            transition: background 0.2s ease;
+        }
+
+        .date-option:last-child {
+            border-bottom: none;
+        }
+
+        .date-option:hover {
+            background: #f8f9fa;
+        }
+
+        .date-option.active {
+            background: #4285f4;
+            color: white;
+        }
+
+        .pos-btn {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .report-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .report-summary {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .report-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .report-period {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .summary-table {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .print-btn:hover {
+            background: #218838;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* Print Modal */
+        .print-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .print-modal.show {
+            display: flex;
+        }
+
+        .print-container {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 90vw;
+            max-height: 90vh;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .print-preview {
+            width: 600px;
+            height: 800px;
+            background: white;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .print-sidebar {
+            width: 300px;
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+        }
+
+        .print-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .print-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .sheet-info {
+            font-size: 14px;
+            color: #a0aec0;
+        }
+
+        .print-setting {
+            margin-bottom: 25px;
+        }
+
+        .print-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #e2e8f0;
+        }
+
+        .print-select {
+            width: 100%;
+            padding: 8px 12px;
+            background: #4a5568;
+            border: 1px solid #718096;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .print-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .print-action-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .print-btn-primary {
+            background: #4299e1;
+            color: white;
+        }
+
+        .print-btn-secondary {
+            background: transparent;
+            color: #4299e1;
+            border: 1px solid #4299e1;
+        }
+
+        .print-document {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .print-doc-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333;
+        }
+
+        .print-doc-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .print-doc-table {
+            width: 100%;
+        }
+
+        .print-doc-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .print-doc-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 40px;
+            right: 40px;
+            text-align: left;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .more-settings {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 1px solid #4a5568;
+            margin-top: 20px;
+        }
+
+        .chevron {
+            transition: transform 0.2s;
+        }
+
+        .chevron.expanded {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="user-section">
+                <div class="user-avatar">
+                    <span class="avatar-lock">🔒</span>
+                </div>
+
+                <span class="username">salman</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="../html/pos.html" class="nav-link" id="posLink">
+                    <span class="nav-icon">🛒</span>
+                    <span class="nav-text">POS</span>
+                </a>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('peopleSubmenu', this)">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">People</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="peopleSubmenu">
+                    <a href="../html/customer.html" class="submenu-link">
+                        <span class="dot"></span>Customer
+                    </a>
+                    <a href="../html/supplier.html" class="submenu-link">
+                        <span class="dot"></span>Supplier
+                    </a>
+                </div>
+                </a>
+
+                <div class="nav-link collapsible" onclick="toggleSubmenu('productSubmenu', this)">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-text">Product</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="productSubmenu">
+                    <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span
+                            class="dot"></span>Product
+                        List</a>
+                    <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span
+                            class="dot"></span>Product Create</a>
+                    <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span
+                            class="dot"></span>Product Import</a>
+                    <a href="../html/brand.html" class="submenu-link" id="brandLink"><span class="dot"></span>Brand</a>
+                    <a href="../html/category.html" class="submenu-link" id="categoryLink"><span
+                            class="dot"></span>Category</a>
+                    <a href="../html/unit.html" class="submenu-link" id="unitLink"><span class="dot"></span>Unit</a>
+                </div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
+                    <span class="nav-icon">🏷️</span>
+                    <span class="nav-text">Sale</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="saleSubmenu">
+                    <a href="sales.html" class="submenu-link"><span class="dot"></span>Sale List</a>
+                </div>
+                <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
+                    <span class="nav-icon">🛍️</span>
+                    <span class="nav-text">Purchase</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="purchaseSubmenu">
+                    <a href="../html/purchaselist.html" class="submenu-link"><span class="dot"></span>Purchase
+                        List</a>
+                    <a href="../html/productpurchase.html" class="submenu-link"><span class="dot"></span>Purchase
+                        Create</a>
+                </div>
+
+                <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Reports</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+                <div class="submenu" id="reportsSubmenu">
+                    <a href="../html/salesummary.html" class="submenu-link"><span class="dot"></span>SalesSummary</a>
+                    <a href="../html/salereport.html" class="submenu-link"><span class="dot"></span>Sales</a>
+                    <a href="../html/inventory.html" class="submenu-link"><span class="dot"></span>Inventory</a>
+                </div>
+
+            </nav>
+            <div class="settings-section">
+                <div class="settings-header">SETTINGS</div>
+
+                <div class="nav-link collapsible" onclick="toggleSubmenu('websiteSubmenu', this)">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Website Settings</span>
+                    <span class="nav-chevron">❮</span>
+                </div>
+
+                <div class="submenu" id="websiteSubmenu">
+                    <a href="#" class="submenu-link">
+                        <span>⚙️</span>General Setting
+                    </a>
+
+                    <a href="#" class="submenu-link">
+                        <span class="coin-icon">💵</span>Currency
+                    </a>
+
+                    <div class="nav-link collapsible inner" onclick="toggleSubmenu('rulesSubmenu', this)">
+                        <span>🛡️
+                        </span>
+                        <span class="nav-text">Rules & Permission</span>
+                        <span class="nav-chevron">❮</span>
+                    </div>
+                    <div class="submenu" id="rulesSubmenu">
+                        <a href="#" class="submenu-link">
+                            <span>📜</span>Rules
+                        </a>
+                        <a href="#" class="submenu-link">
+                            <span>🔐</span>Permission
+                        </a>
+                    </div>
+
+                    <a href="#" class="submenu-link">
+                        <span>👥</span>User Management
+                    </a>
+                </div>
+            </div>
+
+        </aside>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="hamburger-menu">☰</button>
+                    <h1 class="page-title">Sale Summary</h1>
+                </div>
+                <div class="header-right">
+                    <button class="pos-button" onclick="window.location.href='pos.html'">🛒
+                        POS</button>
+                    <button class="settings-icon" id="fullscreenBtn">⛶</button>
+                    <div class="user-dropdown-container">
+                        <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="../html/profile.html" id="profileBtn">Profile</a>
+                            <a href="../html/log-in.html" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="filter-section">
+                <div class="date-filter">
+                    <button onclick="toggleDateDropdown()">
+                        <span>📅 Filter by date</span>
+                        <span>▼</span>
+                    </button>
+                    <div class="date-dropdown" id="dateDropdown">
+                        <div class="date-option" onclick="selectDateFilter('Today')">Today</div>
+                        <div class="date-option" onclick="selectDateFilter('Yesterday')">Yesterday</div>
+                        <div class="date-option" onclick="selectDateFilter('Last 7 Days')">Last 7
+                            Days</div>
+                        <div class="date-option active" onclick="selectDateFilter('Last 30 Days')">Last 30
+                            Days</div>
+                        <div class="date-option" onclick="selectDateFilter('This Month')">This
+                            Month</div>
+                        <div class="date-option" onclick="selectDateFilter('Last Month')">Last
+                            Month</div>
+                        <div class="date-option" onclick="selectDateFilter('Custom Range')">Custom
+                            Range</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-content">
+                <div class="report-summary">
+                    <div class="report-title">Sale Summary (Jul 01, 2025 - Jul
+                        30, 2025)</div>
+                </div>
+
+                <div class="summary-table">
+                    <div class="summary-row">
+                        <div class="summary-label">Subtotal:</div>
+                        <div class="summary-value">RD$ 152,219.40</div>
+                    </div>
+                    <div class="summary-row">
+                        <div class="summary-label">Total Discount:</div>
+                        <div class="summary-value">RD$ 1,749.80</div>
+                    </div>
+                    <div class="summary-row">
+                        <div class="summary-label">Total Sold:</div>
+                        <div class="summary-value">RD$ 150,469.60</div>
+                    </div>
+                    <div class="summary-row">
+                        <div class="summary-label">Customer Paid:</div>
+                        <div class="summary-value">RD$ 74,979.00</div>
+                    </div>
+                    <div class="summary-row">
+                        <div class="summary-label">Customer Due:</div>
+                        <div class="summary-value">RD$ 75,490.60</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                © 2025 <strong>saad</strong> All rights reserved.
+            </div>
+
+            <button class="print-btn" onclick="showPrintModal()">
+                🖨️ Print
+            </button>
+    </div>
+    <div class="print-modal" id="printModal">
+        <div class="print-container">
+            <div class="print-preview">
+                <div class="print-document">
+                    <div class="print-doc-header">
+                        <div class="print-doc-title">Sale Summary (Jul 01,
+                            2025 - Jul 30, 2025)</div>
+                    </div>
+
+                    <div class="print-doc-table">
+                        <div class="print-doc-row">
+                            <span><strong>Subtotal:</strong></span>
+                            <span>RD$ 152,219.40</span>
+                        </div>
+                        <div class="print-doc-row">
+                            <span><strong>Total Discount:</strong></span>
+                            <span>RD$ 1,749.80</span>
+                        </div>
+                        <div class="print-doc-row">
+                            <span><strong>Total Sold:</strong></span>
+                            <span>RD$ 150,469.60</span>
+                        </div>
+                        <div class="print-doc-row">
+                            <span><strong>Customer Paid:</strong></span>
+                            <span>RD$ 74,979.00</span>
+                        </div>
+                        <div class="print-doc-row">
+                            <span><strong>Customer Due:</strong></span>
+                            <span>RD$ 75,490.60</span>
+                        </div>
+                    </div>
+
+                    <div class="print-doc-footer">
+                        © 2025 <strong>saad</strong> All rights reserved.
+                    </div>
+                </div>
+
+                <div style="position: absolute; bottom: 20px; right: 20px; font-size: 12px; color: #666;">
+                    1/1
+                </div>
+            </div>
+
+            <div class="print-sidebar">
+                <div class="print-header">
+                    <div class="print-title">Print</div>
+                    <div class="sheet-info">1 sheet of paper</div>
+                </div>
+
+                <div class="print-setting">
+                    <label class="print-label">Destination</label>
+                    <select class="print-select">
+                        <option>Microsoft Print to PDF</option>
+                        <option>Save as PDF</option>
+                        <option>Print to Printer</option>
+                    </select>
+                </div>
+
+                <div class="print-setting">
+                    <label class="print-label">Pages</label>
+                    <select class="print-select">
+                        <option>All</option>
+                        <option>Current Page</option>
+                        <option>Custom</option>
+                    </select>
+                </div>
+
+                <div class="print-setting">
+                    <label class="print-label">Color</label>
+                    <select class="print-select">
+                        <option>Color</option>
+                        <option>Black and White</option>
+                    </select>
+                </div>
+
+                <div class="more-settings" onclick="toggleMoreSettings()">
+                    <span>More settings</span>
+                    <span class="chevron" id="moreSettingsChevron">▼</span>
+                </div>
+
+                <div class="print-actions">
+                    <button class="print-action-btn print-btn-primary" onclick="executePrint()">Print</button>
+                    <button class="print-action-btn print-btn-secondary" onclick="closePrintModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDateDropdown() {
+            const dropdown = document.getElementById('dateDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function selectDateFilter(option) {
+            const dropdown = document.getElementById('dateDropdown');
+            const activeOption = dropdown.querySelector('.active');
+            if (activeOption) {
+                activeOption.classList.remove('active');
+            }
+
+            event.target.classList.add('active');
+            dropdown.classList.remove('show');
+
+            // Update the report period based on selection
+            updateReportPeriod(option);
+        }
+
+        function updateReportPeriod(option) {
+            const reportTitle = document.querySelector('.report-title');
+            let dateRange;
+
+            switch (option) {
+                case 'Today':
+                    dateRange = 'Jul 30, 2025';
+                    break;
+                case 'Yesterday':
+                    dateRange = 'Jul 29, 2025';
+                    break;
+                case 'Last 7 Days':
+                    dateRange = 'Jul 24, 2025 - Jul 30, 2025';
+                    break;
+                case 'Last 30 Days':
+                    dateRange = 'Jul 01, 2025 - Jul 30, 2025';
+                    break;
+                case 'This Month':
+                    dateRange = 'Jul 01, 2025 - Jul 30, 2025';
+                    break;
+                case 'Last Month':
+                    dateRange = 'Jun 01, 2025 - Jun 30, 2025';
+                    break;
+                default:
+                    dateRange = 'Jul 01, 2025 - Jul 30, 2025';
+            }
+
+            reportTitle.textContent = `Sale Summary (${dateRange})`;
+
+            // Update print preview as well
+            const printTitle = document.querySelector('.print-doc-title');
+            printTitle.textContent = `Sale Summary (${dateRange})`;
+        }
+
+        function showPrintModal() {
+            const modal = document.getElementById('printModal');
+            modal.classList.add('show');
+        }
+
+        function closePrintModal() {
+            const modal = document.getElementById('printModal');
+            modal.classList.remove('show');
+        }
+
+        function executePrint() {
+            // In a real application, this would trigger the actual print functionality
+            window.print();
+        }
+
+        function toggleMoreSettings() {
+            const chevron = document.getElementById('moreSettingsChevron');
+            chevron.classList.toggle('expanded');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (event) {
+            const dropdown = document.getElementById('dateDropdown');
+            const button = event.target.closest('.date-filter button');
+
+            if (!button && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Close print modal when clicking outside
+        document.getElementById('printModal').addEventListener('click', function (event) {
+            if (event.target === this) {
+                closePrintModal();
+            }
+        });
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const links = document.querySelectorAll(".submenu-link");
+  const currentPath = window.location.pathname.split("/").pop();
+
+  links.forEach(link => {
+    const linkPath = link.getAttribute("href").split("/").pop();
+    if (linkPath === currentPath) {
+      link.classList.add("active");
+
+      // Expand the parent submenu
+      const submenu = link.closest(".submenu");
+      if (submenu) {
+        submenu.style.display = "block"; // or add a class like 'open'
+        
+        // Optionally, add an 'active' class to the parent collapsible
+        const parentToggle = submenu.previousElementSibling;
+        if (parentToggle && parentToggle.classList.contains("collapsible")) {
+          parentToggle.classList.add("active");
+        }
+      }
+    }
+  });
+});
+
+
+
+    </script>
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

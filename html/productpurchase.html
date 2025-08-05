@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Purchase</title>
+      <link rel="stylesheet" href="../css/dashboard.css" />
+
+    <style>
+        .fullscreen-banner {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 15px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pos-button {
+            background: #7c8fc7;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #7c8fc7;
+        }
+
+        .supplier-select {
+            position: relative;
+        }
+
+        .supplier-dropdown {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8f9fa;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .product-search {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 40px 12px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+        }
+
+        .add-product-btn {
+            background: #7c8fc7;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .product-table th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .product-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .totals-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+        }
+
+        .totals {
+            width: 300px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total-row.grand {
+            font-weight: bold;
+            border-bottom: 2px solid #333;
+            font-size: 16px;
+        }
+
+        .bottom-form {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group-bottom {
+            flex: 1;
+        }
+
+        .form-group-bottom label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group-bottom input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .create-btn {
+            background: #7c8fc7;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            color: #999;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .empty-table {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+        }
+
+        .price-input {
+            width: 100px;
+        }
+
+        .menu-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .product-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .bottom-form {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <aside class="sidebar">
+      <div class="user-section">
+        <div class="user-avatar">
+          <span class="avatar-lock">🔒</span>
+        </div>
+
+
+        <span class="username">salman</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-link active">
+          <span class="nav-icon">📊</span>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a href="../html/pos.html" class="nav-link" id="posLink">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-text">POS</span>
+        </a>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('peopleSubmenu', this)">
+          <span class="nav-icon">👤</span>
+          <span class="nav-text">People</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="peopleSubmenu">
+          <a href="../html/customer.html" class="submenu-link">
+            <span class="dot"></span>Customer
+          </a>
+          <a href="../html/supplier.html" class="submenu-link">
+            <span class="dot"></span>Supplier
+          </a>
+        </div>
+
+
+        </a>
+
+        <div class="nav-link collapsible" onclick="toggleSubmenu('productSubmenu', this)">
+          <span class="nav-icon">📦</span>
+          <span class="nav-text">Product</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="productSubmenu">
+          <a href="../html/productlist.html" class="submenu-link" id="productListLink"><span class="dot"></span>Product
+            List</a>
+          <a href="../html/createproduct.html" class="submenu-link" id="productCreateLink"><span
+              class="dot"></span>Product Create</a>
+          <a href="../html/importproduct.html" class="submenu-link" id="importProductLink"><span
+              class="dot"></span>Product Import</a>
+          <a href="../html/brand.html" class="submenu-link" id="brandLink"><span class="dot"></span>Brand</a>
+          <a href="../html/category.html" class="submenu-link" id="categoryLink"><span class="dot"></span>Category</a>
+          <a href="../html/unit.html" class="submenu-link" id="unitLink"><span class="dot"></span>Unit</a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('saleSubmenu', this)">
+          <span class="nav-icon">🏷️</span>
+          <span class="nav-text">Sale</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="saleSubmenu">
+          <a href="sales.html" class="submenu-link"><span class="dot"></span>Sale List</a>
+        </div>
+        <div class="nav-link collapsible" onclick="toggleSubmenu('purchaseSubmenu', this)">
+          <span class="nav-icon">🛍️</span>
+          <span class="nav-text">Purchase</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="purchaseSubmenu">
+          <a href="../html/purchaselist.html" class="submenu-link"><span class="dot"></span>Purchase List</a>
+          <a href="../html/productpurchase.html" class="submenu-link"><span class="dot"></span>Purchase Create</a>
+        </div>
+
+        <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
+          <span class="nav-icon">📈</span>
+          <span class="nav-text">Reports</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+        <div class="submenu" id="reportsSubmenu">
+          <a href="#" class="submenu-link"><span class="dot"></span>Sales Summary</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
+          <a href="#" class="submenu-link"><span class="dot"></span>Inventory</a>
+        </div>
+
+      </nav>
+      <div class="settings-section">
+        <div class="settings-header">SETTINGS</div>
+
+        <div class="nav-link collapsible" onclick="toggleSubmenu('websiteSubmenu', this)">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-text">Website Settings</span>
+          <span class="nav-chevron">❮</span>
+        </div>
+
+        <div class="submenu" id="websiteSubmenu">
+          <a href="#" class="submenu-link">
+            <span>⚙️</span>General Setting
+          </a>
+
+          <a href="#" class="submenu-link">
+            <span class="coin-icon">💵</span>Currency
+          </a>
+
+          <div class="nav-link collapsible inner" onclick="toggleSubmenu('rulesSubmenu', this)">
+            <span>🛡️
+            </span>
+            <span class="nav-text">Rules & Permission</span>
+            <span class="nav-chevron">❮</span>
+          </div>
+          <div class="submenu" id="rulesSubmenu">
+            <a href="#" class="submenu-link">
+              <span>📜</span>Rules
+            </a>
+            <a href="#" class="submenu-link">
+              <span>🔐</span>Permission
+            </a>
+          </div>
+
+          <a href="#" class="submenu-link">
+            <span>👥</span>User Management
+          </a>
+        </div>
+      </div>
+
+    </aside>
+
+    <main class="main-content">
+      <header class="top-header">
+        <div class="header-left">
+          <button class="hamburger-menu">☰</button>
+          <h1 class="page-title">Product Purchase</h1>
+        </div>
+        <div class="header-right">
+          <button class="pos-button" onclick="window.location.href='pos.html'">🛒 POS</button>
+          <button class="settings-icon" id="fullscreenBtn">⛶</button>
+          <div class="user-dropdown-container">
+            <button class="user-menu" id="userMenuBtn">👤 ▼</button>
+            <div class="user-dropdown" id="userDropdown">
+              <a href="../html/profile.html" id="profileBtn">Profile</a>
+              <a href="../html/log-in.html" id="logoutBtn">Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+        <div class="content">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Purchase Date<span class="required">*</span></label>
+                    <input type="date" class="form-control" id="purchaseDate">
+                </div>
+                
+                <div class="form-group">
+                    <label>Supplier<span class="required">*</span></label>
+                    <div class="supplier-select">
+                        <div class="supplier-dropdown" onclick="toggleSupplierDropdown()">
+                            <span id="selectedSupplier">Own Supplier</span>
+                            <span>✖️ ▼</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-search">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Enter product barcode/name" id="productSearch">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <button class="add-product-btn" onclick="addProduct()">Add Product</button>
+            </div>
+            
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Purchase Price</th>
+                        <th>Current Stock</th>
+                        <th>Qty</th>
+                        <th>Sub Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody">
+                    <tr>
+                        <td colspan="7" class="empty-table">No products added yet</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="totals-section">
+                <div class="totals">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Tax:</span>
+                        <span id="taxAmount">0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Discount:</span>
+                        <span id="discountAmount">0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Shipping:</span>
+                        <span id="shippingAmount">0.00</span>
+                    </div>
+                    <div class="total-row grand">
+                        <span>Grand Total:</span>
+                        <span id="grandTotal">0.00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bottom-form">
+                <div class="form-group-bottom">
+                    <label>Tax</label>
+                    <input type="number" step="0.01" value="0" id="taxInput" onchange="calculateTotals()">
+                </div>
+                
+                <div class="form-group-bottom">
+                    <label>Discount</label>
+                    <input type="number" step="0.01" value="0" id="discountInput" onchange="calculateTotals()">
+                </div>
+                
+                <div class="form-group-bottom">
+                    <label>Shipping Charge</label>
+                    <input type="number" step="0.01" value="0" id="shippingInput" onchange="calculateTotals()">
+                </div>
+            </div>
+            
+            <button class="create-btn" onclick="createPurchase()">Create</button>
+        </div>
+    </div>
+
+    <script>
+        let products = [];
+        let productCounter = 0;
+        document.getElementById('purchaseDate').value = new Date().toISOString().split('T')[0];
+
+        function toggleSupplierDropdown() {
+            alert('Supplier dropdown functionality would be implemented here');
+        }
+
+        function addProduct() {
+            const searchValue = document.getElementById('productSearch').value.trim();
+            if (!searchValue) {
+                alert('Please enter a product name or barcode');
+                return;
+            }
+
+            productCounter++;
+            const product = {
+                id: productCounter,
+                name: searchValue,
+                price: 0,
+                stock: 0,
+                qty: 1,
+                subtotal: 0
+            };
+
+            products.push(product);
+            renderProductTable();
+            document.getElementById('productSearch').value = '';
+            calculateTotals();
+        }
+
+        function renderProductTable() {
+            const tbody = document.getElementById('productTableBody');
+            
+            if (products.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-table">No products added yet</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = products.map((product, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${product.name}</td>
+                    <td>
+                        <input type="number" 
+                               step="0.01" 
+                               value="${product.price}" 
+                               class="price-input" 
+                               onchange="updateProductPrice(${product.id}, this.value)">
+                    </td>
+                    <td>${product.stock}</td>
+                    <td>
+                        <input type="number" 
+                               min="1" 
+                               value="${product.qty}" 
+                               class="quantity-input" 
+                               onchange="updateProductQty(${product.id}, this.value)">
+                    </td>
+                    <td>${product.subtotal.toFixed(2)}</td>
+                    <td>
+                        <button onclick="removeProduct(${product.id})" 
+                                style="background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateProductPrice(productId, price) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                product.price = parseFloat(price) || 0;
+                product.subtotal = product.price * product.qty;
+                renderProductTable();
+                calculateTotals();
+            }
+        }
+
+        function updateProductQty(productId, qty) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                product.qty = parseInt(qty) || 1;
+                product.subtotal = product.price * product.qty;
+                renderProductTable();
+                calculateTotals();
+            }
+        }
+
+        function removeProduct(productId) {
+            products = products.filter(p => p.id !== productId);
+            renderProductTable();
+            calculateTotals();
+        }
+
+        function calculateTotals() {
+            const subtotal = products.reduce((sum, product) => sum + product.subtotal, 0);
+            const tax = parseFloat(document.getElementById('taxInput').value) || 0;
+            const discount = parseFloat(document.getElementById('discountInput').value) || 0;
+            const shipping = parseFloat(document.getElementById('shippingInput').value) || 0;
+            
+            const grandTotal = subtotal + tax - discount + shipping;
+
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('taxAmount').textContent = tax.toFixed(2);
+            document.getElementById('discountAmount').textContent = discount.toFixed(2);
+            document.getElementById('shippingAmount').textContent = shipping.toFixed(2);
+            document.getElementById('grandTotal').textContent = grandTotal.toFixed(2);
+        }
+
+        function createPurchase() {
+            const purchaseDate = document.getElementById('purchaseDate').value;
+            const supplier = document.getElementById('selectedSupplier').textContent;
+            
+            if (!purchaseDate) {
+                alert('Please select a purchase date');
+                return;
+            }
+            
+            if (products.length === 0) {
+                alert('Please add at least one product');
+                return;
+            }
+
+            const purchaseData = {
+                date: purchaseDate,
+                supplier: supplier,
+                products: products,
+                tax: parseFloat(document.getElementById('taxInput').value) || 0,
+                discount: parseFloat(document.getElementById('discountInput').value) || 0,
+                shipping: parseFloat(document.getElementById('shippingInput').value) || 0,
+                grandTotal: parseFloat(document.getElementById('grandTotal').textContent)
+            };
+
+            console.log('Purchase created:', purchaseData);
+            alert('Purchase order created successfully!');
+            
+            products = [];
+            productCounter = 0;
+            document.getElementById('taxInput').value = 0;
+            document.getElementById('discountInput').value = 0;
+            document.getElementById('shippingInput').value = 0;
+            renderProductTable();
+            calculateTotals();
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                console.log('Escape pressed - exit fullscreen');
+            }
+        });
+        calculateTotals();
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const links = document.querySelectorAll(".submenu-link");
+  const currentPage = window.location.pathname.split("/").pop();
+
+  links.forEach(link => {
+    const linkPage = link.getAttribute("href").split("/").pop();
+    if (linkPage === currentPage) {
+      link.classList.add("active");
+      const submenu = link.closest(".submenu");
+      if (submenu) {
+        submenu.style.display = "block"; 
+        const parentToggle = submenu.previousElementSibling;
+        if (parentToggle && parentToggle.classList.contains("collapsible")) {
+          parentToggle.classList.add("expanded");
+        }
+      }
+    }
+    link.addEventListener("click", function () {
+      links.forEach(l => l.classList.remove("active"));
+      this.classList.add("active");
+    });
+  });
+});
+    </script>
+     <script src="../js/script.js"></script>
+</body>
+</html>

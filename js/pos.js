@@ -335,3 +335,68 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const userMenuBtn = document.getElementById("userMenuBtn");
+  const userDropdown = document.getElementById("userDropdown");
+
+  if (userMenuBtn && userDropdown) {
+    userMenuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      userDropdown.style.display =
+        userDropdown.style.display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!userDropdown.contains(e.target) && e.target !== userMenuBtn) {
+        userDropdown.style.display = "none";
+      }
+    });
+  }
+
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.removeItem("qposUser");
+      window.location.href = "../html/log-in.html";
+    });
+  }
+
+  const sidebar = document.querySelector(".sidebar");
+  const mainContent = document.querySelector(".main-content");
+  const hamburgerMenu = document.querySelector(".hamburger-menu");
+
+  if (hamburgerMenu && sidebar && mainContent) {
+    hamburgerMenu.addEventListener("click", () => {
+      sidebar.classList.toggle("collapsed");
+      mainContent.classList.toggle("collapsed");
+    });
+  }
+});
+
+const profileBtn = document.getElementById("profileBtn");
+
+if (profileBtn) {
+  profileBtn.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  });
+}
+
+
+  const userMenuBtn = document.getElementById('userMenuBtn');
+  const userDropdown = document.getElementById('userDropdown');
+  
+  
+  if (userMenuBtn && userDropdown) {
+    userMenuBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      userDropdown.style.display = userDropdown.style.display === 'block' ? 'none' : 'block';
+    });
+    document.addEventListener('click', function() {
+      userDropdown.style.display = 'none';
+    });
+  }

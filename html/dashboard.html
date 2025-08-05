@@ -79,7 +79,7 @@
         </div>
         <div class="submenu" id="purchaseSubmenu">
           <a href="../html/purchaselist.html" class="submenu-link"><span class="dot"></span>Purchase List</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Purchase Create</a>
+          <a href="../html/productpurchase.html" class="submenu-link"><span class="dot"></span>Purchase Create</a>
         </div>
 
         <div class="nav-link collapsible" onclick="toggleSubmenu('reportsSubmenu', this)">
@@ -88,9 +88,9 @@
           <span class="nav-chevron">❮</span>
         </div>
         <div class="submenu" id="reportsSubmenu">
-          <a href="#" class="submenu-link"><span class="dot"></span>Sales Summary</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Sales</a>
-          <a href="#" class="submenu-link"><span class="dot"></span>Inventory</a>
+          <a href="../html/salesummary.html" class="submenu-link"><span class="dot"></span>Sales Summary</a>
+          <a href="../html/salereport.html" class="submenu-link"><span class="dot"></span>Sales</a>
+          <a href="../html/inventory.html" class="submenu-link"><span class="dot"></span>Inventory</a>
         </div>
 
       </nav>
@@ -385,17 +385,37 @@
         });
       });
     });
-document.addEventListener("DOMContentLoaded", function () {
-    const currentPage = window.location.pathname.split("/").pop(); 
-    const links = document.querySelectorAll(".submenu-link");
 
-    links.forEach(link => {
-      const linkPage = link.getAttribute("href");
-      if (linkPage === currentPage) {
-        link.classList.add("active");
+    
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const links = document.querySelectorAll(".submenu-link");
+  const currentPath = window.location.pathname.split("/").pop();
+
+  links.forEach(link => {
+    const linkPath = link.getAttribute("href").split("/").pop();
+    if (linkPath === currentPath) {
+      link.classList.add("active");
+
+      // Expand the parent submenu
+      const submenu = link.closest(".submenu");
+      if (submenu) {
+        submenu.style.display = "block"; // or add a class like 'open'
+        
+        // Optionally, add an 'active' class to the parent collapsible
+        const parentToggle = submenu.previousElementSibling;
+        if (parentToggle && parentToggle.classList.contains("collapsible")) {
+          parentToggle.classList.add("active");
+        }
       }
-    });
+    }
   });
+});
+
 
 
 
