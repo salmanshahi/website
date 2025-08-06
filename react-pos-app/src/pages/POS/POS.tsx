@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Search, Plus, Minus, ShoppingCart, Trash2, Calculator } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Search, Plus, Minus, ShoppingCart, Trash2, Calculator, X, Smartphone, User } from 'lucide-react';
 import { products } from '../../data/products';
 
 interface CartItem {
@@ -12,16 +12,33 @@ interface CartItem {
 
 const POS: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [barcodeSearch, setBarcodeSearch] = useState('');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [customer, setCustomer] = useState('Walking Customer');
+  const [discount, setDiscount] = useState(0);
+  const [fractionalDiscount, setFractionalDiscount] = useState(false);
+  const [showConfirmClear, setShowConfirmClear] = useState(false);
+  const beepSoundRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    beepSoundRef.current = new Audio('/sounds/beep-07a.mp3');
+  }, []);
 
   const categories = ['All', 'Snacks', 'Beverages', 'Dairy', 'Meat', 'Fruits', 'Bakery'];
+
+  const playBeep = () => {
+    if (beepSoundRef.current) {
+      beepSoundRef.current.play().catch(e => console.log('Audio play failed:', e));
+    }
+  };
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          product.code.toString().includes(searchTerm);
+    const matchesBarcode = barcodeSearch === '' || product.code.toString().includes(barcodeSearch);
     const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    return matchesSearch && matchesBarcode && matchesCategory;
   });
 
   const addToCart = (product: typeof products[0]) => {
@@ -36,6 +53,7 @@ const POS: React.FC = () => {
       }
       return [...prev, { ...product, quantity: 1 }];
     });
+    playBeep();
   };
 
   const updateQuantity = (id: number, newQuantity: number) => {
@@ -48,18 +66,37 @@ const POS: React.FC = () => {
         item.id === id ? { ...item, quantity: newQuantity } : item
       )
     );
+    playBeep();
   };
 
   const removeFromCart = (id: number) => {
-    setCart(prev => prev.filter(item => item.id !== id));
+    const item = cart.find(i => i.id === id);
+    if (item && window.confirm(`Are you sure you want to delete "${item.name}" from cart?`)) {
+      setCart(prev => prev.filter(item => item.id !== id));
+      playBeep();
+    }
   };
 
   const clearCart = () => {
     setCart([]);
+    setShowConfirmClear(false);
+    playBeep();
   };
 
-  const getTotalAmount = () => {
+  const confirmClearCart = () => {
+    setShowConfirmClear(true);
+  };
+
+  const getSubTotal = () => {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
+  const getFinalTotal = () => {
+    const subTotal = getSubTotal();
+    if (fractionalDiscount) {
+      return subTotal - (subTotal * (discount / 100));
+    }
+    return subTotal - discount;
   };
 
   const getTotalItems = () => {
@@ -72,28 +109,67 @@ const POS: React.FC = () => {
       return;
     }
     
-    // Here you would normally process the payment
-    alert(`Order placed successfully! Total: ₹${getTotalAmount().toFixed(2)}`);
-    clearCart();
+    alert('Checkout functionality coming soon!');
+  };
+
+  const clearCustomer = () => {
+    if (window.confirm('Are you sure you want to delete "Walking Customer"?')) {
+      setCustomer('');
+      playBeep();
+    }
   };
 
   return (
     <div className="flex h-full gap-6">
       {/* Products Section */}
       <div className="flex-1 space-y-6">
+        {/* Customer Section */}
+        <div className="card">
+          <div className="flex items-center gap-3">
+            <User className="text-gray-500" size={20} />
+            <input
+              type="text"
+              value={customer}
+              onChange={(e) => setCustomer(e.target.value)}
+              className="flex-1 form-input"
+              placeholder="Customer name"
+            />
+            <button
+              onClick={clearCustomer}
+              className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        </div>
+
         {/* Search and Categories */}
         <div className="card">
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <div className="space-y-4">
+            <div className="flex gap-3">
+              <button className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <Smartphone size={18} />
+              </button>
+              <div className="flex-1">
                 <input
                   type="text"
-                  placeholder="Search products by name or code..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="form-input pl-10"
+                  placeholder="Enter Product Barcode"
+                  value={barcodeSearch}
+                  onChange={(e) => setBarcodeSearch(e.target.value)}
+                  className="form-input"
                 />
+              </div>
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <input
+                    type="text"
+                    placeholder="Enter Product Name"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="form-input pl-10"
+                  />
+                </div>
               </div>
             </div>
             <div className="flex gap-2 overflow-x-auto">
@@ -127,7 +203,7 @@ const POS: React.FC = () => {
               </div>
               <h3 className="font-medium text-sm mb-2 line-clamp-2">{product.name}</h3>
               <div className="flex items-center justify-between">
-                <span className="text-lg font-bold text-primary">₹{product.price}</span>
+                <span className="text-lg font-bold text-primary">RS {product.price}</span>
                 <span className="text-xs text-gray-500">#{product.code}</span>
               </div>
               <button
@@ -184,7 +260,7 @@ const POS: React.FC = () => {
                   />
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium text-sm truncate">{item.name}</h4>
-                    <p className="text-primary font-semibold">₹{item.price}</p>
+                    <p className="text-primary font-semibold">RS {item.price}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <button
@@ -220,30 +296,82 @@ const POS: React.FC = () => {
               <Calculator size={20} />
               Order Summary
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <div className="flex justify-between">
-                <span>Subtotal:</span>
-                <span>₹{getTotalAmount().toFixed(2)}</span>
+                <span>Sub Total:</span>
+                <span>RS {getSubTotal().toFixed(2)}</span>
               </div>
-              <div className="flex justify-between">
-                <span>Tax (0%):</span>
-                <span>₹0.00</span>
+              
+              <div className="space-y-2">
+                <input
+                  type="number"
+                  placeholder="Discount"
+                  value={discount || ''}
+                  onChange={(e) => setDiscount(parseFloat(e.target.value) || 0)}
+                  className="form-input"
+                />
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="fractionalDiscount"
+                    checked={fractionalDiscount}
+                    onChange={(e) => setFractionalDiscount(e.target.checked)}
+                    className="rounded"
+                  />
+                  <label htmlFor="fractionalDiscount" className="text-sm text-gray-600">
+                    Apply Fractional Discount
+                  </label>
+                </div>
               </div>
+
               <hr className="my-2" />
               <div className="flex justify-between text-lg font-bold">
                 <span>Total:</span>
-                <span>₹{getTotalAmount().toFixed(2)}</span>
+                <span>RS {getFinalTotal().toFixed(2)}</span>
               </div>
             </div>
-            <button
-              onClick={handleCheckout}
-              className="w-full mt-4 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
-            >
-              Checkout
-            </button>
+            
+            <div className="flex gap-2 mt-4">
+              <button
+                onClick={confirmClearCart}
+                className="flex-1 bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors font-medium flex items-center justify-center gap-2"
+              >
+                <Trash2 size={18} />
+                Clear Cart
+              </button>
+              <button
+                onClick={handleCheckout}
+                className="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
+              >
+                ✅ Checkout
+              </button>
+            </div>
           </div>
         )}
       </div>
+
+      {/* Confirmation Dialog */}
+      {showConfirmClear && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full mx-4">
+            <p className="text-gray-800 mb-4">Are you sure you want to clear the cart?</p>
+            <div className="flex gap-3">
+              <button
+                onClick={clearCart}
+                className="flex-1 bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors"
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => setShowConfirmClear(false)}
+                className="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400 transition-colors"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
