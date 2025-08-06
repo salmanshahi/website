@@ -8,10 +8,15 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import POS from './pages/POS/POS';
 import ProductList from './pages/Products/ProductList';
 import CreateProduct from './pages/Products/CreateProduct';
+import BrandList from './pages/Products/BrandList';
+import CategoryList from './pages/Products/CategoryList';
+import UnitList from './pages/Products/UnitList';
+import ImportProduct from './pages/Products/ImportProduct';
 import CustomerList from './pages/People/CustomerList';
 import SupplierList from './pages/People/SupplierList';
 import SalesList from './pages/Sales/SalesList';
 import PurchaseList from './pages/Purchase/PurchaseList';
+import CreatePurchase from './pages/Purchase/CreatePurchase';
 import SalesReport from './pages/Reports/SalesReport';
 import Inventory from './pages/Reports/Inventory';
 import Profile from './pages/Profile/Profile';
@@ -69,6 +74,26 @@ function App() {
               <CreateProduct />
             </PrivateRoute>
           } />
+          <Route path="/products/brands" element={
+            <PrivateRoute>
+              <BrandList />
+            </PrivateRoute>
+          } />
+          <Route path="/products/categories" element={
+            <PrivateRoute>
+              <CategoryList />
+            </PrivateRoute>
+          } />
+          <Route path="/products/units" element={
+            <PrivateRoute>
+              <UnitList />
+            </PrivateRoute>
+          } />
+          <Route path="/products/import" element={
+            <PrivateRoute>
+              <ImportProduct />
+            </PrivateRoute>
+          } />
           <Route path="/customers" element={
             <PrivateRoute>
               <CustomerList />
@@ -87,6 +112,11 @@ function App() {
           <Route path="/purchases" element={
             <PrivateRoute>
               <PurchaseList />
+            </PrivateRoute>
+          } />
+          <Route path="/purchases/create" element={
+            <PrivateRoute>
+              <CreatePurchase />
             </PrivateRoute>
           } />
           <Route path="/reports/sales" element={

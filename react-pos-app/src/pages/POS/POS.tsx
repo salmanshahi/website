@@ -14,6 +14,7 @@ const POS: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [discount, setDiscount] = useState(0);
 
   const categories = ['All', 'Snacks', 'Beverages', 'Dairy', 'Meat', 'Fruits', 'Bakery'];
 
@@ -24,7 +25,17 @@ const POS: React.FC = () => {
     return matchesSearch && matchesCategory;
   });
 
+  const playBeepSound = () => {
+    try {
+      const audio = new Audio('/sounds/beep-07a.mp3');
+      audio.play().catch(e => console.log('Could not play sound:', e));
+    } catch (e) {
+      console.log('Sound not available:', e);
+    }
+  };
+
   const addToCart = (product: typeof products[0]) => {
+    playBeepSound();
     setCart(prev => {
       const existingItem = prev.find(item => item.id === product.id);
       if (existingItem) {
@@ -51,11 +62,18 @@ const POS: React.FC = () => {
   };
 
   const removeFromCart = (id: number) => {
+    playBeepSound();
     setCart(prev => prev.filter(item => item.id !== id));
   };
 
   const clearCart = () => {
-    setCart([]);
+    if (cart.length === 0) return;
+    
+    if (window.confirm('Are you sure you want to clear the cart?')) {
+      playBeepSound();
+      setCart([]);
+      setDiscount(0);
+    }
   };
 
   const getTotalAmount = () => {
@@ -66,15 +84,24 @@ const POS: React.FC = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
+  const getFinalTotal = () => {
+    const subtotal = getTotalAmount();
+    return Math.max(0, subtotal - discount);
+  };
+
   const handleCheckout = () => {
     if (cart.length === 0) {
       alert('Cart is empty!');
       return;
     }
     
-    // Here you would normally process the payment
-    alert(`Order placed successfully! Total: ₹${getTotalAmount().toFixed(2)}`);
-    clearCart();
+    const finalTotal = getFinalTotal();
+    const confirmMessage = `Complete checkout for ₹${finalTotal.toFixed(2)}?`;
+    
+    if (window.confirm(confirmMessage)) {
+      alert(`✅ Checkout completed successfully!\nTotal: ₹${finalTotal.toFixed(2)}\nThank you for your purchase!`);
+      clearCart();
+    }
   };
 
   return (
@@ -225,6 +252,18 @@ const POS: React.FC = () => {
                 <span>Subtotal:</span>
                 <span>₹{getTotalAmount().toFixed(2)}</span>
               </div>
+              <div className="flex justify-between items-center">
+                <span>Discount:</span>
+                <input
+                  type="number"
+                  value={discount}
+                  onChange={(e) => setDiscount(Math.max(0, Number(e.target.value)))}
+                  className="w-20 px-2 py-1 text-right border rounded"
+                  placeholder="0"
+                  min="0"
+                  max={getTotalAmount()}
+                />
+              </div>
               <div className="flex justify-between">
                 <span>Tax (0%):</span>
                 <span>₹0.00</span>
@@ -232,15 +271,23 @@ const POS: React.FC = () => {
               <hr className="my-2" />
               <div className="flex justify-between text-lg font-bold">
                 <span>Total:</span>
-                <span>₹{getTotalAmount().toFixed(2)}</span>
+                <span>₹{getFinalTotal().toFixed(2)}</span>
               </div>
             </div>
-            <button
-              onClick={handleCheckout}
-              className="w-full mt-4 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
-            >
-              Checkout
-            </button>
+            <div className="flex gap-2 mt-4">
+              <button
+                onClick={clearCart}
+                className="flex-1 bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors font-medium"
+              >
+                Clear Cart
+              </button>
+              <button
+                onClick={handleCheckout}
+                className="flex-2 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
+              >
+                ✅ Checkout
+              </button>
+            </div>
           </div>
         )}
       </div>

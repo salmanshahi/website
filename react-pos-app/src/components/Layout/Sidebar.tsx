@@ -57,9 +57,10 @@ const menuItems: MenuItem[] = [
     children: [
       { id: 'product-list', label: 'Product List', icon: null, path: '/products' },
       { id: 'product-create', label: 'Product Create', icon: null, path: '/products/create' },
-      { id: 'brands', label: 'Brand', icon: null, path: '/brands' },
-      { id: 'categories', label: 'Category', icon: null, path: '/categories' },
-      { id: 'units', label: 'Unit', icon: null, path: '/units' }
+      { id: 'product-import', label: 'Product Import', icon: null, path: '/products/import' },
+      { id: 'brands', label: 'Brand', icon: null, path: '/products/brands' },
+      { id: 'categories', label: 'Category', icon: null, path: '/products/categories' },
+      { id: 'units', label: 'Unit', icon: null, path: '/products/units' }
     ]
   },
   {
